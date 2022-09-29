@@ -1,0 +1,53 @@
+{
+    "ht_filter": [
+        {
+            "title": "原图",
+            "name": "",
+            "icon": "ht_filter_yuantu_icon",
+            "category": "default",
+            "download": 0
+        },
+        {
+            "title": "自然1",
+            "name": "ziran1",
+            "icon": "ht_filter_ziran1_icon",
+            "category": "default",
+            "download": 0
+        },
+        {
+            "title": "自然2",
+            "name": "ziran2",
+            "icon": "ht_filter_ziran2_icon",
+            "category": "default",
+            "download": 0
+        },
+        {
+            "title": "自然3",
+            "name": "ziran3",
+            "icon": "ht_filter_ziran3_icon",
+            "category": "default",
+            "download": 0
+        },
+        {
+            "title": "自然4",
+            "name": "ziran4",
+            "icon": "ht_filter_ziran4_icon",
+            "category": "default",
+            "download": 0
+        },
+        {
+            "title": "自然5",
+            "name": "ziran5",
+            "icon": "ht_filter_ziran5_icon",
+            "category": "default",
+            "download": 0
+        },
+        {
+            "title": "自然6",
+            "name": "ziran6",
+            "icon": "ht_filter_ziran6_icon",
+            "category": "default",
+            "download": 0
+        }
+    ]
+}

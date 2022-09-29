@@ -1,0 +1,81 @@
+{
+    "HTStyleBeauty": [
+        {
+            "title": "无",
+            "selected": true,
+            "icon": "style11.png",
+            "fillColor":"#000000",
+            "idCard":0,
+        },
+        {
+            "title": "经典",
+            "selected": false,
+            "icon": "style1.png",
+            "fillColor":"#B77F52",
+            "idCard":1,
+        },
+        {
+            "title": "网红",
+            "selected": false,
+            "icon": "style2.png",
+            "fillColor":"#8B897A",
+            "idCard":2,
+        },
+        {
+            "title": "女神",
+            "selected": false,
+            "icon": "style3.png",
+            "fillColor":"#C49E97",
+            "idCard":3,
+        },
+        {
+            "title": "复古",
+            "selected": false,
+            "icon": "style4.png",
+            "fillColor":"#BC917F",
+            "idCard":4,
+        },
+        {
+            "title": "日杂",
+            "selected": false,
+            "icon": "style5.png",
+            "fillColor":"#7F6990",
+            "idCard":5,
+        },
+        {
+            "title": "初恋",
+            "selected": false,
+            "icon": "style6.png",
+            "fillColor":"#97A5BF",
+            "idCard":6,
+        },
+        {
+            "title": "质感",
+            "selected": false,
+            "icon": "style7.png",
+            "fillColor":"#70564E",
+            "idCard":7,
+        },
+        {
+            "title": "伪素颜",
+            "selected": false,
+            "icon": "style8.png",
+            "fillColor":"#817D7A",
+            "idCard":8,
+        },
+        {
+            "title": "清冷",
+            "selected": false,
+            "icon": "style9.png",
+            "fillColor":"#BBA488",
+            "idCard":9,
+        },
+        {
+            "title": "甜心",
+            "selected": false,
+            "icon": "style10.png",
+            "fillColor":"#CA9FA7",
+            "idCard":10,
+        }
+    ]
+}
