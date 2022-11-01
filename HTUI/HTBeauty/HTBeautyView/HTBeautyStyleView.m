@@ -105,7 +105,11 @@ static NSString *const HTBeautyStyleViewCellId = @"HTBeautyStyleViewCellId";
     [self.listArr replaceObjectAtIndex:lastSelectIndex withObject:[HTTool getDictionaryWithHTModel:self.selectedModel]];
     [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:lastSelectIndex inSection:0],indexPath]];
     self.selectedModel = indexModel;
-    [[HTEffect shareInstance] setStyle:self.selectedModel.idCard value:100];
+    if(self.selectedModel.idCard == 0){
+        [HTTool initEffectValue];
+    }else{
+        [[HTEffect shareInstance] setStyle:self.selectedModel.idCard value:100];
+    }
     if (self.onClickBlock) {
         self.onClickBlock(indexPath.row);
     }

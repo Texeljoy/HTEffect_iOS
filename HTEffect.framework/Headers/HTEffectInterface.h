@@ -23,6 +23,37 @@
  
 @end
 
+/**
+ * 人脸检测与关键点识别结果报告
+ */
+@interface HTFaceDetectionReport : NSObject
+
+/// 人脸边界框
+@property (nonatomic, assign) CGRect rect;
+
+/// 人脸关键点数组
+@property (nonatomic, assign) CGPoint *keyPoints;
+
+/// 人脸偏转角-yaw
+@property (nonatomic, assign) CGFloat yaw;
+
+/// 人脸偏转角-pitch
+@property (nonatomic, assign) CGFloat pitch;
+
+/// 人脸偏转角-roll
+@property (nonatomic, assign) CGFloat roll;
+
+/// 人脸动作-张嘴
+@property (nonatomic, assign) CGFloat mouthOpen;
+
+/// 人脸动作-眨眼
+@property (nonatomic, assign) CGFloat eyeBlink;
+
+/// 人脸动作-挑眉
+@property (nonatomic, assign) CGFloat browJump;
+
+@end
+
 @interface HTEffect: NSObject
 
 #pragma mark - 数据类型
@@ -403,7 +434,19 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
  */
 - (int)isTracking;
 
+/**
+ * 获取人脸检测与关键点识别结果报告
+ */
+- (NSArray<HTFaceDetectionReport *> *)getFaceDetectionReport;
+
 #pragma mark - 其它
+
+/**
+ * 获取当前 SDK 版本号
+ *
+ * @return 版本号
+ */
+- (NSString *)getVersionCode;
 
 /**
  * 获取当前 SDK 版本信息
@@ -411,6 +454,11 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
  * @return 版本信息
  */
 - (NSString *)getVersion;
+
+/**
+ * 设置参数极值限制开关，默认为开
+ */
+- (void)setExtremeLimitEnable:(BOOL)enable;
 
 /**
  * 设置素材网络路径

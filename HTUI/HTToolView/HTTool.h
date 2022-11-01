@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HTTool : NSObject
 
++ (void)initEffectValue;
 //设置缓存
 + (void)setFloatValue:(float)value forKey:(NSString *)key;
 //获取缓存的参数

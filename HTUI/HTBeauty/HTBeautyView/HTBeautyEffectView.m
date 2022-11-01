@@ -143,6 +143,12 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
     }
     [cell.item setTextFont:HTFontRegular(12)];
     
+    if([HTTool getFloatValueForKey:indexModel.key] == 0) {
+        [cell.pointView setHidden:YES];
+    }else{
+        [cell.pointView setHidden:NO];
+    }
+    
     return cell;
     
 };
@@ -210,16 +216,16 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
         }
         self.selectedModel = indexModel;
     }
-    switch (self.currentType) {
-        case HT_Beauty:
-            [[HTEffect shareInstance] setBeauty:self.selectedModel.idCard value:[HTTool getFloatValueForKey:self.selectedModel.key]];
-            break;
-        case HT_Reshape:
-            [[HTEffect shareInstance] setReshape:self.selectedModel.idCard value:[HTTool getFloatValueForKey:self.selectedModel.key]];
-            break;
-        default:
-            break;
-    }
+//    switch (self.currentType) {
+//        case HT_Beauty:
+//            [[HTEffect shareInstance] setBeauty:self.selectedModel.idCard value:[HTTool getFloatValueForKey:self.selectedModel.key]];
+//            break;
+//        case HT_Reshape:
+//            [[HTEffect shareInstance] setReshape:self.selectedModel.idCard value:[HTTool getFloatValueForKey:self.selectedModel.key]];
+//            break;
+//        default:
+//            break;
+//    }
     if (self.onUpdateSliderHiddenBlock) {
         self.onUpdateSliderHiddenBlock(self.selectedModel);
     }
@@ -235,10 +241,11 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
             @"selected":@(true),
             @"subType":@(true),
             @"idCard":@(1),
+            @"opened": @(false),
             @"icon":@"hazyBlurriness.png",
             @"selectedIcon":@"hazyBlurriness_selected.png",
             @"key":@"HT_SKIN_HAZYBLURRINESS_SLIDER",
-            @"defaultValue":@(60),
+            @"defaultValue":@(0),
             @"sliderType":@(1),
         };
         NSDictionary *dic2 = @{
@@ -246,10 +253,11 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
             @"selected":@(false),
             @"subType":@(true),
             @"idCard":@(2),
+            @"opened": @(false),
             @"icon":@"fineBlurriness.png",
             @"selectedIcon":@"fineBlurriness_selected.png",
             @"key":@"HT_SKIN_FINEBLURRINESS_SLIDER",
-            @"defaultValue":@(0),
+            @"defaultValue":@(60),
             @"sliderType":@(1),
         };
         HTModel *mode1 = [[HTModel alloc] initWithDic:dic1];
@@ -312,6 +320,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
         default:
             break;
     }
+    [self.menuCollectionView reloadData];
 }
 
 - (void)clickResetSuccess{
@@ -319,9 +328,9 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
     if (self.currentType == HT_Beauty) {
         for (int i = 0; i < self.listArr.count; i++) {
             if (i == 1) {
-                [HTTool setFloatValue:60 forKey:@"HT_SKIN_HAZYBLURRINESS_SLIDER"];
+                [HTTool setFloatValue:60 forKey:@"HT_SKIN_FINEBLURRINESS_SLIDER"];
                 [[HTEffect shareInstance] setBeauty:2 value:60];
-                [HTTool setFloatValue:0 forKey:@"HT_SKIN_FINEBLURRINESS_SLIDER"];
+                [HTTool setFloatValue:0 forKey:@"HT_SKIN_HAZYBLURRINESS_SLIDER"];
             }else{
                 HTModel *model = [[HTModel alloc] initWithDic:self.listArr[i]];
                 [HTTool setFloatValue:model.defaultValue forKey:model.key];
@@ -335,6 +344,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
             [[HTEffect shareInstance] setBeauty:model.idCard value:(int)model.defaultValue];
         }
     }
+    int lastSelectIndex = -1;
     if (self.subCellOpened) {
         [self openSubCell:self.menuCollectionView withOpened:self.subCellOpened withStartIndex:1];
         HTModel *newModel2 = [[HTModel alloc] initWithDic:self.listArr[1]];
@@ -342,7 +352,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
         [self.listArr replaceObjectAtIndex:1 withObject:[HTTool getDictionaryWithHTModel:newModel2]];
     }else{
         self.selectedModel.selected = false;
-        int lastSelectIndex = [self getIndexForTitle:self.selectedModel.title withArray:self.listArr];
+        lastSelectIndex = [self getIndexForTitle:self.selectedModel.title withArray:self.listArr];
         [self.listArr replaceObjectAtIndex:lastSelectIndex withObject:[HTTool getDictionaryWithHTModel:self.selectedModel]];
     }
     //默认选择第一个
@@ -350,6 +360,11 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
     newModel1.selected = true;
     [self.listArr replaceObjectAtIndex:0 withObject:[HTTool getDictionaryWithHTModel:newModel1]];
     [self.menuCollectionView reloadData];
+    if (lastSelectIndex == -1) {
+        [self.menuCollectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0],[NSIndexPath indexPathForRow:1 inSection:0]]];
+    }else{
+        [self.menuCollectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:lastSelectIndex inSection:0],[NSIndexPath indexPathForRow:0 inSection:0]]];
+    }
     self.selectedModel = newModel1;
     
 }

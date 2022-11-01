@@ -7,7 +7,7 @@
             "icon": "eyeEnlarging.png",
             "selectedIcon":"eyeEnlarging_selected.png",
             "key":"HT_FACE_EYEENLARGING_SLIDER",
-            "defaultValue":40,
+            "defaultValue":45,
             "sliderType":1
         },
         {

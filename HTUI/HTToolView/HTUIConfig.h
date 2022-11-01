@@ -31,7 +31,7 @@ typedef NS_ENUM(NSInteger, HTDataCategoryType) {
 #define ea2b9cbbc0814e39ba43cf5f0d022ecb @"1.0"
 
 // 在线鉴权密钥
-#define HTAppId @""
+#define HTAppId @"7aeba3d6f306480988ff63bcef9619b5"
 
 // 防止block的循环引用
 #define WeakSelf __weak typeof(self) weakSelf = self;

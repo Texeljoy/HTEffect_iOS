@@ -9,7 +9,7 @@
             "icon": "whitening.png",
             "selectedIcon":"whitening_selected.png",
             "key":"HT_SKIN_WHITENING_SLIDER",
-            "defaultValue":30,
+            "defaultValue":40,
             "sliderType":1
         },
         {
@@ -33,7 +33,7 @@
             "icon": "rosiness.png",
             "selectedIcon":"rosiness_selected.png",
             "key":"HT_SKIN_ROSINESS_SLIDER",
-            "defaultValue":20,
+            "defaultValue":30,
             "sliderType":1
         },
         {
@@ -57,7 +57,7 @@
             "icon": "brightness.png",
             "selectedIcon":"brightness_selected.png",
             "key":"HT_SKIN_BRIGHTNESS_SLIDER",
-            "defaultValue":40,
+            "defaultValue":0,
             "sliderType":2
         },
         {

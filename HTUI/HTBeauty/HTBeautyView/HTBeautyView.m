@@ -520,6 +520,12 @@ NSArray *filterArray;
     }
     // 储存滑动条参数
     [HTTool setFloatValue:value forKey:key];
+    if([key isEqual: @"HT_SKIN_FINEBLURRINESS_SLIDER"] && value > 0){
+        [HTTool setFloatValue:0 forKey:@"HT_SKIN_HAZYBLURRINESS_SLIDER"];
+    }
+    if([key isEqual: @"HT_SKIN_HAZYBLURRINESS_SLIDER"] && value > 0){
+        [HTTool setFloatValue:0 forKey:@"HT_SKIN_FINEBLURRINESS_SLIDER"];
+    }
 }
 
 - (void)switchFilter:(NSNotification *)notification{

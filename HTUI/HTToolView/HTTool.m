@@ -11,6 +11,51 @@
 
 @implementation HTTool
 
++ (void)initEffectValue{
+    NSArray *SkinBeautyArray = [HTTool jsonModeForPath:HTSkinBeautyPath withKey:@"HTSkinBeauty"];
+    NSArray *FaceBeautyArray = [HTTool jsonModeForPath:HTFaceBeautyPath withKey:@"HTFaceBeauty"];
+    NSArray *FilterArray = [HTTool jsonModeForPath:HTFilterPath withKey:@"ht_filter"];
+    
+    /* ========================================《 美颜 》======================================== */
+    for (int i = 0; i < SkinBeautyArray.count; i++) {
+        if (i == 1) {
+            // 精细磨皮指定初始值
+            if (![HTTool judgeCacheValueIsNullForKey:@"HT_SKIN_FINEBLURRINESS_SLIDER"]) {
+                [HTTool setFloatValue:60 forKey:@"HT_SKIN_FINEBLURRINESS_SLIDER"];
+            }
+            [[HTEffect shareInstance] setBeauty:2 value:[HTTool getFloatValueForKey:@"HT_SKIN_FINEBLURRINESS_SLIDER"]];
+        }else{
+            HTModel *model = [[HTModel alloc] initWithDic:SkinBeautyArray[i]];
+            if (![HTTool judgeCacheValueIsNullForKey:model.key]) {
+                [HTTool setFloatValue:model.defaultValue forKey:model.key];
+            }
+            [[HTEffect shareInstance] setBeauty:model.idCard value:[HTTool getFloatValueForKey:model.key]];
+        }
+    }
+    
+    /* ========================================《 美型 》======================================== */
+    for (int i = 0; i < FaceBeautyArray.count; i++) {
+        HTModel *model = [[HTModel alloc] initWithDic:FaceBeautyArray[i]];
+        if (![HTTool judgeCacheValueIsNullForKey:model.key]) {
+            [HTTool setFloatValue:model.defaultValue forKey:model.key];
+        }
+        [[HTEffect shareInstance] setReshape:model.idCard value:[HTTool getFloatValueForKey:model.key]];
+    }
+    
+    /* ========================================《 滤镜 》======================================== */
+    for (int i = 0; i < FilterArray.count; i++) {
+        NSString *key = [@"HT_FILTER_SLIDER" stringByAppendingFormat:@"%d",i];
+        if (![HTTool judgeCacheValueIsNullForKey:key]) {
+            [HTTool setFloatValue:100 forKey:key];
+        }
+        //判断选中的滤镜位置
+        if (i == [HTTool getFloatValueForKey:@"HT_FILTER_SELECTED_POSITION"]) {
+            HTModel *model = [[HTModel alloc] initWithDic:FilterArray[i]];
+            [[HTEffect shareInstance] setFilter:model.name value:[HTTool getFloatValueForKey:key]];
+        }
+    }
+}
+
 + (void)setFloatValue:(float)value forKey:(NSString *)key {
     if (key.length == 0 || key == nil) {
         return;
@@ -33,7 +78,15 @@
 + (void)setBeautySlider:(float)value forType:(HTDataCategoryType)type withSelectMode:(HTModel *)selectModel{
     switch (type) {
         case HT_SKIN_SLIDER:
-            [[HTEffect shareInstance] setBeauty:selectModel.idCard value:value];
+            if(selectModel.idCard == HTBeautyBlurrySmoothing && value > 0){
+                [[HTEffect shareInstance] setBeauty:HTBeautyClearSmoothing value:0];
+                [[HTEffect shareInstance] setBeauty:selectModel.idCard value:value];
+            }else if(selectModel.idCard == HTBeautyClearSmoothing && value > 0){
+                [[HTEffect shareInstance] setBeauty:HTBeautyBlurrySmoothing value:0];
+                [[HTEffect shareInstance] setBeauty:selectModel.idCard value:value];
+            }else{
+                [[HTEffect shareInstance] setBeauty:selectModel.idCard value:value];
+            }
             break;
         case HT_RESHAPE_SLIDER:
             [[HTEffect shareInstance] setReshape:selectModel.idCard value:value];

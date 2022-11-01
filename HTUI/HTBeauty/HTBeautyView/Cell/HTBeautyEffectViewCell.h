@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HTBeautyEffectViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) HTButton *item;
+@property (nonatomic, strong) UIView *pointView;
 
 @end
 

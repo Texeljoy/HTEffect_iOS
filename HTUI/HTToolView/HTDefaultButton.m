@@ -50,23 +50,23 @@
 }
 
 - (void)initView{
-//    [self addSubview:self.enterBeautyBtn];
-//    [self addSubview:self.cameraBtn];
-//    [self.enterBeautyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self).offset(HTWidth(52));
-//        make.centerY.equalTo(self);
-//        make.width.height.mas_equalTo(HTWidth(40));
-//    }];
-//    [self.cameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.centerY.equalTo(self);
-//        make.width.height.mas_equalTo(HTWidth(66));
-//    }];
-    [self addSubview:self.demoShowBtn];
-    [self.demoShowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-HTWidth(20));
-        make.bottom.equalTo(self).offset(-HTHeight(300));
+    [self addSubview:self.enterBeautyBtn];
+    [self addSubview:self.cameraBtn];
+    [self.enterBeautyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(HTWidth(52));
+        make.centerY.equalTo(self);
         make.width.height.mas_equalTo(HTWidth(40));
     }];
+    [self.cameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.centerY.equalTo(self);
+        make.width.height.mas_equalTo(HTWidth(66));
+    }];
+    //    [self addSubview:self.demoShowBtn];
+    //    [self.demoShowBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.right.equalTo(self).offset(-HTWidth(20));
+    //        make.bottom.equalTo(self).offset(-HTHeight(300));
+    //        make.width.height.mas_equalTo(HTWidth(40));
+    //    }];
 }
 
 - (void)onButtonClick:(UIButton *)button{

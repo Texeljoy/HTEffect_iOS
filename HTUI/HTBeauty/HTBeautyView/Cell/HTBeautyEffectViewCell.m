@@ -8,12 +8,6 @@
 #import "HTBeautyEffectViewCell.h"
 #import "HTUIConfig.h"
 
-@interface HTBeautyEffectViewCell ()
-
-@property (nonatomic, strong) UIView *pointView;
-
-@end
-
 @implementation HTBeautyEffectViewCell
 
 - (HTButton *)item{
@@ -29,6 +23,7 @@
         _pointView = [[UIView alloc] init];
         _pointView.backgroundColor = HTColor(255, 121, 180, 1.0);
         _pointView.layer.cornerRadius = HTWidth(2);
+        [_pointView setHidden:YES];
     }
     return _pointView;
 }
