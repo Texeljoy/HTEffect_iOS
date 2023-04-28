@@ -34,29 +34,29 @@
 ----
 
 ## **快速集成**
-### **1. 前提条件**
+### **iOS**
+#### **1. 前提条件**
 - Xcode 13.0+
 - iOS 11.0 以上的 iPhone 真机
 - APP ID，由[虹图AI开放平台](https://console.texeljoy.com/login)控制台获取
 
 <br/>
 
-### **2. 安装**
+#### **2. 安装**
 您可以选择使用 CocoaPods 自动加载的方式，或者先下载 SDK，再将其导入到您当前的工程项目中
-#### CocoaPods
+
+**CocoaPods**
 - 编辑Podfile文件：
-```objective-c
+```shell
 pod 'HTEffect'
 ```
 
 - 安装
-```objective-c
+```shell
 pod install
 ```
 
-<br/>
-
-#### 手动集成
+**手动集成**
 - 将下载好的 HTEffect.framework 库文件和 HTEffect.bundle 资源包放到您的项目文件夹下
 - 在 Xcode > General 中添加动态库，确保 Embed 属性设置为 Embed & Sign
 - 在 Xcode > Build Settings 中搜索 bitcode ，将 Enable Bitcode 设置为 No
@@ -64,7 +64,7 @@ pod install
 
 <br/>
 
-### **3. 引用**
+#### **3. 引用**
 - 在项目需要使用 SDK API 的文件里，添加模块引用
 ```objective-c
 #import <HTEffect/HTEffectInterface.h>
@@ -77,8 +77,8 @@ pod install
 
 <br/>
 
-### **4. 使用**
-#### 初始化
+#### **4. 使用**
+**初始化**
 - 在您的 App 调用 HTEffect 的相关功能之前（建议在 [AppDelegate application:didFinishLaunchingWithOptions:] 中）进行如下设置
 ```objective-c
 /**
@@ -100,7 +100,7 @@ pod install
  
 <br/>
 
-#### 渲染
+**渲染**
 - 定义一个 BOOL 变量 isRenderInit ，用来标志渲染器的初始化状态，根据获取到的视频格式，采用对应的方法进行渲染
 ```objective-c
 /**
@@ -126,10 +126,9 @@ CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 // }
 // [[HTEffect shareInstance] processTexture:textureId];
 ```
-
 <br/>
 
-#### 销毁
+**销毁**
 - 结束渲染时，需根据视频格式，调用对应的释放方法，通常写在 dealloc 方法里
 ```objective-c
 /**
@@ -141,6 +140,104 @@ CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 * 销毁buffer渲染资源
 */
 // [[HTEffect shareInstance] releaseBufferRenderer];
+```
+<br/>
+
+### **Android**
+#### **1. 导入工程**
+- 将 HTEffect.aar 文件拷贝到 app 模块中的 libs 文件夹下，并在 app 模块的 build.gradle 文件的 dependencies 中，增加如下依赖
+```java
+dependencies {
+ implementation files('libs/HTEffect.aar')
+}
+```
+- 将 jniLibs 文件夹中，各个 ABI 对应的 libHTEffect.so 文件，拷贝到对应目录中
+- 将 assets 资源文件拷贝到项目的对应目录中
+
+#### **2. 使用 HTUI (可选)**
+- 依赖我们的 htui 工程，使用我们提供的开源 UI 库，将 htui 文件夹拷贝到工程根目录下，在工程根目录的 settings.gradle 文件中，增加如下代码
+```java
+include(":htui")
+```
+- 在 app 模块中的 build.gradle 文件的 dependencies 中，增加如下代码
+```java
+implementation project(':tiui')
+```
+
+#### **3. 集成开发**
+**初始化**
+- HTEffect 初始化函数程序中调用一次即可生效，建议您在 Application 创建的时候调用;如果渲染功能使用不频繁，也可以在使用的时候调用，接口如下
+```java
+// 在线鉴权初始化方法
+HTEffect.shareInstance().initHTEffect(context, "YOUR_APP_ID", new InitCallback() {
+        @Override public void onInitSuccess() {}
+        @Override public void onInitFailure() {}
+});
+// 离线鉴权初始化方法
+//HTEffect.shareInstance().initHTEffect(context,"YOUR_APP_ID");
+```
+
+**添加 HTUI (可选)**
+- 设置使用 htui 的 Activity 继承或间接继承 FragmentActivity，例如
+```java
+public class CameraActivity extends FragmentActivity {
+    //...
+}
+```
+
+- 如果需要使用 htui，请调用 addcontentView 实现UI的添加，代码如下
+```java
+addContentView(
+    new HTPanelLayout(this).init(getSupportFragmentManager()),
+    new FrameLayout.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.MATCH_PARENT)
+);
+```
+
+**渲染**
+- 定义布尔变量 isRenderInit ，用来标志渲染方法是否初始化完成，然后根据得到的视频帧格式的不同，使用对应的方法进行渲染
+
+```java
+/**
+ * GL_TEXTURE_EXTERNAL_OES 纹理格式
+*/
+if (!isRenderInit) {
+    isRenderInit = HTEffect.shareInstance().initTextureOESRenderer(width, height, rotation, isMirror, maxFaces);
+}
+int textureId = HTEffect.shareInstance().processTextureOES(textureOES);
+
+/**
+ * GL_TEXTURE_2D 纹理格式
+*/
+if (!isRenderInit) {
+    isRenderInit = HTEffect.shareInstance().initTextureRenderer(width, height, rotation, isMirror, maxFaces);
+}
+int textureId = HTEffect.shareInstance().processTexture(texture2D);
+
+/**
+ * byte[] 视频帧
+*/
+if (!isRenderInit) {
+    isRenderInit = HTEffect.shareInstance().initBufferRenderer(format,width, height, rotation, isMirror, maxFaces);
+}
+HTEffect.shareInstance().processBuffer(buffer);
+```
+
+**销毁**
+- 结束渲染时，为防止内存泄漏的发生，需根据视频帧格式的不同，调用对应的 destroy 方法释放掉资源，调用位置通常在 视频帧回调接口 的销毁处，或者是 Activity ， Fragment 的生命周期结束处，同时将定义的布尔变量 isRenderInit 置为 false
+```java
+/**
+ * 使用其中一个
+ */
+HTEffect.shareInstance().releaseTextureOESRenderer();
+HTEffect.shareInstance().releaseTextureRenderer();
+HTEffect.shareInstance().releaseBufferRenderer();
+
+/*
+* 将 bool 置为 false
+*/
+isRenderInit = false;
 ```
 
 <br/>
