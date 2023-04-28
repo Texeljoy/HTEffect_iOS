@@ -2,7 +2,7 @@
 //  HTBeautyEffectView.m
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/19.
+//  Created by Texeljoy Tech on 2022/7/19.
 //
 
 #import "HTBeautyEffectView.h"
@@ -14,6 +14,7 @@
 typedef NS_ENUM(NSInteger, EffectType) {
     HT_Beauty = 0, // 美肤
     HT_Reshape = 1,// 美型
+    HT_Hair = 2,   // 美发
 };
 
 @property (nonatomic, strong) HTButton *resetButton;
@@ -23,6 +24,7 @@ typedef NS_ENUM(NSInteger, EffectType) {
 @property (nonatomic, strong) NSMutableArray *listArr;
 @property (nonatomic, assign) BOOL subCellOpened;// 是否已经展开子cell
 @property (nonatomic, assign) EffectType currentType;
+@property (nonatomic, assign) BOOL isReset;// 恢复按钮状态
 
 @end
 
@@ -30,47 +32,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
 
 @implementation HTBeautyEffectView
 
-- (HTButton *)resetButton{
-    if (!_resetButton) {
-        _resetButton = [[HTButton alloc] init];
-        [_resetButton setImage:[UIImage imageNamed:@"ht_reset_disabled.png"] imageWidth:HTWidth(42) title:@"恢复"];
-        [_resetButton setTextColor:HTColors(189, 0.6)];
-        [_resetButton setTextFont:HTFontRegular(10)];
-        _resetButton.enabled = false;
-        [_resetButton addTarget:self action:@selector(onResetClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _resetButton;
-}
-
-- (UIView *)lineView{
-    if (!_lineView) {
-        _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = HTColors(255, 0.2);
-    }
-    return _lineView;
-}
-
-- (UICollectionView *)menuCollectionView{
-    if (!_menuCollectionView) {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        layout.minimumLineSpacing = 0;
-        _menuCollectionView =[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-        _menuCollectionView.showsHorizontalScrollIndicator = NO;
-        _menuCollectionView.backgroundColor = [UIColor clearColor];
-        _menuCollectionView.dataSource= self;
-        _menuCollectionView.delegate = self;
-        [_menuCollectionView registerClass:[HTBeautyEffectViewCell class] forCellWithReuseIdentifier:HTBeautyEffectViewCellId];
-    }
-    return _menuCollectionView;
-}
-
-- (void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (instancetype)initWithFrame:(CGRect)frame listArr:(NSArray *)listArr
-{
+- (instancetype)initWithFrame:(CGRect)frame listArr:(NSArray *)listArr{
     
     self = [super initWithFrame:frame];
     if (self) {
@@ -81,8 +43,8 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
         [self.resetButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self).offset(HTWidth(20));
             make.top.equalTo(self);
-            make.width.mas_equalTo(42);
-            make.height.mas_equalTo(62);
+            make.width.mas_equalTo(HTHeight(53));
+            make.height.mas_equalTo(HTHeight(70));
         }];
         [self addSubview:self.lineView];
         [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,20 +55,17 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
         }];
         [self addSubview:self.menuCollectionView];
         [self.menuCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.lineView.mas_right).offset(HTWidth(14));
+            make.left.equalTo(self.lineView.mas_right);
             make.top.right.bottom.height.equalTo(self);
         }];
-        // 注册通知——》刷新功能列表
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(UpDateListArray:) name:@"NotificationName_HTBeautyEffectView_UpDateListArray" object:nil];
     }
     return self;
     
 }
 
 - (void)onResetClick:(UIButton *)button{
-    WeakSelf
-    if (weakSelf.onClickResetBlock) {
-        weakSelf.onClickResetBlock();
+    if (self.onClickResetBlock) {
+        self.onClickResetBlock();
     }
 }
 
@@ -131,15 +90,16 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
     HTModel *indexModel = [[HTModel alloc] initWithDic:self.listArr[indexPath.row]];
     
     if (indexModel.selected) {
-        [cell.item setImage:[UIImage imageNamed:indexModel.selectedIcon] imageWidth:HTWidth(42) title:indexModel.title];
-        if ([indexModel.title isEqual: @"磨皮"]) {
-            [cell.item setTextColor:HTColors(255, 1.0)];
-        }else{
-            [cell.item setTextColor:HTColor(255, 121, 180, 1.0)];
-        }
+        [cell.item setImage:[UIImage imageNamed:self.isThemeWhite ? [NSString stringWithFormat:@"34_%@", indexModel.selectedIcon] : indexModel.selectedIcon] imageWidth:HTWidth(48) title:indexModel.title];
+        [cell.item setTextColor:MAIN_COLOR];
+//        if ([indexModel.title isEqualToString:@"磨皮"]) {
+//            [cell.item setTextColor:HTColors(255, 1.0)];
+//        }else{
+//            [cell.item setTextColor:MAIN_COLOR];
+//        }
     }else{
-        [cell.item setImage:[UIImage imageNamed:indexModel.icon] imageWidth:HTWidth(42) title:indexModel.title];
-        [cell.item setTextColor:HTColors(255, 1.0)];
+        [cell.item setImage:[UIImage imageNamed:self.isThemeWhite ? [NSString stringWithFormat:@"34_%@", indexModel.icon] : indexModel.icon] imageWidth:HTWidth(48) title:indexModel.title];
+        [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0)];
     }
     [cell.item setTextFont:HTFontRegular(12)];
     
@@ -204,7 +164,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
                 [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0],[NSIndexPath indexPathForRow:nowSelectIndex inSection:0]]];
             }
         }else{
-            if ([self.selectedModel.title isEqual: indexModel.title]) {
+            if ([self.selectedModel.title isEqualToString:indexModel.title]) {
                 return;
             }
             indexModel.selected = true;
@@ -295,9 +255,10 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
     return -1;
 }
 
-- (void)UpDateListArray:(NSNotification *)notification{
+#pragma mark - 外部menu点击后的刷新collectionview
+- (void)updateBeautyAndShapeEffectData:(NSDictionary *)dic{
     
-    NSDictionary *dic = notification.object;
+//    NSDictionary *dic = notification.object;
     self.listArr = [dic[@"data"] mutableCopy];
     self.currentType = [dic[@"type"] integerValue];
     self.selectedModel = [[HTModel alloc] initWithDic:self.listArr[0]];
@@ -305,26 +266,21 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
     
 }
 
-- (void)updateResetButtonState:(UIControlState)state{
-    switch (state) {
-        case UIControlStateNormal:
-            [self.resetButton setImage:[UIImage imageNamed:@"ht_reset.png"] imageWidth:HTWidth(42) title:@"恢复"];
-            [self.resetButton setTextColor:HTColors(255, 1.0)];
-            self.resetButton.enabled = true;
-            break;
-        case UIControlStateDisabled:
-            [self.resetButton setImage:[UIImage imageNamed:@"ht_reset_disabled.png"] imageWidth:HTWidth(42) title:@"恢复"];
-            [self.resetButton setTextColor:HTColors(189, 0.6)];
-            self.resetButton.enabled = false;
-            break;
-        default:
-            break;
+- (void)updateResetButtonState:(BOOL)state{
+    if (state) {
+        [self.resetButton setImage:[UIImage imageNamed:self.isThemeWhite ? @"34_ht_reset" : @"ht_reset"] imageWidth:HTWidth(45) title:@"恢复"];
+        [self.resetButton setTextColor:self.isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0)];
+        self.resetButton.enabled = YES;
+    }else {
+        [self.resetButton setImage:[UIImage imageNamed:self.isThemeWhite ? @"34_ht_reset_disabled" : @"ht_reset_disabled"] imageWidth:HTWidth(45) title:@"恢复"];
+        [self.resetButton setTextColor:HTColors(189, 0.6)];
+        self.resetButton.enabled = NO;
     }
-    [self.menuCollectionView reloadData];
+//    [self.menuCollectionView reloadData];
 }
 
 - (void)clickResetSuccess{
-    
+//    self.currentType = [dic[@"type"] integerValue];
     if (self.currentType == HT_Beauty) {
         for (int i = 0; i < self.listArr.count; i++) {
             if (i == 1) {
@@ -341,7 +297,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
         for (int i = 0; i < self.listArr.count; i++) {
             HTModel *model = [[HTModel alloc] initWithDic:self.listArr[i]];
             [HTTool setFloatValue:model.defaultValue forKey:model.key];
-            [[HTEffect shareInstance] setBeauty:model.idCard value:(int)model.defaultValue];
+            [[HTEffect shareInstance] setReshape:model.idCard value:(int)model.defaultValue];
         }
     }
     int lastSelectIndex = -1;
@@ -367,6 +323,51 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
     }
     self.selectedModel = newModel1;
     
+}
+
+#pragma mark - 主题切换
+- (void)setIsThemeWhite:(BOOL)isThemeWhite {
+    _isThemeWhite = isThemeWhite;
+    self.lineView.backgroundColor = isThemeWhite ? [[UIColor lightGrayColor] colorWithAlphaComponent:0.6] : HTColors(255, 0.3);
+    [self updateResetButtonState:self.resetButton.enabled];
+    [self.menuCollectionView reloadData];
+}
+
+#pragma mark - 懒加载
+- (HTButton *)resetButton{
+    if (!_resetButton) {
+        _resetButton = [[HTButton alloc] init];
+        [_resetButton setImage:[UIImage imageNamed:@"ht_reset_disabled.png"] imageWidth:HTWidth(45) title:@"恢复"];
+        [_resetButton setTextColor:HTColors(189, 0.6)];
+        [_resetButton setTextFont:HTFontRegular(12)];
+        _resetButton.enabled = _isReset;
+        [_resetButton addTarget:self action:@selector(onResetClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _resetButton;
+}
+
+- (UIView *)lineView{
+    if (!_lineView) {
+        _lineView = [[UIView alloc] init];
+        _lineView.backgroundColor = HTColors(255, 0.2);
+    }
+    return _lineView;
+}
+
+- (UICollectionView *)menuCollectionView{
+    if (!_menuCollectionView) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.minimumLineSpacing = 0;
+        _menuCollectionView =[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        _menuCollectionView.contentInset = UIEdgeInsetsMake(0, 14, 0, 14);
+        _menuCollectionView.showsHorizontalScrollIndicator = NO;
+        _menuCollectionView.backgroundColor = [UIColor clearColor];
+        _menuCollectionView.dataSource= self;
+        _menuCollectionView.delegate = self;
+        [_menuCollectionView registerClass:[HTBeautyEffectViewCell class] forCellWithReuseIdentifier:HTBeautyEffectViewCellId];
+    }
+    return _menuCollectionView;
 }
 
 @end

@@ -2,7 +2,7 @@
 //  HTBeautyEffectViewCell.m
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/19.
+//  Created by Texeljoy Tech on 2022/7/19.
 //
 
 #import "HTBeautyEffectViewCell.h"
@@ -21,7 +21,7 @@
 - (UIView *)pointView{
     if (!_pointView) {
         _pointView = [[UIView alloc] init];
-        _pointView.backgroundColor = HTColor(255, 121, 180, 1.0);
+        _pointView.backgroundColor = MAIN_COLOR;
         _pointView.layer.cornerRadius = HTWidth(2);
         [_pointView setHidden:YES];
     }

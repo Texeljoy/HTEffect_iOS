@@ -2,7 +2,7 @@
 //  HTMattingEffectViewCell.m
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/21.
+//  Created by Texeljoy Tech on 2022/7/21.
 //
 
 #import "HTMattingEffectViewCell.h"
@@ -80,7 +80,7 @@
     return self;
 }
 
-- (void)setHtImage:(UIImage *)image isCancelEffect:(BOOL)isCancelEffect{
+- (void)setHtImage:(UIImage *_Nullable)image isCancelEffect:(BOOL)isCancelEffect{
     [self.htImageView setImage:image];
     if (isCancelEffect) {
         [self.htImageView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -89,7 +89,7 @@
         self.downloadIcon.hidden = YES;
     }else{
         [self.htImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.height.mas_equalTo(HTWidth(47));
+            make.width.height.mas_equalTo(HTWidth(63));
         }];
     }
 }
@@ -99,7 +99,7 @@
         self.contentView.layer.borderWidth = 0;
         self.contentView.layer.borderColor = UIColor.clearColor.CGColor;
     }else{
-        self.contentView.layer.borderWidth = 1.5;
+        self.contentView.layer.borderWidth = 1;
         self.contentView.layer.borderColor = color.CGColor;
     }
 }

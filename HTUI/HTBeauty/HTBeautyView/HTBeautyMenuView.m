@@ -2,7 +2,7 @@
 //  HTBeautyMenuView.m
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/18.
+//  Created by Texeljoy Tech on 2022/7/18.
 //
 
 #import "HTBeautyMenuView.h"
@@ -29,13 +29,13 @@ static NSString *const HTBeautyMenuViewCellId = @"HTBeautyMenuViewCellId";
         _menuCollectionView.backgroundColor = [UIColor clearColor];
         _menuCollectionView.dataSource= self;
         _menuCollectionView.delegate = self;
+        _menuCollectionView.alwaysBounceHorizontal = YES;
         [_menuCollectionView registerClass:[HTBeautyMenuViewCell class] forCellWithReuseIdentifier:HTBeautyMenuViewCellId];
     }
     return _menuCollectionView;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame listArr:(NSArray *)listArr
-{
+- (instancetype)initWithFrame:(CGRect)frame listArr:(NSArray *)listArr{
     
     self = [super initWithFrame:frame];
     if (self) {
@@ -67,9 +67,9 @@ static NSString *const HTBeautyMenuViewCellId = @"HTBeautyMenuViewCellId";
     NSDictionary *dic = self.listArr[indexPath.row];
     HTBeautyMenuViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HTBeautyMenuViewCellId forIndexPath:indexPath];
     if (self.selectedIndexPath.row == indexPath.row) {
-        [cell setTitle:dic[@"name"] textColor:HTColor(255, 121, 180, 1.0)];
+        [cell setTitle:dic[@"name"] textColor:MAIN_COLOR];
     }else{
-        [cell setTitle:dic[@"name"] textColor:HTColors(255, 1.0)];
+        [cell setTitle:dic[@"name"] textColor:self.isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0)];
     }
     
     return cell;
@@ -77,9 +77,8 @@ static NSString *const HTBeautyMenuViewCellId = @"HTBeautyMenuViewCellId";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.selectedIndexPath.row == indexPath.row) {
-        return;
-    }
+    if (self.selectedIndexPath.row == indexPath.row) return;
+    
     NSDictionary *dic = self.listArr[indexPath.row];
     if (self.onClickBlock) {
         self.onClickBlock(dic[@"classify"]);
@@ -88,6 +87,12 @@ static NSString *const HTBeautyMenuViewCellId = @"HTBeautyMenuViewCellId";
         self.selectedIndexPath = indexPath;
         [collectionView reloadData];
     }
+}
+
+#pragma mark - 主题色切换
+- (void)setIsThemeWhite:(BOOL)isThemeWhite {
+    _isThemeWhite = isThemeWhite;
+    [self.menuCollectionView reloadData];
 }
 
 @end

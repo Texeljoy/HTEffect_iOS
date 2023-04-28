@@ -2,7 +2,7 @@
 //  HTMenuCell.h
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/18.
+//  Created by Texeljoy Tech on 2022/7/18.
 //
 
 #import <UIKit/UIKit.h>

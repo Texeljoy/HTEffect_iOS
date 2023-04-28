@@ -2,13 +2,17 @@
 //  HTBeautyMenuView.h
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/18.
+//  Created by Texeljoy Tech on 2022/7/18.
 //
 
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+/**
+ 
+    美颜顶部菜单视图
+ 
+ */
 @interface HTBeautyMenuView : UIView
 
 @property (nonatomic, assign) bool disabled;
@@ -17,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UICollectionView *menuCollectionView;
 
 - (instancetype)initWithFrame:(CGRect)frame listArr:(NSArray *)listArr;
+
+@property (nonatomic, assign) BOOL isThemeWhite;
 
 @end
 

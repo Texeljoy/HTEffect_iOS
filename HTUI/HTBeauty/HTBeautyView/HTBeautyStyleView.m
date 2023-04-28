@@ -2,7 +2,7 @@
 //  HTBeautyStyleView.m
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/20.
+//  Created by Texeljoy Tech on 2022/7/20.
 //
 
 #import "HTBeautyStyleView.h"
@@ -86,7 +86,7 @@ static NSString *const HTBeautyStyleViewCellId = @"HTBeautyStyleViewCellId";
     [cell.item setTextColor:HTColors(255, 1.0)];
     [cell.item setTextBackgroundColor:[UIColor colorWithHexString:indexModel.fillColor withAlpha:1.0]];
     [cell setMaskViewColor:[UIColor colorWithHexString:indexModel.fillColor withAlpha:0.6] selected:indexModel.selected];
-    [cell.item setTextFont:HTFontRegular(10)];
+    [cell.item setTextFont:HTFontRegular(11)];
     
     return cell;
     
@@ -105,11 +105,12 @@ static NSString *const HTBeautyStyleViewCellId = @"HTBeautyStyleViewCellId";
     [self.listArr replaceObjectAtIndex:lastSelectIndex withObject:[HTTool getDictionaryWithHTModel:self.selectedModel]];
     [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:lastSelectIndex inSection:0],indexPath]];
     self.selectedModel = indexModel;
-    if(self.selectedModel.idCard == 0){
-        [HTTool initEffectValue];
-    }else{
-        [[HTEffect shareInstance] setStyle:self.selectedModel.idCard value:100];
-    }
+    [[HTEffect shareInstance] setStyle:self.selectedModel.idCard];
+//    if(self.selectedModel.idCard == 0){
+//        [HTTool initEffectValue];
+//    }else{
+//        [[HTEffect shareInstance] setStyle:self.selectedModel.idCard];
+//    }
     if (self.onClickBlock) {
         self.onClickBlock(indexPath.row);
     }

@@ -1,0 +1,41 @@
+{
+    "ht_matting_edit": [
+        {
+            "name": "相似度",
+            "idCard":0,
+            "selected": true,
+            "subType": false,
+            "opened": false,
+            "icon": "matting_similarity",
+            "selectedIcon":"matting_similarity_sel",
+            "key":"HT_MATTING_SIMILARITY_SLIDER",
+            "defaultValue":50,
+            "sliderType":1
+        },
+        {
+            "name": "平滑度",
+            "idCard":1,
+            "selected": false,
+            "subType": false,
+            "opened": false,
+            "icon": "matting_smoothness",
+            "selectedIcon":"matting_smoothness_sel",
+            "key":"HT_MATTING_SMOOTHNESS_SLIDER",
+            "defaultValue":0,
+            "sliderType":1
+        },
+        {
+            "name": "透明度",
+            "idCard":2,
+            "selected": false,
+            "subType": false,
+            "opened": false,
+            "icon": "matting_transparency",
+            "selectedIcon":"matting_transparency_sel",
+            "key":"HT_MATTING_TRANSPARENCY_SLIDER",
+            "defaultValue":0,
+            "sliderType":1
+        }
+        
+    ]
+}

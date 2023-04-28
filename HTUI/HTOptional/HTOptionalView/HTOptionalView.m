@@ -2,7 +2,7 @@
 //  HTOptionalView.m
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/18.
+//  Created by Texeljoy Tech on 2022/7/18.
 //
 
 #import "HTOptionalView.h"
@@ -12,28 +12,26 @@
 @interface HTOptionalView ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, strong) NSArray *listArr;
-@property (nonatomic, strong) UICollectionView *menuCollectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
 @end
 
-static NSString *const HTOptionalViewCellId = @"HTOptionalViewCellId";
-
 @implementation HTOptionalView
 
-- (UICollectionView *)menuCollectionView{
-    if (!_menuCollectionView) {
+- (UICollectionView *)collectionView{
+    if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         // 设置最小行间距
         layout.minimumLineSpacing = 0;
-        _menuCollectionView =[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-        _menuCollectionView.showsHorizontalScrollIndicator = NO;
-        _menuCollectionView.backgroundColor = [UIColor clearColor];
-        _menuCollectionView.dataSource= self;
-        _menuCollectionView.delegate = self;
-        [_menuCollectionView registerClass:[HTMenuCell class] forCellWithReuseIdentifier:HTOptionalViewCellId];
+        _collectionView =[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.backgroundColor = [UIColor clearColor];
+        _collectionView.dataSource= self;
+        _collectionView.delegate = self;
+        [_collectionView registerClass:[HTMenuCell class] forCellWithReuseIdentifier:@"HTMenuCell"];
     }
-    return _menuCollectionView;
+    return _collectionView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -41,26 +39,39 @@ static NSString *const HTOptionalViewCellId = @"HTOptionalViewCellId";
     
     self = [super initWithFrame:frame];
     if (self) {
+        
+        self.backgroundColor = HTColors(0, 0.6);
+        
         self.listArr = @[
             @{
                 @"title":@"美颜",
-                @"image":@"ht_beauty.png",
+                @"image":@"function_beauty",
+                @"34_image": @"34_function_beauty",
             },
             @{
                 @"title":@"AR道具",
-                @"image":@"ht_ar.png",
+                @"image":@"function_AR",
+                @"34_image": @"34_function_AR",
             },
             @{
-                @"title":@"手势识别",
-                @"image":@"ht_gesture.png",
+                @"title":@"AI抠图",
+                @"image":@"function_AI",
+                @"34_image": @"34_function_AI",
             },
             @{
-                @"title":@"人像抠图",
-                @"image":@"ht_matting.png",
+                @"title":@"手势特效",
+                @"image":@"function_gesture",
+                @"34_image": @"34_function_gesture",
             },
+            @{
+                @"title":@"滤镜",
+                @"image":@"function_filter",
+                @"34_image": @"34_function_filter",
+            },
+            
         ];
-        [self addSubview:self.menuCollectionView];
-        [self.menuCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self addSubview:self.collectionView];
+        [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(HTHeight(34));
             make.left.right.equalTo(self);
             make.height.mas_equalTo(HTHeight(65));
@@ -78,16 +89,16 @@ static NSString *const HTOptionalViewCellId = @"HTOptionalViewCellId";
 
 // 定义每个Cell的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(HTScreenWidth/4 ,HTHeight(65));
+    return CGSizeMake(HTScreenWidth/self.listArr.count ,HTHeight(65));
 }
 
 // 返回对应indexPath的cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSDictionary *dic = self.listArr[indexPath.row];
-    HTMenuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HTOptionalViewCellId forIndexPath:indexPath];
-    [cell.item setImage:[UIImage imageNamed:dic[@"image"]] imageWidth:HTWidth(35) title:dic[@"title"]];
-    [cell.item setTextColor:HTColors(255, 1.0)];
+    HTMenuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HTMenuCell" forIndexPath:indexPath];
+    [cell.item setImage:[UIImage imageNamed:self.isThemeWhite ? dic[@"34_image"] : dic[@"image"]] imageWidth:HTWidth(40) title:dic[@"title"]];
+    [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0)];
     
     return cell;
     
@@ -95,9 +106,16 @@ static NSString *const HTOptionalViewCellId = @"HTOptionalViewCellId";
 
 // 选择了某个cell
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.onClickBlock) {
-        self.onClickBlock(indexPath.row);
+    if (self.onClickOptionalBlock) {
+        self.onClickOptionalBlock(indexPath.row);
     }
+}
+
+#pragma mark - 设置主题
+- (void)setIsThemeWhite:(BOOL)isThemeWhite {
+    _isThemeWhite = isThemeWhite;
+    self.backgroundColor = isThemeWhite ? [UIColor whiteColor] : HTColors(0, 0.6);
+    [self.collectionView reloadData];
 }
 
 @end

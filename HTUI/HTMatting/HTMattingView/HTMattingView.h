@@ -2,16 +2,18 @@
 //  HTMattingView.h
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/21.
+//  Created by Texeljoy Tech on 2022/7/21.
 //
 
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+/**
+ 
+    AI抠图 视图
+ 
+ */
 @interface HTMattingView : UIView
-
-@property (nonatomic, copy) void (^onClickCameraBlock)(void);
 
 @end
 

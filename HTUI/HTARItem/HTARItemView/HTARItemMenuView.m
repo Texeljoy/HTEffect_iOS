@@ -2,7 +2,7 @@
 //  HTARItemMenuView.m
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/20.
+//  Created by Texeljoy Tech on 2022/7/20.
 //
 
 #import "HTARItemMenuView.h"
@@ -30,6 +30,7 @@ static NSString *const HTARItemMenuViewCellId = @"HTARItemMenuViewCellId";
         _menuCollectionView.backgroundColor = [UIColor clearColor];
         _menuCollectionView.dataSource= self;
         _menuCollectionView.delegate = self;
+        _menuCollectionView.alwaysBounceHorizontal = YES;
         [_menuCollectionView registerClass:[HTSubMenuViewCell class] forCellWithReuseIdentifier:HTARItemMenuViewCellId];
     }
     return _menuCollectionView;
@@ -77,13 +78,12 @@ static NSString *const HTARItemMenuViewCellId = @"HTARItemMenuViewCellId";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.selectedIndexPath.row == indexPath.row) {
-        return;
-    }
+    if (self.selectedIndexPath.row == indexPath.row) return;
+    
     self.selectedIndexPath = indexPath;
     NSDictionary *dic = self.listArr[indexPath.row];
-    if (self.onClickBlock) {
-        self.onClickBlock(dic[@"classify"],indexPath.row,self.selectedIndexPath.row);
+    if (self.arItemMenuOnClickBlock) {
+        self.arItemMenuOnClickBlock(dic[@"classify"], indexPath.row);
     }
     [collectionView reloadData];
 }

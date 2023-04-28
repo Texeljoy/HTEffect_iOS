@@ -2,7 +2,7 @@
 //  HTSubMenuViewCell.h
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/19.
+//  Created by Texeljoy Tech on 2022/7/19.
 //
 
 #import <UIKit/UIKit.h>

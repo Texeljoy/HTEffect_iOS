@@ -2,16 +2,22 @@
 //  HTARItemMenuView.h
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/20.
+//  Created by Texeljoy Tech on 2022/7/20.
 //
 
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 
+  AR道具标题视图
+ 
+ */
+
 @interface HTARItemMenuView : UIView
 
-@property (nonatomic, copy) void (^onClickBlock)(NSArray *array,NSInteger index,NSInteger selectedIndex);
+@property (nonatomic, copy) void (^arItemMenuOnClickBlock)(NSArray *array, NSInteger index);
 
 @property (nonatomic, strong) NSArray *listArr;
 

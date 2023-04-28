@@ -2,23 +2,33 @@
 //  HTMattingMenuView.m
 //  HTEffectDemo
 //
-//  Created by 杭子 on 2022/7/21.
+//  Created by Texeljoy Tech on 2022/7/21.
 //
 
 #import "HTMattingMenuView.h"
 #import "HTUIConfig.h"
 #import "HTSubMenuViewCell.h"
+#import "HTMattingSwitchScreenView.h"
 
 @interface HTMattingMenuView ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 @property (nonatomic, strong) UICollectionView *menuCollectionView;
 
+@property (nonatomic, strong) HTMattingSwitchScreenView *switchScreenView;
+
 @end
 
 static NSString *const HTMattingMenuViewCellId = @"HTMattingMenuViewCellId";
 
 @implementation HTMattingMenuView
+
+-(HTMattingSwitchScreenView *)switchScreenView{
+    if(_switchScreenView == nil){
+        _switchScreenView = [[HTMattingSwitchScreenView alloc]init];
+    }
+    return _switchScreenView;
+}
 
 - (UICollectionView *)menuCollectionView{
     if (!_menuCollectionView) {
@@ -31,6 +41,7 @@ static NSString *const HTMattingMenuViewCellId = @"HTMattingMenuViewCellId";
         _menuCollectionView.backgroundColor = [UIColor clearColor];
         _menuCollectionView.dataSource= self;
         _menuCollectionView.delegate = self;
+        _menuCollectionView.alwaysBounceHorizontal = YES;
         [_menuCollectionView registerClass:[HTSubMenuViewCell class] forCellWithReuseIdentifier:HTMattingMenuViewCellId];
     }
     return _menuCollectionView;
@@ -44,12 +55,36 @@ static NSString *const HTMattingMenuViewCellId = @"HTMattingMenuViewCellId";
         self.listArr = listArr;
         self.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self addSubview:self.menuCollectionView];
+        [self addSubview:self.switchScreenView];
+        
         [self.menuCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.right.height.equalTo(self);
+            make.top.left.height.equalTo(self);
+            make.right.equalTo(self.switchScreenView.mas_left);
         }];
+         
+        [self.switchScreenView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.right.height.equalTo(self);
+        }];
+        
     }
     return self;
     
+}
+
+#pragma mark - 显示or隐藏绿幕按钮
+-(void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath{
+    _selectedIndexPath = selectedIndexPath;
+    
+   
+    if(selectedIndexPath.item == 1){//绿幕抠图
+        [UIView animateWithDuration:0.22 animations:^{
+            [self.switchScreenView setAlpha:1];
+        }];
+    }else{
+        [UIView animateWithDuration:0.22 animations:^{
+            [self.switchScreenView setAlpha:0];
+        }];
+    }
 }
 
 //设置每个section包含的item数目
@@ -87,8 +122,8 @@ static NSString *const HTMattingMenuViewCellId = @"HTMattingMenuViewCellId";
     }
     self.selectedIndexPath = indexPath;
     NSDictionary *dic = self.listArr[indexPath.row];
-    if (self.onClickBlock) {
-        self.onClickBlock(dic[@"classify"],indexPath.row);
+    if (self.mattingOnClickBlock) {
+        self.mattingOnClickBlock(dic[@"classify"],indexPath.row);
     }
     [collectionView reloadData];
 }

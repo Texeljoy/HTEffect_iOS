@@ -14,19 +14,19 @@
         },
         {
             "title": "磨皮",
-            "idCard":2,
+            "idCard":1,
             "selected": false,
             "subType": false,
-            "opened": true,
-            "icon": "blurriness.png",
-            "selectedIcon":"blurriness_selected.png",
-            "key":"HT_UIDCK_SKIN_BLURRINESS_SLIDER",
-            "defaultValue":0,
+            "opened": false,
+            "icon": "fineBlurriness.png",
+            "selectedIcon":"fineBlurriness_selected.png",
+            "key":"HT_SKIN_FINEBLURRINESS_SLIDER",
+            "defaultValue":60,
             "sliderType":1
         },
         {
             "title": "红润",
-            "idCard":3,
+            "idCard":2,
             "selected": false,
             "subType": false,
             "opened": false,
@@ -38,7 +38,7 @@
         },
         {
             "title": "清晰",
-            "idCard":4,
+            "idCard":3,
             "selected": false,
             "subType": false,
             "opened": false,
@@ -50,7 +50,7 @@
         },
         {
             "title": "亮度",
-            "idCard":5,
+            "idCard":4,
             "selected": false,
             "subType": false,
             "opened": false,
@@ -62,7 +62,7 @@
         },
         {
             "title": "去黑眼圈",
-            "idCard":6,
+            "idCard":5,
             "selected": false,
             "subType": false,
             "opened": false,
@@ -74,7 +74,7 @@
         },
         {
             "title": "去法令纹",
-            "idCard":7,
+            "idCard":6,
             "selected": false,
             "subType": false,
             "opened": false,
