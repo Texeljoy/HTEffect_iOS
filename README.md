@@ -30,7 +30,7 @@
     <img src="./documents/imgs/beauty.png" width="20%" />
 </center>
 <br/>
-
+<br/>
 ----
 
 ## **快速集成**
@@ -39,8 +39,6 @@
 - Xcode 13.0+
 - iOS 11.0 以上的 iPhone 真机
 - APP ID，由[虹图AI开放平台](https://console.texeljoy.com/login)控制台获取
-
-<br/>
 
 #### **2. 安装**
 您可以选择使用 CocoaPods 自动加载的方式，或者先下载 SDK，再将其导入到您当前的工程项目中
@@ -62,8 +60,6 @@ pod install
 - 在 Xcode > Build Settings 中搜索 bitcode ，将 Enable Bitcode 设置为 No
 - 在 Xcode > Info 中添加 App Transport Security Settings > Allow Arbitrary Loads 并设置为 YES
 
-<br/>
-
 #### **3. 引用**
 - 在项目需要使用 SDK API 的文件里，添加模块引用
 ```objective-c
@@ -74,8 +70,6 @@ pod install
 ```objective-c
 #import "HTUIManager.h"
 ```
-
-<br/>
 
 #### **4. 使用**
 **初始化**
@@ -97,8 +91,6 @@ pod install
 [[HTUIManager shareManager] loadToWindowDelegate:self];
 [self.view addSubview:[HTUIManager shareManager].defaultButton];
  ```
- 
-<br/>
 
 **渲染**
 - 定义一个 BOOL 变量 isRenderInit ，用来标志渲染器的初始化状态，根据获取到的视频格式，采用对应的方法进行渲染
@@ -126,7 +118,6 @@ CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 // }
 // [[HTEffect shareInstance] processTexture:textureId];
 ```
-<br/>
 
 **销毁**
 - 结束渲染时，需根据视频格式，调用对应的释放方法，通常写在 dealloc 方法里
@@ -146,7 +137,7 @@ CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 ### **Android**
 #### **1. 导入工程**
 - 将 HTEffect.aar 文件拷贝到 app 模块中的 libs 文件夹下，并在 app 模块的 build.gradle 文件的 dependencies 中，增加如下依赖
-```java
+```shell
 dependencies {
  implementation files('libs/HTEffect.aar')
 }
@@ -160,7 +151,7 @@ dependencies {
 include(":htui")
 ```
 - 在 app 模块中的 build.gradle 文件的 dependencies 中，增加如下代码
-```java
+```shell
 implementation project(':tiui')
 ```
 
