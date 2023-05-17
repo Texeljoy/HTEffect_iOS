@@ -1,3 +1,5 @@
+简体中文 | [English](README_EN.md)
+
 # **虹图人像人体 SDK**
 
 <br/>
@@ -56,10 +58,10 @@ pod install
 ```
 
 **手动集成**
-- 将下载好的 HTEffect.framework 库文件和 HTEffect.bundle 资源包放到您的项目文件夹下
-- 在 Xcode > General 中添加动态库，确保 Embed 属性设置为 Embed & Sign
-- 在 Xcode > Build Settings 中搜索 bitcode ，将 Enable Bitcode 设置为 No
-- 在 Xcode > Info 中添加 App Transport Security Settings > Allow Arbitrary Loads 并设置为 YES
+- 将下载好的 **HTEffect.framework** 库文件和 **HTEffect.bundle** 资源包放到您的项目文件夹下
+- 在 Xcode > General 中添加动态库，确保 **Embed** 属性设置为 **Embed&Sign**
+- 在 Xcode > Build Settings 中搜索 bitcode ，将 **Enable Bitcode** 设置为 **No**
+- 在 Xcode > Info 中添加 **App Transport Security Settings** > **Allow Arbitrary Loads** 并设置为 **YES**
 
 #### **3. 引用**
 - 在项目需要使用 SDK API 的文件里，添加模块引用
@@ -94,7 +96,7 @@ pod install
  ```
 
 **渲染**
-- 定义一个 BOOL 变量 isRenderInit ，用来标志渲染器的初始化状态，根据获取到的视频格式，采用对应的方法进行渲染
+- 定义一个 BOOL 变量 **isRenderInit** ，用来标志渲染器的初始化状态，根据获取到的视频格式，采用对应的方法进行渲染
 ```objective-c
 /**
 * 视频帧
@@ -137,13 +139,13 @@ CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 
 ### **Android**
 #### **1. 导入工程**
-- 将 HTEffect.aar 文件拷贝到 app 模块中的 libs 文件夹下，并在 app 模块的 build.gradle 文件的 dependencies 中，增加如下依赖
+- 将 **HTEffect.aar** 文件拷贝到 app 模块中的 libs 文件夹下，并在 app 模块的 build.gradle 文件的 dependencies 中，增加如下依赖
 ```shell
 dependencies {
  implementation files('libs/HTEffect.aar')
 }
 ```
-- 将 jniLibs 文件夹中，各个 ABI 对应的 libHTEffect.so 文件，拷贝到对应目录中
+- 将 jniLibs 文件夹中，各个 ABI 对应的 **libHTEffect.so** 文件，拷贝到对应目录中
 - 将 assets 资源文件拷贝到项目的对应目录中
 
 #### **2. 使用 HTUI (可选)**
@@ -188,7 +190,7 @@ addContentView(
 ```
 
 **渲染**
-- 定义布尔变量 isRenderInit ，用来标志渲染方法是否初始化完成，然后根据得到的视频帧格式的不同，使用对应的方法进行渲染
+- 定义布尔变量 **isRenderInit** ，用来标志渲染方法是否初始化完成，然后根据得到的视频帧格式的不同，使用对应的方法进行渲染
 
 ```java
 /**
@@ -217,7 +219,7 @@ HTEffect.shareInstance().processBuffer(buffer);
 ```
 
 **销毁**
-- 结束渲染时，为防止内存泄漏的发生，需根据视频帧格式的不同，调用对应的 destroy 方法释放掉资源，调用位置通常在 视频帧回调接口 的销毁处，或者是 Activity ， Fragment 的生命周期结束处，同时将定义的布尔变量 isRenderInit 置为 false
+- 结束渲染时，为防止内存泄漏的发生，需根据视频帧格式的不同，调用对应的 destroy 方法释放掉资源，调用位置通常在 视频帧回调接口 的销毁处，或者是 Activity ， Fragment 的生命周期结束处，同时将定义的布尔变量 **isRenderInit** 置为 false
 ```java
 /**
  * 使用其中一个
@@ -244,12 +246,12 @@ isRenderInit = false;
 ----
 
 ## **最近更新**
-- **2023.04.27:** 全新2.0版本
+- **2023.05.17:** 全新2.0版本
     - 新增30多种风格滤镜、特效滤镜、哈哈镜
     - 新增美发、面具、礼物及自定义可拖拽水印
     - 绿幕抠图新增蓝、白两种幕布颜色和参数调节
     - 优化了手势特效和人像分割特效效果
-- [More](https://doc.texeljoy.com/hummanBody/beauty/API/api.html)
+- [更多](https://doc.texeljoy.com/hummanBody/beauty/API/api.html)
 
 <br/>
 
