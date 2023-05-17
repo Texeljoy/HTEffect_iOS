@@ -367,22 +367,19 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
 - (void)setARItem:(int)type name:(NSString *)name;
 
 /**
- * 设置AR道具-水印参数方法一
+ * 设置AR道具-水印参数，v2.0后启用
+ * 水印参数为水印图像在手机屏幕中相对视频帧的四个顶点的坐标值，配合外部操作框获取
  *
- * @param x                 左上角横坐标x值，参数范围[0, 1.0]
- * @param y                 左上角横坐标y值，参数范围[0, 1.0]
- * @param width        水印拉伸后宽度
- * @param height      水印拉伸后高度
- * @param rotation 逆时针旋转角度，参数范围[0, 360]，默认为0
+ * @param x1 左上角横坐标值
+ * @param y1 左上角纵坐标值
+ * @param x2 左下角横坐标值
+ * @param y2 左下角纵坐标值
+ * @param x3 右下角横坐标值
+ * @param y3 右下角纵坐标值
+ * @param x4 右下角横坐标值
+ * @param y4 右下角纵坐标值
  */
 - (void)setWatermarkParam:(float)x1 y1:(float)y1 x2:(float)x2 y2:(float)y2 x3:(float)x3 y3:(float)y3 x4:(float)x4 y4:(float)y4;
-
-/**
- * 设置AR道具-水印参数方法二
- *
- * @param points 水印新位置的四个顶点坐标
- */
-- (void)setWatermarkParam:(NSArray *)points;
 
 #pragma mark - 人像抠图 - AI抠图
 

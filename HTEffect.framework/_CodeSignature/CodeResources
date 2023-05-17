@@ -4,17 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Headers/HTEffect-Swift.h</key>
-		<data>
-		EU49qwQq/9q+VuXgobujxRzKV7Q=
-		</data>
 		<key>Headers/HTEffect.h</key>
 		<data>
-		GVJU5AnHZOD2MWbEwIab/v+12Qg=
+		vRVtqShTPPR3ZBdZ6dwWfnbdQh4=
 		</data>
 		<key>Headers/HTEffectInterface.h</key>
 		<data>
-		SNIpTLgv6KFy3gZ3ix/cAcwEaNM=
+		heC+Gz3L/k7cFP5YOsw84m7YvwI=
 		</data>
 		<key>Headers/HTEffectView.h</key>
 		<data>
@@ -24,56 +20,33 @@
 		<data>
 		kKvQf6JnoFbCtVOgMTHGTHJqQoE=
 		</data>
-		<key>Modules/HTEffect.swiftmodule/arm64-apple-ios.abi.json</key>
-		<data>
-		FSPnLbho3G+LL9smI3XgVOqBIQ4=
-		</data>
-		<key>Modules/HTEffect.swiftmodule/arm64-apple-ios.swiftdoc</key>
-		<data>
-		rwLjCDgIh7Yf+Ypia4towNJ7RSU=
-		</data>
-		<key>Modules/HTEffect.swiftmodule/arm64-apple-ios.swiftmodule</key>
-		<data>
-		DQAswY1QSqUn4DZipe4mbu4Nuqs=
-		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		1bp0Y5tzUH4sISgwQRbtjf1Qw64=
+		KDws3XZml5hzITzolha7xLC6KJU=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Headers/HTEffect-Swift.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			EU49qwQq/9q+VuXgobujxRzKV7Q=
-			</data>
-			<key>hash2</key>
-			<data>
-			kdMhkSnh3C/Pkg+8lbNbU01De4SjBiO+jKjEXqAzdjI=
-			</data>
-		</dict>
 		<key>Headers/HTEffect.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			GVJU5AnHZOD2MWbEwIab/v+12Qg=
+			vRVtqShTPPR3ZBdZ6dwWfnbdQh4=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZRaalZrKzBOfQlioZHVqLAGl8k6lccdAHKsGOYiq9mw=
+			gQpTxQ9oxWzttUjIpmBQpc3fYRkLpYEUZIKvBOhuZAo=
 			</data>
 		</dict>
 		<key>Headers/HTEffectInterface.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			SNIpTLgv6KFy3gZ3ix/cAcwEaNM=
+			heC+Gz3L/k7cFP5YOsw84m7YvwI=
 			</data>
 			<key>hash2</key>
 			<data>
-			YjxX169xY2tcJBN4OnUTftAevobnZQCd/l3v7l3eZPk=
+			hiqObIz3yDo94feLInRQGht5ah2CJaG1kfj+jeqFq88=
 			</data>
 		</dict>
 		<key>Headers/HTEffectView.h</key>
@@ -87,48 +60,15 @@
 			UnJQ5powastsqMDag+LndQWHwYeGHQmrlPi2Oqrs5ls=
 			</data>
 		</dict>
-		<key>Modules/HTEffect.swiftmodule/arm64-apple-ios.abi.json</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			FSPnLbho3G+LL9smI3XgVOqBIQ4=
-			</data>
-			<key>hash2</key>
-			<data>
-			KnRdWE4y6t4QM5zi5JDptPdHFgJy1Tku+7GLkZS2aNM=
-			</data>
-		</dict>
-		<key>Modules/HTEffect.swiftmodule/arm64-apple-ios.swiftdoc</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			rwLjCDgIh7Yf+Ypia4towNJ7RSU=
-			</data>
-			<key>hash2</key>
-			<data>
-			foj5ysl6mXy08ts8+m8X4Sy8gBLiaoDcNByBZk62gX8=
-			</data>
-		</dict>
-		<key>Modules/HTEffect.swiftmodule/arm64-apple-ios.swiftmodule</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			DQAswY1QSqUn4DZipe4mbu4Nuqs=
-			</data>
-			<key>hash2</key>
-			<data>
-			fZhuvGAsHSbKvHcOfYqT5J5fUJuN3UPROYD4tsoqW6c=
-			</data>
-		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1bp0Y5tzUH4sISgwQRbtjf1Qw64=
+			KDws3XZml5hzITzolha7xLC6KJU=
 			</data>
 			<key>hash2</key>
 			<data>
-			FF2qt7ITrzRcf6uAKXMkozXM7slsuc9Ls+sq4rw+9+8=
+			oRyyEms7xkUTg46oEDZ/hRB2uPVd/ejYGwd2F5e+waU=
 			</data>
 		</dict>
 	</dict>
