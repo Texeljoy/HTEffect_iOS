@@ -529,4 +529,12 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
  */
 - (NSString *)getResourceUrl;
 
+/**
+ * 设置资源拷贝至沙盒的自定义目标路径
+ *
+ * @param path 路径
+ */
+- (void)setResourcePath:(NSString *)path;
+
+
 @end
