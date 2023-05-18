@@ -56,6 +56,7 @@
     self = [super init];
     if (self) {
         self.contentMode = HTEffectViewContentModeScaleAspectFill;
+        self.resolutionSize = CGSizeMake(720, 1280);
         
         //清除上次贴纸特效选择的位置缓存
         [HTTool setFloatValue:-1 forKey:HT_ARITEM_STICKER_POSITION];
