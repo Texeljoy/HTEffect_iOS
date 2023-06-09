@@ -13,8 +13,8 @@
 #import "HTDownloadZipManager.h"
 #import "QZImagePickerController.h"
 #import "HTUIManager.h"
-//#import "HTStickerView.h"
-#import <HTEffectCustomizeUI/HTStickerView.h>
+#import "HTStickerView.h"
+//#import <HTEffectCustomizeUI/HTStickerView.h>
 
 @interface HTARItemEffectView ()<UICollectionViewDataSource,UICollectionViewDelegate,QZImagePickerControllerDelegate,UIGestureRecognizerDelegate>
 
@@ -572,7 +572,7 @@ static NSString *const HTARItemEffectViewCellId = @"HTARItemEffectViewCellId";
     CGRect imr = [HTStickerView superView:resolutionSize convertBounds:bounds toSize:mainSize];
     
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake([HTUIManager shareManager].superWindow.frame.size.width/2 - imr.size.width/2, [HTUIManager shareManager].superWindow.frame.size.height/2 - imr.size.height/2, imr.size.width, imr.size.height);
+    imageView.frame = CGRectMake(mainSize.width/2 - imr.size.width/2, mainSize.height/2 - imr.size.height/2, imr.size.width, imr.size.height);
     
     //    imageView.image = im;
     imageView.contentMode = UIViewContentModeScaleToFill;

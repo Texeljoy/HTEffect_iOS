@@ -9,7 +9,7 @@
             "icon": "whitening.png",
             "selectedIcon":"whitening_selected.png",
             "key":"HT_SKIN_WHITENING_SLIDER",
-            "defaultValue":40,
+            "defaultValue":50,
             "sliderType":1
         },
         {
@@ -33,7 +33,7 @@
             "icon": "rosiness.png",
             "selectedIcon":"rosiness_selected.png",
             "key":"HT_SKIN_ROSINESS_SLIDER",
-            "defaultValue":30,
+            "defaultValue":10,
             "sliderType":1
         },
         {
@@ -45,7 +45,7 @@
             "icon": "clearness.png",
             "selectedIcon":"clearness_selected.png",
             "key":"HT_SKIN_CLEARNESS_SLIDER",
-            "defaultValue":20,
+            "defaultValue":60,
             "sliderType":1
         },
         {
@@ -69,7 +69,7 @@
             "icon": "darkCircleRemoving.png",
             "selectedIcon":"darkCircleRemoving_selected.png",
             "key":"HT_SKIN_DARKCIRCLEREMOVING_SLIDER",
-            "defaultValue":0,
+            "defaultValue":70,
             "sliderType":1
         },
         {

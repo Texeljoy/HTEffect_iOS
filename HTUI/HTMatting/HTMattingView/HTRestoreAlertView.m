@@ -46,6 +46,7 @@
 - (void)setupUI {
     
     self.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     [[HTUIManager shareManager].superWindow addSubview:self];
     
     [self addSubview:self.coverView];

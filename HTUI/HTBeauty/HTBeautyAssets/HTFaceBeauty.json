@@ -7,7 +7,7 @@
             "icon": "eyeEnlarging.png",
             "selectedIcon":"eyeEnlarging_selected.png",
             "key":"HT_FACE_EYEENLARGING_SLIDER",
-            "defaultValue":45,
+            "defaultValue":60,
             "sliderType":1
         },
         {
@@ -27,7 +27,7 @@
             "icon": "cheekThinning.png",
             "selectedIcon":"cheekThinning_selected.png",
             "key":"HT_FACE_CHEEKTHINNING_SLIDER",
-            "defaultValue":0,
+            "defaultValue":30,
             "sliderType":1
         },
         {
@@ -37,7 +37,7 @@
             "icon": "vCheek.png",
             "selectedIcon":"vCheek_selected.png",
             "key":"HT_FACE_VCHEEK_SLIDER",
-            "defaultValue":50,
+            "defaultValue":60,
             "sliderType":1
         },
         {
@@ -77,7 +77,7 @@
             "icon": "temple.png",
             "selectedIcon":"temple_selected.png",
             "key":"HT_FACE_TEMPLE_SLIDER",
-            "defaultValue":0,
+            "defaultValue":50,
             "sliderType":1
         },
         {
@@ -187,7 +187,7 @@
             "icon": "noseThinning.png",
             "selectedIcon":"noseThinning_selected.png",
             "key":"HT_FACE_NOSETHINNING_SLIDER",
-            "defaultValue":50,
+            "defaultValue":40,
             "sliderType":1
         },
         {

@@ -21,7 +21,7 @@
     NSArray *faceBeautyArray = [HTTool jsonModeForPath:HTFaceBeautyPath withKey:@"HTFaceBeauty"];
     NSArray *hairArray = [HTTool jsonModeForPath:[[NSBundle mainBundle] pathForResource:@"HTHair" ofType:@"json"] withKey:@"ht_hair"];
 //    NSArray *styleArray = [HTTool jsonModeForPath:[[NSBundle mainBundle] pathForResource:@"HTStyleBeauty" ofType:@"json"] withKey:@"HTStyleBeauty"];
-    NSArray *greenEditArray = [[HTTool jsonModeForPath:[[NSBundle mainBundle] pathForResource:@"HTMattingEdit" ofType:@"json"] withKey:@"ht_matting_edit"] mutableCopy];
+   
     // 美颜
     for (int i = 0; i < skinBeautyArray.count; i++) {
         HTModel *model = [[HTModel alloc] initWithDic:skinBeautyArray[i]];
@@ -70,6 +70,8 @@
     // 绿幕抠图
     [[HTEffect shareInstance] setGSSegEffectScene:@""];
     [[HTEffect shareInstance] setGSSegEffectCurtain:HTMattingScreenGreen];
+    
+    NSArray *greenEditArray = [HTTool jsonModeForPath:[[NSBundle mainBundle] pathForResource:@"HTMattingEdit" ofType:@"json"] withKey:@"ht_matting_edit"];
     for (int i = 0; i < greenEditArray.count; i++) {
         HTModel *model = [[HTModel alloc] initWithDic:greenEditArray[i]];
         [HTTool setFloatValue:model.defaultValue forKey:model.key];
@@ -107,47 +109,13 @@
 //            [old removeFromSuperview];
 //        }
     }
+    
+    [HTTool initEffectValue];
+    
 }
   
  
-+(CGRect)mapPointLocationSize:(CGSize)oSize forSize:(CGSize)tSize itmeBounds:(CGRect)bounds{
-//    CGFloat scaleX = oSize.width/tSize.width;
-//    CGFloat scaleY = oSize.height/tSize.height;
-//
-//    CGFloat rx = bounds.origin.x*scaleX;
-//    CGFloat ry = bounds.origin.y*scaleY;
-//    CGFloat rw = bounds.size.width*scaleX;
-//    CGFloat rh = bounds.size.height*scaleY;
-//    CGRect r = CGRectMake(rx, ry, rw, rh);
-    
-    float sWidth = oSize.width;//super width
-    float sHeight = oSize.height;//super height
-     
-    float fWidth = tSize.width;//from width
-    float fHeight = tSize.height;//from height
-    
-    //如果大于1则放大 小于1则缩小
-//    float sfWratio = sWidth / fWidth;
-    //super 相对于 from的比例
-    float sfHratio = sHeight / fHeight;
-    
-    //默认竖屏
-    //计算得到fromSize 缩进到superSize 比例的大小
-    float retractWidth = fWidth * sfHratio;
-//    float retractHeight = sHeight;
-    
-    float extraWidth = retractWidth - sWidth;
-    float rx = bounds.origin.x * sfHratio + 40;
-    float ry = bounds.origin.y * sfHratio + 10;
-   
-    float rw = bounds.size.width * sfHratio;
-    float rh = bounds.size.height * sfHratio;
-    
-    NSLog(@"###x: %f, y: %f bounds.size.width: %f height: %f", rx, ry, rw, rh);
-    
-    CGRect r = CGRectMake(rx, ry, rw, rh);
-    return r;
-}
+
 
 + (void)initEffectValue{
     NSArray *SkinBeautyArray = [HTTool jsonModeForPath:HTSkinBeautyPath withKey:@"HTSkinBeauty"];
@@ -180,6 +148,15 @@
         }
         [[HTEffect shareInstance] setReshape:model.idCard value:[HTTool getFloatValueForKey:model.key]];
     }
+    /* ========================================《 美发 》======================================== */
+    // 美发
+    [HTTool setFloatValue:0 forKey:HT_HAIR_SELECTED_POSITION];
+    for (int i = 0; i < hairArray.count; i++) {
+        HTModel *model = [[HTModel alloc] initWithDic:hairArray[i]];
+        [HTTool setFloatValue:model.defaultValue forKey:model.key];
+//        [[HTEffect shareInstance] setHair:model.idCard value:(int)model.defaultValue];
+    }
+    
     
     /* =============《 滤镜 TODO:滤镜拉条不单独保存 以下代码更换 》=================================== */
 //    if (![HTTool judgeCacheValueIsNullForKey:HT_STYLE_FILTER_SLIDER]) {
@@ -224,14 +201,7 @@
         [[HTEffect shareInstance] setFilter:HTFilterFunny name:model.name];
     }
     
-    /* ========================================《 美发 》======================================== */
-    // 美发
-    [HTTool setFloatValue:0 forKey:HT_HAIR_SELECTED_POSITION];
-    for (int i = 0; i < hairArray.count; i++) {
-        HTModel *model = [[HTModel alloc] initWithDic:hairArray[i]];
-        [HTTool setFloatValue:model.defaultValue forKey:model.key];
-//        [[HTEffect shareInstance] setHair:model.idCard value:(int)model.defaultValue];
-    }
+
 }
 
 + (void)setFloatValue:(float)value forKey:(NSString *)key {
@@ -604,6 +574,43 @@ UIViewController * GetCurrentActivityViewController(void){
 }
 
 
-
++(CGRect)mapPointLocationSize:(CGSize)oSize forSize:(CGSize)tSize itmeBounds:(CGRect)bounds{
+//    CGFloat scaleX = oSize.width/tSize.width;
+//    CGFloat scaleY = oSize.height/tSize.height;
+//
+//    CGFloat rx = bounds.origin.x*scaleX;
+//    CGFloat ry = bounds.origin.y*scaleY;
+//    CGFloat rw = bounds.size.width*scaleX;
+//    CGFloat rh = bounds.size.height*scaleY;
+//    CGRect r = CGRectMake(rx, ry, rw, rh);
+    
+    float sWidth = oSize.width;//super width
+    float sHeight = oSize.height;//super height
+     
+    float fWidth = tSize.width;//from width
+    float fHeight = tSize.height;//from height
+    
+    //如果大于1则放大 小于1则缩小
+//    float sfWratio = sWidth / fWidth;
+    //super 相对于 from的比例
+    float sfHratio = sHeight / fHeight;
+    
+    //默认竖屏
+    //计算得到fromSize 缩进到superSize 比例的大小
+    float retractWidth = fWidth * sfHratio;
+//    float retractHeight = sHeight;
+    
+    float extraWidth = retractWidth - sWidth;
+    float rx = bounds.origin.x * sfHratio + 40;
+    float ry = bounds.origin.y * sfHratio + 10;
+   
+    float rw = bounds.size.width * sfHratio;
+    float rh = bounds.size.height * sfHratio;
+    
+    NSLog(@"###x: %f, y: %f bounds.size.width: %f height: %f", rx, ry, rw, rh);
+    
+    CGRect r = CGRectMake(rx, ry, rw, rh);
+    return r;
+}
 @end
 
