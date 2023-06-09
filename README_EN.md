@@ -281,15 +281,24 @@ isRenderInit = false;
 
 ## **Demo**
 
-> [Link](https://doc.texeljoy.com/hummanBody/beauty/SDK/sdkDownload.html)
+> [Link](https://doc.texeljoy.com/document/hummanBody/beauty/quickStart/demo.html)
 
 <br/>
 
 ---
 
 ## **Recent updates**
+- **2023.06.09:** New 2.1.0 version
+    - Add 16 senior filters
+    
+- **2023.06.07:** 2.0.2 version
+    - Fix the issue
+    - Optimize resource memory space processing
 
-- **2023.05.17:** New 2.0 version
+- **2023.06.01:** 2.0.1 version
+    - Fix the issue with default values for green screens
+
+- **2023.05.17:** 2.0 version
 
   - More than 30 new styles of filters, special effect filters, and distorting mirror
   - Add hairdressing, masks, gifts, and custom drag and drop watermarks

@@ -239,7 +239,7 @@ isRenderInit = false;
 ----
 
 ## **示例代码**
-> [Demo下载](https://doc.texeljoy.com/hummanBody/beauty/SDK/sdkDownload.html)
+> [Demo下载](https://doc.texeljoy.com/document/hummanBody/beauty/quickStart/demo.html)
 
 <br/>
 
