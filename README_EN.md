@@ -29,12 +29,7 @@ English | [简体中文](README.md)
 
 - By utilizing AR effects such as facial beauty, stickers, props, gesture effects, and portrait background segmentation, we provide users with rich and diverse AI+AR technologies that revolve around the human body
 
-<center>
-	<img src="./documents/imgs/sticker.png" width="20%" />
-    <img src="./documents/imgs/matting.png" width="20%" />
-    <img src="./documents/imgs/filter.png" width="20%" />
-    <img src="./documents/imgs/beauty.png" width="20%" />
-</center>
+![](https://htaistar.oss-cn-hangzhou.aliyuncs.com/effect_resource/hteffect.png)
 <br/>
 <br/>
 
@@ -187,7 +182,7 @@ include(":htui")
 - In the dependencies section of the build.gradle file in the app module, add the following code
 
 ```shell
-implementation project(':tiui')
+implementation project(':htui')
 ```
 
 #### **3. Integration**
@@ -321,5 +316,5 @@ isRenderInit = false;
 ### 4. Official account:
 
 <div align="left">
-<img src="./documents/imgs/public.png"  width = "200" height = "200" />
+<img src="https://htaistar.oss-cn-hangzhou.aliyuncs.com/effect_resource/public.png"  width = "200" height = "200" />
 </div>

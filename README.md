@@ -25,12 +25,8 @@
 
 ### **效果展示**
 - 通过人脸美颜美型、贴纸道具、手势特效到人像背景分割等AR特效，为用户提供围绕人像人体丰富多样的AI+AR技术
-<center>
-	<img src="./documents/imgs/sticker.png" width="20%" />
-    <img src="./documents/imgs/matting.png" width="20%" />
-    <img src="./documents/imgs/filter.png" width="20%" />
-    <img src="./documents/imgs/beauty.png" width="20%" />
-</center>
+
+![](https://htaistar.oss-cn-hangzhou.aliyuncs.com/effect_resource/hteffect.png)
 <br/>
 <br/>
 
@@ -155,7 +151,7 @@ include(":htui")
 ```
 - 在 app 模块中的 build.gradle 文件的 dependencies 中，增加如下代码
 ```shell
-implementation project(':tiui')
+implementation project(':htui')
 ```
 
 #### **3. 集成开发**
@@ -273,5 +269,5 @@ isRenderInit = false;
 ### 3. 邮箱地址: business@texeljoy.com
 ### 4. 公众号:
 <div align="left">
-<img src="./documents/imgs/public.png"  width = "200" height = "200" />
+<img src="https://htaistar.oss-cn-hangzhou.aliyuncs.com/effect_resource/public.png"  width = "200" height = "200" />
 </div>
