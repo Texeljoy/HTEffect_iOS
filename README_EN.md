@@ -1,4 +1,5 @@
-English | [简体中文](README.md)
+[Simplified Chinese](README.md) | English | [Japanese](README_JP.md)
+
 
 # **HTEffect SDK**
 
@@ -51,7 +52,7 @@ You can use CocoaPods to automatically load, or download the SDK and then import
 
 **CocoaPods**
 
-- Open **Podfile**, and add the **HTEffect** pod.
+- Open **Podfile**, and add the **HTEffect** pod
 
 ```shell
 pod 'HTEffect'

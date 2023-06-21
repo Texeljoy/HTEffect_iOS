@@ -1,4 +1,4 @@
-简体中文 | [English](README_EN.md)
+简体中文 | [英语](README_EN.md) | [日语](README_JP.md)
 
 # **虹图人像人体 SDK**
 
@@ -43,7 +43,7 @@
 您可以选择使用 CocoaPods 自动加载的方式，或者先下载 SDK，再将其导入到您当前的工程项目中
 
 **CocoaPods**
-- 编辑Podfile文件：
+- 编辑Podfile文件
 ```shell
 pod 'HTEffect'
 ```
