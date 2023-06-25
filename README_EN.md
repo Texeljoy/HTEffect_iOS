@@ -1,4 +1,4 @@
-[Simplified Chinese](README.md) | English | [Japanese](README_JP.md)
+[简体中文](README.md) | English | [日本語](README_JP.md)
 
 
 # **HTEffect SDK**

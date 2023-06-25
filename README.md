@@ -1,4 +1,4 @@
-简体中文 | [英语](README_EN.md) | [日语](README_JP.md)
+简体中文 | [English](README_EN.md) | [日本語](README_JP.md)
 
 # **虹图人像人体 SDK**
 
