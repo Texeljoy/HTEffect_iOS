@@ -26,7 +26,7 @@
 ### **効果の表示**
 - 人の顔の美顔美形、シール道具、ジェスチャー特効から人の像の背景分割などのAR特効を通じて、ユーザーに人の像をめぐる人体の豊富で多様なAI+AR技術を提供する
 
-![](https://htaistar.oss-cn-hangzhou.aliyuncs.com/effect_resource/hteffect.png)
+![](https://hteffect-resource.oss-cn-shanghai.aliyuncs.com/gitee_resource/hteffect_en.png)
 <br/>
 <br/>
 
@@ -252,23 +252,29 @@ isRenderInit = false;
 - **2023.06.01:** v2.0.1
     - 緑のカーテンの既定の問題を修正する
 
-- **2023.05.17:** 全新2.0版本
+- **2023.05.17:** 新しいバージョン2.0
     - 30種類以上のスタイルフィルタ、特殊効果フィルタ、ハハミラーを追加
     - ヘアー、マスク、プレゼント、カスタムドラッグ可能ウォーターマークを追加
     - 緑のカーテンキー青、白の2種類のカーテンカラーとパラメータ調整を追加
     - ジェスチャー効果と画像分割効果を最適化
 
-- [詳細](https://doc.texeljoy.com/document/hummanBody/beauty/API/api.html)
+- [詳細](https://doc.texeljoy.com/document/hummanBody/beauty/Introduce/function.html)
 
 <br/>
 
 ----
 
 ## **連絡とフィードバック**
+
+HONGTU AIオープンプラットフォームは、HONGTUが自己研究したAI能力に基づいて、音声ビデオなどの応用シーンを取り巻くAI技術オープンプラットフォームである。人像人体特効、人体行動分析、内容審査、人顔実名認証、画像特効などの視覚AI技術を提供し、AIが中小企業の業務にエネルギーを与えることを加速させる。設立から2022年末までに、HONGTUはすでに累計で生中継、社交、教育、ゲームeスポーツ、IoT、XR、元宇宙など10以上の業界コースを賦与し、サービスプラットフォームは1500社近く、端末使用数は1億2000万台を超えた。
+
+HONGTUはAIがシーンと生態を結合する方法を模索し、「AI製品+シーン+生態協力」の方案モデルをめぐって、音声ビデオ応用を切り口として、サービス音声ビデオ応用の全ライフサイクルのAI製品マトリックスを構築し、生態パートナー製品を組み合わせ、プラットフォームの「開放」意義を実現し、ユーザーの業務ニーズに全体的なソリューションを提供し、ユーザーと価値共生を実現する。
+
+
 ### 1. 公式サイト: [www.texeljoy.com](https://www.texeljoy.com)
 ### 2. ビジネス提携: 400-178-9918
 ### 3. メールアドレス: business@texeljoy.com
 ### 4. 公衆番号:
 <div align="left">
-<img src="https://htaistar.oss-cn-hangzhou.aliyuncs.com/effect_resource/public.png"  width = "200" height = "200" />
+<img src="https://hteffect-resource.oss-cn-shanghai.aliyuncs.com/gitee_resource/public.png"  width = "200" height = "200" />
 </div>

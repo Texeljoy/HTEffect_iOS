@@ -26,7 +26,7 @@
 ### **效果展示**
 - 通过人脸美颜美型、贴纸道具、手势特效到人像背景分割等AR特效，为用户提供围绕人像人体丰富多样的AI+AR技术
 
-![](https://htaistar.oss-cn-hangzhou.aliyuncs.com/effect_resource/hteffect.png)
+![](https://hteffect-resource.oss-cn-shanghai.aliyuncs.com/gitee_resource/hteffect.png)
 <br/>
 <br/>
 
@@ -257,17 +257,23 @@ isRenderInit = false;
     - 新增美发、面具、礼物及自定义可拖拽水印
     - 绿幕抠图新增蓝、白两种幕布颜色和参数调节
     - 优化了手势特效和人像分割特效效果
-- [更多](https://doc.texeljoy.com/document/hummanBody/beauty/API/api.html)
+- [更多](https://doc.texeljoy.com/document/hummanBody/beauty/Introduce/function.html)
 
 <br/>
 
 ----
 
 ## **联系与反馈**
+
+虹图AI开放平台是基于虹图自研的AI能力，打造的围绕音视频等应用场景的AI技术开放平台。提供人像人体特效、人体行为分析、内容审核、人脸实名认证、图像特效等视觉AI技术，加速AI为中小企业业务赋能。自成立至2022年底，虹图已经累计赋能直播、社交、教育、游戏电竞、IoT、XR、元宇宙等10余个行业赛道，服务平台近1500家，终端使用数量超过1.2亿台。
+
+虹图探索了AI结合场景和生态的方法，围绕“AI产品+场景+生态合作“的方案模式，以音视频应用为切入场景，打造服务音视频应用全生命周期的AI产品矩阵，加以组合生态合作伙伴产品，实现平台的“开放”意义，为用户的业务需求提供整体解决方案，与用户实现价值共生。
+
+
 ### 1. 官网地址: [www.texeljoy.com](https://www.texeljoy.com)
 ### 2. 商务合作: 400-178-9918
 ### 3. 邮箱地址: business@texeljoy.com
 ### 4. 公众号:
 <div align="left">
-<img src="https://htaistar.oss-cn-hangzhou.aliyuncs.com/effect_resource/public.png"  width = "200" height = "200" />
+<img src="https://hteffect-resource.oss-cn-shanghai.aliyuncs.com/gitee_resource/public.png"  width = "200" height = "200" />
 </div>
