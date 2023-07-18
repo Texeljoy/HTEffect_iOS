@@ -199,13 +199,6 @@
 - (HTBeautyView *)beautyView{
     if (!_beautyView) {
         _beautyView = [[HTBeautyView alloc] initWithFrame:CGRectMake(0,HTScreenHeight, HTScreenWidth, HTHeight(326))];
-//        WeakSelf;
-//        [_beautyView setOnClickBackBlock:^{
-//            [weakSelf hideView:YES];
-//        }];
-//        [_beautyView setOnClickCameraBlock:^{
-//            [weakSelf clickCameraButton];
-//        }];
     }
     return _beautyView;
 }
@@ -220,11 +213,6 @@
 - (HTGestureView *)gestureView{
     if (!_gestureView) {
         _gestureView = [[HTGestureView alloc] initWithFrame:CGRectMake(0,HTScreenHeight, HTScreenWidth, HTHeight(267))];
-//        _gestureView.backgroundColor = HTColors(0, 0.7);
-//        WeakSelf
-//        _gestureView.gestureBackBlock = ^{
-//            [weakSelf hideView:YES];
-//        };
     }
     return _gestureView;
 }
@@ -239,14 +227,9 @@
 - (HTFilterView *)filterView{
     if (!_filterView) {
         _filterView = [[HTFilterView alloc] initWithFrame:CGRectMake(0,HTScreenHeight, HTScreenWidth, HTHeight(326))];
-//        WeakSelf
-//        _filterView.filterBackBlock = ^{
-//            [weakSelf hideView:YES];
-//        };
     }
     return _filterView;
 }
-
 
 - (UIWindow*)mainWindow{
     id appDelegate = [UIApplication sharedApplication].delegate;
@@ -487,10 +470,7 @@
                 self.exitTapView.frame = CGRectMake(0, 0, HTScreenWidth, HTScreenHeight - HTHeight(170));
                 self.exitEnable = true;
             }];
-            
         }
-       
-        
     }
 }
 
@@ -531,6 +511,13 @@
     self.defaultButton.isThemeWhite = themeWhite;
 }
 
+#pragma mark - 显示拍照/视频按钮
+- (void)setDefaultButtonCameraShow:(BOOL)defaultButtonCameraShow {
+    _defaultButtonCameraShow = defaultButtonCameraShow;
+    if (defaultButtonCameraShow) {
+        self.defaultButton.cameraShow = YES;
+    }
+}
 
 // MARK: --destroy释放 相关代码--
 - (void)destroy{

@@ -108,11 +108,12 @@ static NSString *const HTBeautyStyleViewCellId = @"HTBeautyStyleViewCellId";
     
 //    [[HTEffect shareInstance] setStyle:self.selectedModel.idCard];
     
-    if(self.selectedModel.idCard == 0){
-        [HTTool initEffectValue];
-    }else{
-        [[HTEffect shareInstance] setStyle:self.selectedModel.idCard];
-    }
+//    if(self.selectedModel.idCard == 0){
+//        [HTTool initEffectValue];
+//    }else{
+//        [[HTEffect shareInstance] setStyle:self.selectedModel.idCard];
+//    }
+    [[HTEffect shareInstance] setStyle:self.selectedModel.idCard];
     
     if (self.onClickBlock) {
         self.onClickBlock(indexPath.row);

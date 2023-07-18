@@ -10,13 +10,13 @@
 #import "HTUIConfig.h"
 
 typedef NS_ENUM(NSInteger, ShowStatus) {
-    ShowOptional = 0,
-    ShowBeauty = 1,
-    ShowARItem = 2,
-    ShowGesture = 3,
-    ShowMatting = 4,
-    ShowNone = 5,
-    ShowFilter = 6,
+    ShowOptional    = 0,
+    ShowBeauty      = 1,
+    ShowARItem      = 2,
+    ShowGesture     = 3,
+    ShowMatting     = 4,
+    ShowNone        = 5,
+    ShowFilter      = 6,
 };
 
 @protocol HTUIManagerDelegate <NSObject>
@@ -104,13 +104,20 @@ typedef NS_ENUM(NSInteger, ShowStatus) {
  */
 - (void)loadToWindowDelegate:(id<HTUIManagerDelegate>)delegate;
 
-#pragma mark - 更加当前状态通知外部拍照按钮的显示或者隐藏
+/**
+ *  更改当前状态通知外部拍照按钮的显示或者隐藏
+ */
 - (void)cameraButtonShow:(ShowStatus)status;
 
 /**
  *  切换主题是否为白色，根据展示比例
  */
 @property (nonatomic, assign) BOOL themeWhite;
+
+/**
+ *  显示拍照/视频按钮
+ */
+@property (nonatomic, assign) BOOL defaultButtonCameraShow;
 
 /**
  * 释放UI资源

@@ -284,6 +284,10 @@ isRenderInit = false;
 ---
 
 ## **Recent updates**
+- **2023.07.18:** v2.2.0
+    - Add 4 new mask materials
+    - Solved some known issues
+
 - **2023.06.09:** v2.1.0
     - Add 16 senior filters
     

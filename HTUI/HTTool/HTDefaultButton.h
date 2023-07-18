@@ -17,4 +17,15 @@
 
 @property (nonatomic, assign) BOOL isThemeWhite;
 
+/**
+ *  3D界面隐藏重置按钮
+ */
+@property (nonatomic, assign) BOOL resetButtonHide;
+
+/**
+ *  显示拍照/视频按钮
+ */
+@property (nonatomic, assign) BOOL cameraShow;
+
+
 @end

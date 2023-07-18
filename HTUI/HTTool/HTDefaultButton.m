@@ -65,25 +65,18 @@
 
 - (void)initView{
     [self addSubview:self.enterBeautyBtn];
-//    [self addSubview:self.progressView];
-    [self addSubview:self.captureView];
+//    [self addSubview:self.captureView];
     
-//    [self addSubview:self.cameraBtn];
     [self.enterBeautyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(HTWidth(52));
         make.centerY.equalTo(self);
         make.width.height.mas_equalTo(HTWidth(40));
     }];
-//    [self.cameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.centerY.equalTo(self);
-//        make.width.height.mas_equalTo(HTWidth(66));
-//    }];
     
-    [self.captureView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self);
-        make.width.height.mas_equalTo(HTWidth(90));
-    }];
-//    self.progressView.hidden = YES;
+//    [self.captureView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.center.equalTo(self);
+//        make.width.height.mas_equalTo(HTWidth(90));
+//    }];
     
     [self addSubview:self.resetButton];
     [self.resetButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -126,4 +119,23 @@
     [self.resetButton setImage:[UIImage imageNamed:isThemeWhite ? @"34_home_reset" : @"home_reset"] forState:UIControlStateNormal];
 }
 
+#pragma mark - 3D界面隐藏重置按钮
+- (void)setResetButtonHide:(BOOL)resetButtonHide {
+    _resetButtonHide = resetButtonHide;
+    if (resetButtonHide) {
+        self.resetButton.hidden = YES;
+    }
+}
+
+#pragma mark - 3D界面隐藏重置按钮
+- (void)setCameraShow:(BOOL)cameraShow {
+    _cameraShow = cameraShow;
+    if (cameraShow) {
+        [self addSubview:self.captureView];
+        [self.captureView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self);
+            make.width.height.mas_equalTo(HTWidth(90));
+        }];
+    }
+}
 @end

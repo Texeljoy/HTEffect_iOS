@@ -13,7 +13,7 @@
 #import "HTUIColor+ColorChange.h"
 #import "HTModel.h"
 #import "MJHUD.h"
-#import "UIImageView+LongCache.h"
+//#import "UIImageView+LongCache.h"
 
 NS_ASSUME_NONNULL_BEGIN
 //typedef NSString *HTMattingScreenCurtainColorEnum NS_STRING_ENUM;
@@ -74,6 +74,8 @@ static NSString * const HT_MATTING_SWITCHSCREEN_POSITION  = @"HT_MATTING_SWITCHS
 //static NSString * const HT_HAHA_FILTER_SLIDER  = @"HT_HAHA_FILTER_SLIDER";
 /* 美颜模块的SLIDER Key在json文件中配置 */
 
+/* 3D模块用来记录选中位置信息缓存 */
+static NSString * const HT_3D_SELECTED_POSITION  = @"HT_3D_SELECTED_POSITION";
 
 
 @interface HTUIConfig : NSObject

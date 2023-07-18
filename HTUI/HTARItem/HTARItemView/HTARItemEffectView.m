@@ -505,7 +505,7 @@ static NSString *const HTARItemEffectViewCellId = @"HTARItemEffectViewCellId";
         [newDic setValue:@2 forKey:@"download"];
         [self.listArr addObject:newDic];
         [HTTool addWriteJsonDicFocKey:@"ht_watermark" newItme:newDic path:configPath];
-        
+//        NSLog(@"====== before = %@", self.listArr);
         [self.collectionView reloadData];
     }else{
         [MJHUD showMessage:@"上传资源图片失败"];
@@ -542,11 +542,21 @@ static NSString *const HTARItemEffectViewCellId = @"HTARItemEffectViewCellId";
     [configArray removeObject:itmeDic];
     [config setValue:configArray forKey:@"ht_watermark"];
     
-    [self.listArr removeObject:itmeDic];
+//    [self.listArr removeObject:itmeDic];
+    [self.listArr removeObjectAtIndex:index];
+
     //重新写入
     [HTTool setWriteJsonDic:config toPath:configPath];
-    
+//    NSLog(@"====== after = %@", self.listArr);
     [self.collectionView reloadData];
+//    [self.collectionView performBatchUpdates:^{
+//        // 在执行完插入的操作之后, 紧接着会调用UICollectionViewController的数据源方法:collectionView: numberOfItemsInSection:
+//        [self.collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+//
+//    } completion:^(BOOL finished) {
+//        [self.collectionView reloadData];
+//        // 在此执行插入操作完成后的代码
+//    }];
 }
 
 

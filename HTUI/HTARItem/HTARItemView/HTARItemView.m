@@ -8,7 +8,6 @@
 #import "HTARItemView.h"
 #import "HTARItemMenuView.h"
 #import "HTARItemEffectView.h"
-#import "HTWatermarkView.h"
 #import "HTUIConfig.h"
 #import "HTTool.h"
 
@@ -20,7 +19,6 @@
 @property (nonatomic, strong) UIButton *backButton;
 //@property (nonatomic, strong) UIButton *cameraBtn;
 @property (nonatomic, strong) HTARItemEffectView *effectView;
-@property (nonatomic, strong) HTWatermarkView *watermarkView;
 @property (strong, nonatomic) UIButton *cleanButton;
 @property (strong, nonatomic) UIView *cleanLineView;
 
@@ -171,21 +169,6 @@ NSString *waterMarkPath = @"";
     }
     return _effectView;
 }
-
-
-- (HTWatermarkView *)watermarkView{
-    if (!_watermarkView) {
-//        NSDictionary *dic = self.listArr[0];
-        _watermarkView = [[HTWatermarkView alloc] init];
-//        WeakSelf;
-//        [_effectView setArDownladCompleteBlock:^(NSInteger index) {
-//            weakSelf.menuView.listArr = weakSelf.listArr;
-//        }];
-    }
-    return _watermarkView;
-}
-
-
 
 //- (UIButton *)cameraBtn{
 //    if (!_cameraBtn) {
