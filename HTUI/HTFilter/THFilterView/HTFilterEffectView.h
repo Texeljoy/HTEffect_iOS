@@ -32,6 +32,11 @@ typedef NS_ENUM(NSInteger, FilterType) {
 // 外部menu点击后刷新collectionview
 - (void)updateFilterListData:(NSDictionary *)dic;
 
+/**
+ *  通知外部弹框
+ */
+@property (nonatomic, copy) void (^filterTipBlock)(void);
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -284,6 +284,14 @@ isRenderInit = false;
 ---
 
 ## **Recent updates**
+- **2023.09.27:** v3.0.0
+    - Add makeup effects, including eyebrows, powder blusher, eye shadow, eyeliner, eyelashes, lipstick, pupil and other effects
+    - Add makeup recommendation effects, including various popular makeup effects such as fox beauty, pure desire, girl group, etc
+    - Add body shape effects, including long legs and slimming
+    - Optimized hairdressing algorithm for more stable support for CPU/GPU
+    - Optimized portrait segmentation algorithm for more natural and stable edges
+    - Optimized gesture recognition algorithm to support hand following movement
+
 - **2023.07.18:** v2.2.0
     - Add 4 new mask materials
     - Solved some known issues

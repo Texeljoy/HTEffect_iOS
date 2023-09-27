@@ -20,6 +20,8 @@ typedef NS_ENUM(NSInteger, DownloadedType) {
     HT_DOWNLOAD_STATE_Portraits, // 人像分割
     HT_DOWNLOAD_STATE_Greenscreen, // 绿幕抠图
     HT_DOWNLOAD_STATE_Gesture, // 手势
+    
+    HT_DOWNLOAD_TYPE_MAKEUP, // 美妆
 };
 
 // MARK: --单例初始化方法--

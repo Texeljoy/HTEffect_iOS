@@ -74,7 +74,8 @@
 -(UIButton *)editButton{
     if(_editButton == nil){
         _editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_editButton setImage:[UIImage imageNamed:@"icon_itme_del.png"] forState:UIControlStateNormal];
+//        [_editButton setImage:[UIImage imageNamed:@"banner_sticker"] forState:UIControlStateNormal];
+        [_editButton setBackgroundImage:[UIImage imageNamed:@"icon_itme_del"] forState:UIControlStateNormal];
         [_editButton addTarget:self action:@selector(clickEdit:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _editButton;
@@ -199,7 +200,9 @@
             
             [self.htImageView setImage:[UIImage imageNamed:@"HTImagePlaceholder.png"]];
             [HTTool getImageFromeURL:url folder:folder cachePaths:cachePaths downloadComplete:^(UIImage * _Nonnull image) {
-                [self.htImageView setImage:image];
+                if (image) {
+                    [self.htImageView setImage:image];
+                }
             }];
             
             [self setSelectedBorderHidden:!model.selected borderColor:MAIN_COLOR];

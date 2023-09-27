@@ -51,6 +51,19 @@
     return self;
 }
 
+- (void)setImageWidthAndHeight:(CGFloat)square title:(NSString *)title{
+    self.label.text = title;
+    [self.htImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.centerX.equalTo(self);
+        make.width.height.mas_equalTo(square);
+    }];
+}
+
+- (void)setImage:(UIImage *)image {
+    
+    self.htImgView.image = image;
+}
+
 - (void)setImage:(UIImage *)image imageWidth:(CGFloat)width title:(NSString *)title{
     self.label.text = title;
     self.htImgView.image = image;

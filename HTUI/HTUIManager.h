@@ -120,6 +120,11 @@ typedef NS_ENUM(NSInteger, ShowStatus) {
 @property (nonatomic, assign) BOOL defaultButtonCameraShow;
 
 /**
+ *  关键点展示
+ */
+- (void)showLandmark:(NSInteger)type orientation:(HTEffectViewOrientation)orientation resolutionWidth:(NSInteger)resolutionWidth resolutionHeight:(NSInteger)resolutionHeight;
+
+/**
  * 释放UI资源
  */
 - (void)destroy;

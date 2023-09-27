@@ -25,8 +25,20 @@
             "sliderType":1
         },
         {
-            "name": "透明度",
+            "name": "祛色度",
             "idCard":2,
+            "selected": false,
+            "subType": false,
+            "opened": false,
+            "icon": "matting_decolorization",
+            "selectedIcon":"matting_decolorization_sel",
+            "key":"HT_MATTING_DECOLORRIZATION_SLIDER",
+            "defaultValue":0,
+            "sliderType":1
+        },
+        {
+            "name": "透明度",
+            "idCard":3,
             "selected": false,
             "subType": false,
             "opened": false,

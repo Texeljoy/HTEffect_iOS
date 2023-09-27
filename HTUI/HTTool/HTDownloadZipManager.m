@@ -64,8 +64,8 @@ static HTDownloadZipManager *shareManager = NULL;
             break;
             
         case HT_DOWNLOAD_STATE_Greenscreen:// 绿幕抠图
-            downloadURL = [[HTEffect shareInstance].getGSSegEffectUrl stringByAppendingFormat:@"%@.zip",model.name];
-            cachePaths =  [HTEffect shareInstance].getGSSegEffectPath;
+            downloadURL = [[HTEffect shareInstance].getChromaKeyingUrl stringByAppendingFormat:@"%@.zip",model.name];
+            cachePaths =  [HTEffect shareInstance].getChromaKeyingPath;
             break;
         case HT_DOWNLOAD_STATE_Portraits:// 人像分割
             downloadURL = [[HTEffect shareInstance].getAISegEffectUrl stringByAppendingFormat:@"%@.zip",model.name];
@@ -75,6 +75,13 @@ static HTDownloadZipManager *shareManager = NULL;
             downloadURL = [[HTEffect shareInstance].getGestureEffectUrl stringByAppendingFormat:@"%@.zip",model.name];
             cachePaths =  [HTEffect shareInstance].getGestureEffectPath;
             break;
+            
+        case HT_DOWNLOAD_TYPE_MAKEUP:// 美妆
+            downloadURL = [[HTEffect shareInstance].getMakeupUrl stringByAppendingFormat:@"%@/%@.zip", model.category, model.name];
+            cachePaths =  [[HTEffect shareInstance].getMakeupPath stringByAppendingFormat:@"%@/", model.category];
+//            NSLog(@"////////     %@ ==== %@", downloadURL, cachePaths);
+            break;
+            
         default:
             break;
     }

@@ -6,17 +6,20 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HTButton.h"
-
+@class HTModel;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HTFilterStyleViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) HTButton *item;
+/**
+ *  赋值
+ */
+- (void)setModel:(HTModel *)model isWhite:(BOOL)isWhite;
 
-- (void)setMaskViewColor:(UIColor *)color selected:(BOOL)selected;
-
-- (void)setItemCornerRadius:(CGFloat)radius;
+/**
+ *  美妆空cell赋值
+ */
+- (void)setNoneImage:(BOOL)selected isThemeWhite:(BOOL)isWhite;
 
 @end
 

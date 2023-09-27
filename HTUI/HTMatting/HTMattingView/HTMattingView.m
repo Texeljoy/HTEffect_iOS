@@ -43,7 +43,7 @@ NSString *greenscreenPath = @"";
     self = [super initWithFrame:frame];
     if (self) {
         aiSegmentationPath = [[[HTEffect shareInstance] getAISegEffectPath] stringByAppendingFormat:@"ht_aiseg_effect_config.json"];
-        greenscreenPath = [[[HTEffect shareInstance] getGSSegEffectPath] stringByAppendingFormat:@"ht_gsseg_effect_config.json"];
+        greenscreenPath = [[[HTEffect shareInstance] getChromaKeyingPath] stringByAppendingFormat:@"ht_gsseg_effect_config.json"];
         
         _editArray = [HTTool jsonModeForPath:[[NSBundle mainBundle] pathForResource:@"HTMattingEdit" ofType:@"json"] withKey:@"ht_matting_edit"];
         self.editCurrentModel = [[HTModel alloc] initWithDic:_editArray[0]];
@@ -111,17 +111,11 @@ NSString *greenscreenPath = @"";
 #pragma mark - 更新特效
 - (void)updateGreenEffectWithValue:(int)value {
     
-    [[HTEffect shareInstance] setGSSegEffectScene:self.greenCurrentModel.name];
+    [[HTEffect shareInstance] setChromaKeyingScene:self.greenCurrentModel.name];
 //    [[HTEffect shareInstance] setGSSegEffectCurtain:HTScreenCurtainColorMap[self.greenCurrentColor]];
     NSInteger index = self.editCurrentModel.idCard;
 //    NSLog(@"========= updateGreenEffectWithValue == name: %@ \n color: %@ \n id: %zd \n value: %d \n", self.greenCurrentModel.name, HTScreenCurtainColorMap[self.greenCurrentColor], index, value);
-    if (index == 0) {
-        [[HTEffect shareInstance] setGSSegEffectSimilarity:value];
-    }else if (index == 1) {
-        [[HTEffect shareInstance] setGSSegEffectSmoothness:value];
-    }else {
-        [[HTEffect shareInstance] setGSSegEffectTransparency:value];
-    }
+    [[HTEffect shareInstance] setChromaKeyingParams:(int)index value:value];
 }
 
 #pragma mark - 懒加载

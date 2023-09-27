@@ -115,7 +115,9 @@
 
         [cell.htImageView setImage:[UIImage imageNamed:@"HTImagePlaceholder.png"]];
         [HTTool getImageFromeURL:[NSString stringWithFormat:@"%@%@",iconUrl,indexModel.icon] folder:folder cachePaths:cachePaths downloadComplete:^(UIImage * _Nonnull image) {
-            [cell setHtImage:image isCancelEffect:NO];
+            if (image) {
+                [cell setHtImage:image isCancelEffect:NO];
+            }
         }];
          
         [cell setSelectedBorderHidden:!indexModel.selected borderColor:MAIN_COLOR];
@@ -194,6 +196,8 @@
             [HTTool setFloatValue:indexPath.row forKey:HT_GESTURE_SELECTED_POSITION];
             [[HTEffect shareInstance] setGestureEffect:self.selectedModel.name];
             
+//            NSArray *array = [[HTEffect shareInstance] getHandDetectionReport];
+//            NSLog(@"9999999 ========================= %d", array.count);
         }
     }
 }

@@ -14,6 +14,7 @@
 #import "HTTool.h"
 #import "HTFilterView.h"
 #import "HTRestoreAlertView.h"
+#import "HTLandmarkView.h"
 
 @interface HTUIManager ()<HTRestoreAlertViewDelegate>
 
@@ -33,10 +34,13 @@
 @property (nonatomic, strong) HTMattingView* mattingView;
 @property (nonatomic, strong) HTFilterView* filterView;
 
-/**
- *   弹出美颜功能选择页面
- */
-- (void)showOptionalView;
+// 关键点视图
+@property (nonatomic, strong) HTLandmarkView *landmarkView;
+
+///**
+// *   弹出美颜功能选择页面
+// */
+//- (void)showOptionalView;
 
 @end
 
@@ -58,22 +62,12 @@
         self.contentMode = HTEffectViewContentModeScaleAspectFill;
         self.resolutionSize = CGSizeMake(720, 1280);
         
-        //清除上次贴纸特效选择的位置缓存
-        [HTTool setFloatValue:-1 forKey:HT_ARITEM_STICKER_POSITION];
-        [HTTool setFloatValue:-1 forKey:HT_ARITEM_MASK_POSITION];
-        [HTTool setFloatValue:-1 forKey:HT_ARITEM_GIFT_POSITION];
-        [HTTool setFloatValue:-1 forKey:HT_ARITEM_WATERMARK_POSITION];
-        //清除上次AI抠图选择的位置缓存AI抠图
-        [HTTool setFloatValue:0 forKey:HT_MATTING_AI_POSITION];
-        [HTTool setFloatValue:0 forKey:HT_MATTING_GS_POSITION];
-        //清除手势特效
-        [HTTool setFloatValue:0 forKey:HT_GESTURE_SELECTED_POSITION];
-        //清除上次滤镜选择的位置缓存
-        [HTTool setFloatValue:0 forKey:HT_STYLE_FILTER_SELECTED_POSITION];
-        [HTTool setFloatValue:0 forKey:HT_EFFECT_FILTER_SELECTED_POSITION];
-        [HTTool setFloatValue:0 forKey:HT_HAHA_FILTER_SELECTED_POSITION];
-        //清除上次美发选择的位置缓存
-        [HTTool setFloatValue:0 forKey:HT_HAIR_SELECTED_POSITION];
+        // 初始化相关参数
+        int value = [HTTool getFloatValueForKey:HT_ALL_EFFECT_CACHES];
+        if (value == 0) {
+            NSLog(@"---------------  initEffectValue");
+            [HTTool initEffectValue];
+        }
     }
     return self;
 }
@@ -112,6 +106,14 @@
 }
 
 // MARK: 懒加载
+- (HTLandmarkView *)landmarkView{
+    if(!_landmarkView){
+        _landmarkView = [[HTLandmarkView alloc] initWithFrame:CGRectMake(0, 0, HTScreenWidth, HTScreenHeight)];
+        _landmarkView.backgroundColor = [UIColor clearColor];
+    }
+    return _landmarkView;
+}
+
 - (UIWindow *)superWindow{
     if (!_superWindow) {
         _superWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -491,14 +493,17 @@
 - (void)loadToWindowDelegate:(id<HTUIManagerDelegate>)delegate{
     
     self.delegate = delegate;
+    
+    if(![self.superWindow.subviews containsObject:self.landmarkView]){
+        [self.superWindow addSubview:self.landmarkView];
+    }
+    
     if(![self.superWindow.subviews containsObject:self.exitTapView]){
         [self.superWindow addSubview:self.exitTapView];
     }
     if(![self.superWindow.subviews containsObject:self.optionalView]){
         [self.superWindow addSubview:self.optionalView];
     }
-    
-    [HTTool initEffectValue];
     
 }
 
@@ -519,16 +524,80 @@
     }
 }
 
+#pragma mark - 关键点展示
+- (void)showLandmark:(NSInteger)type orientation:(HTEffectViewOrientation)orientation resolutionWidth:(NSInteger)resolutionWidth resolutionHeight:(NSInteger)resolutionHeight{
+    
+    return;
+    // todo 关键点展示
+    NSArray *array = [[HTEffect shareInstance] getFaceDetectionReport];
+    self.landmarkView.drawEnable = @0;
+    if(array.count > 0){//识别到人脸
+        CGFloat imageOnPreviewScale = MAX(HTScreenWidth / resolutionWidth, HTScreenHeight / resolutionHeight);
+        CGFloat previewImageWidth = resolutionWidth * imageOnPreviewScale;
+        CGFloat previewImageHeight = resolutionHeight * imageOnPreviewScale;
+        for(int i = 0; i < array.count; i++){
+            HTFaceDetectionReport *report = array[i];
+            UIDevice *device = [UIDevice currentDevice];
+            switch (device.orientation) {
+                case UIDeviceOrientationPortrait:
+                    self.landmarkView.faceRect = CGRectMake(report.rect.origin.x * imageOnPreviewScale - (previewImageWidth - HTScreenWidth) / 2, report.rect.origin.y * imageOnPreviewScale, report.rect.size.width * imageOnPreviewScale, report.rect.size.height * imageOnPreviewScale);
+                    break;
+                case UIDeviceOrientationPortraitUpsideDown:
+                    self.landmarkView.faceRect = CGRectMake(previewImageWidth - report.rect.origin.x * imageOnPreviewScale - (previewImageWidth - HTScreenWidth) / 2 - report.rect.size.width * imageOnPreviewScale, previewImageHeight - report.rect.origin.y * imageOnPreviewScale - report.rect.size.height * imageOnPreviewScale, report.rect.size.width * imageOnPreviewScale, report.rect.size.height * imageOnPreviewScale);
+                    break;
+                case UIDeviceOrientationLandscapeLeft:
+                    self.landmarkView.faceRect = CGRectMake(previewImageWidth - report.rect.origin.y * imageOnPreviewScale - (previewImageWidth - HTScreenWidth) / 2 - report.rect.size.height * imageOnPreviewScale,  report.rect.origin.x * imageOnPreviewScale, report.rect.size.width * imageOnPreviewScale, report.rect.size.height * imageOnPreviewScale);
+                    break;
+                case UIDeviceOrientationLandscapeRight:
+                    self.landmarkView.faceRect = CGRectMake((report.rect.origin.y * imageOnPreviewScale - (previewImageWidth - HTScreenWidth) / 2), previewImageHeight - report.rect.origin.x * imageOnPreviewScale - report.rect.size.width * imageOnPreviewScale, report.rect.size.width * imageOnPreviewScale, report.rect.size.height * imageOnPreviewScale);
+                    break;
+                default:
+                    break;
+            }
+            self.landmarkView.pointXArray = [[NSMutableArray alloc] init];
+            self.landmarkView.pointYArray = [[NSMutableArray alloc] init];
+            for(int j = 0; j < 106; j++){
+                NSLog(@"111111111111 ==== %d", i);
+                CGPoint point = report.keyPoints[j];
+                //默认HTEffectViewOrientationPortrait
+                CGFloat x = imageOnPreviewScale * point.x - (previewImageWidth - HTScreenWidth) / 2;
+                CGFloat y = imageOnPreviewScale * point.y;
+                switch (orientation) {
+                    case HTEffectViewOrientationLandscapeRight:
+                        y = previewImageHeight - imageOnPreviewScale * point.x;
+                        x = previewImageWidth - imageOnPreviewScale * point.y - (previewImageWidth - HTScreenWidth) / 2;
+                        break;
+                    case HTEffectViewOrientationPortraitUpsideDown:
+                        x = imageOnPreviewScale * point.x - (previewImageWidth - HTScreenWidth) / 2;
+                        y = previewImageHeight - imageOnPreviewScale * point.y;
+                        break;
+                    case HTEffectViewOrientationLandscapeLeft:
+                        y = imageOnPreviewScale * point.x;
+                        x = imageOnPreviewScale * point.y - (previewImageWidth - HTScreenWidth) / 2;
+                        break;
+                    default:
+                        break;
+                }
+                [self.landmarkView.pointXArray addObject:@(x)];
+                [self.landmarkView.pointYArray addObject:@(y)];
+            }
+            self.landmarkView.drawEnable = @1;
+            dispatch_async(dispatch_get_main_queue(), ^{
+//                self.drawLabel1.text = [NSString stringWithFormat:@"yaw:%f",report.yaw];
+//                self.drawLabel2.text = [NSString stringWithFormat:@"pitch:%f",report.pitch];
+//                self.drawLabel3.text = [NSString stringWithFormat:@"roll:%f",report.roll];
+                [self.landmarkView setNeedsDisplay];
+            });
+        }
+    }
+    NSLog(@"人脸数量:%lu",(unsigned long)array.count);
+}
+
+
 // MARK: --destroy释放 相关代码--
 - (void)destroy{
     
-    [HTTool setFloatValue:-1 forKey:HT_ARITEM_STICKER_POSITION];
-    [HTTool setFloatValue:-1 forKey:HT_ARITEM_MASK_POSITION];
-    [HTTool setFloatValue:-1 forKey:HT_ARITEM_GIFT_POSITION];
-    [HTTool setFloatValue:-1 forKey:HT_ARITEM_WATERMARK_POSITION];
-    
-    [HTTool setFloatValue:0 forKey:HT_MATTING_AI_POSITION];
-    [HTTool setFloatValue:0 forKey:HT_MATTING_GS_POSITION];
+    [HTTool setFloatValue:1 forKey:HT_ALL_EFFECT_CACHES];
 
     [_defaultButton removeFromSuperview];
     _defaultButton = nil;
@@ -538,6 +607,11 @@
     
     [_superWindow removeFromSuperview];
     _superWindow = nil;
+    
+    if (self.landmarkView){
+        [self.landmarkView removeFromSuperview];
+        self.landmarkView = nil;
+    }
     
 }
 

@@ -24,7 +24,7 @@
 @end
 
 /**
- * 人脸检测与关键点识别结果报告
+ * 人脸检测结果报告
  */
 @interface HTFaceDetectionReport : NSObject
 
@@ -51,6 +51,41 @@
 
 /// 人脸动作-挑眉
 @property (nonatomic, assign) CGFloat browJump;
+
+@end
+
+/**
+ * 人手检测结果报告
+ */
+@interface HTHandDetectionReport : NSObject
+
+/// 人手识别准概率
+@property (nonatomic, assign) CGFloat score;
+
+/// 人手骨骼关键点坐标
+@property (nonatomic, assign) CGPoint *keyPoints;
+
+/// 人手区域坐标
+@property (nonatomic, assign) CGPoint *position;
+
+/// 手势类型
+@property (nonatomic, assign) int gesture;
+
+@end
+
+/**
+ * 人体检测结果报告
+ */
+@interface HTPoseDetectionReport : NSObject
+
+/// 人体骨骼关键点坐标
+@property (nonatomic, assign) CGPoint *keyPoints;
+
+/// 人体骨骼关键点3D坐标
+@property (nonatomic, assign) CGFloat *keyPoints3D;
+
+/// 人体区域坐标
+@property (nonatomic, assign) CGRect rect;
 
 @end
 
@@ -148,21 +183,46 @@ typedef NS_ENUM(NSInteger, HTARItemTypes) {
 };
 
 /**
- * 推荐风格类型枚举
+ * 推荐妆容推荐类型枚举
+ * 3.0版本后，将风格推荐效果改为妆容推荐；
  *
- * 在调用推荐风格设置接口时，设置类型
+ * 在调用妆容推荐设置接口时，设置类型
  */
 typedef NS_ENUM(NSInteger, HTStyleTypes) {
-    HTStyleTypeOne   = 1,  //!< 风格一，HTEffect UI显示名称为"经典"
-    HTStyleTypeTwo   = 2,  //!< 风格二，HTEffect UI显示名称为"网红"
-    HTStyleTypeThree = 3,  //!< 风格三，HTEffect UI显示名称为"女神"
-    HTStyleTypeFour  = 4,  //!< 风格四，HTEffect UI显示名称为"复古"
-    HTStyleTypeFive  = 5,  //!< 风格五，HTEffect UI显示名称为"日杂"
-    HTStyleTypeSix   = 6,  //!< 风格六，HTEffect UI显示名称为"初恋"
-    HTStyleTypeSeven = 7,  //!< 风格七，HTEffect UI显示名称为"质感"
-    HTStyleTypeEight = 8,  //!< 风格八，HTEffect UI显示名称为"伪素颜"
-    HTStyleTypeNine  = 9,  //!< 风格九，HTEffect UI显示名称为"清冷"
-    HTStyleTypeTen   = 10  //!< 风格十，HTEffect UI显示名称为"甜心"
+    HTStyleTypeNone   = 0,  //!< 无，HTEffect UI显示名称为"无"
+    HTStyleTypeOne   = 1,  //!< 妆容一，HTEffect UI显示名称为"清纯白花"
+    HTStyleTypeTwo   = 2,  //!< 妆容二，HTEffect UI显示名称为"狐系美人"
+    HTStyleTypeThree = 3,  //!< 妆容三，HTEffect UI显示名称为"清甜妆"
+    HTStyleTypeFour  = 4,  //!< 妆容四，HTEffect UI显示名称为"白露"
+    HTStyleTypeFive  = 5,  //!< 妆容五，HTEffect UI显示名称为"冷调"
+    HTStyleTypeSix   = 6,  //!< 妆容六，HTEffect UI显示名称为"元气少女"
+    HTStyleTypeSeven = 7,  //!< 妆容七，HTEffect UI显示名称为"女团"
+    HTStyleTypeEight = 8  //!< 妆容八，HTEffect UI显示名称为"纯欲妆"
+};
+
+/**
+ * 美妆类型枚举
+ *
+ * 美妆类型分为口红、眉毛，腮红、眼影、眼线、睫毛、美瞳
+ */
+typedef NS_ENUM(NSInteger, HTMakeupTypes) {
+    HTMakeupLipstick = 0, //!< 口红
+    HTMakeupEyebrow = 1, //!< 眉毛
+    HTMakeupBlush  = 2,  //!< 腮红
+    HTMakeupEyeshadow  = 3, //!< 眼影
+    HTMakeupEyeline  = 4, //!< 眼线
+    HTMakeupEyelash  = 5, //!< 睫毛
+    HTMakeupPupils  = 6 //!< 美瞳
+};
+
+/**
+ * 美体类型枚举
+ *
+ * 美体类型分为长腿、瘦身
+ */
+typedef NS_ENUM(NSInteger, HTBodyBeautyTypes) {
+    HTBodyBeautyLegSlimming = 0, //!< 长腿
+    HTBodyBeautyBodyThinning = 1 //!< 瘦身
 };
 
 /**
@@ -253,13 +313,13 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
 - (void)releaseTextureRenderer;
 
 /**
- * 初始化buffer渲染器
+ * 初始化视频帧渲染器
  *
- * @param format 图像格式
- * @param width    图像宽度
- * @param height   图像高度
- * @param rotation 图像是否需要旋转，不需旋转为CLOCKWISE_0
- * @param isMirror 图像是否存在镜像
+ * @param format 视频帧格式
+ * @param width    视频帧宽度
+ * @param height   视频帧高度
+ * @param rotation 视频帧图像是否需要旋转，不需旋转为CLOCKWISE_0
+ * @param isMirror 视频帧图像是否存在镜像
  * @param maxFaces 人脸检测数目上限设置，推荐取值范围为1~5
  *
  * @return 返回初始化结果，成功返回true，失败返回false
@@ -267,16 +327,42 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
 - (BOOL)initBufferRenderer:(HTFormatEnum)format width:(int)width height:(int)height rotation:(HTRotationEnum)rotation isMirror:(BOOL)isMirror maxFaces:(int)maxFaces;
 
 /**
- * 处理buffer数据输入
+ * 处理视频帧数据输入
  *
- * @param buffer 视频帧数据
+ * @param pixels 视频帧数据
  */
-- (void)processBuffer:(unsigned char *)buffer;
+- (void)processBuffer:(unsigned char *)pixels;
 
 /**
- * 销毁buffer渲染资源
+ * 销毁视频帧渲染资源
  */
 - (void)releaseBufferRenderer;
+
+/**
+ * 初始化图片渲染器
+ *
+ * @param format 图片格式
+ * @param width    图片宽度
+ * @param height   图片高度
+ * @param rotation 图片是否需要旋转，不需旋转为CLOCKWISE_0
+ * @param isMirror 图片是否存在镜像
+ * @param maxFaces 人脸检测数目上限设置，推荐取值范围为1~5
+ *
+ * @return 返回初始化结果，成功返回true，失败返回false
+ */
+- (BOOL)initImageRenderer:(HTFormatEnum)format width:(int)width height:(int)height rotation:(HTRotationEnum)rotation isMirror:(BOOL)isMirror maxFaces:(int)maxFaces;
+
+/**
+ * 处理图片数据输入
+ *
+ * @param pixels 视频帧数据
+ */
+- (void)processImage:(unsigned char *)pixels;
+
+/**
+ * 销毁图片渲染资源
+ */
+- (void)releaseImageRenderer;
 
 #pragma mark - 美肤
 
@@ -330,13 +416,13 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
  */
 - (void)setFilter:(int)type name:(NSString *)name;
 
-#pragma mark - 风格
+#pragma mark - 妆容推荐
 
 /**
- * 设置推荐风格
- * 该接口使用需同时支持美肤、美型、滤镜特效
+ * 设置妆容推荐
+ * 该接口使用需要同时支持美妆、滤镜特效
  *
- * @param type 风格类型，参考类型定义#HTStyleTypes
+ * @param type 妆容类型，参考类型定义#HTStyleTypes
  */
 - (void)setStyle:(int)type;
 
@@ -404,57 +490,44 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
  */
 - (void)setAISegEffect:(NSString *)name;
 
-#pragma mark - 人像抠图 - 绿幕抠图
+#pragma mark - 人像抠图 - 色（键）值抠图，原绿幕抠图
 
 /**
- * 获取绿幕抠图素材网络路径
+ * 获取色（键）值抠图素材网络路径
  *
- * @return 返回绿幕抠图素材网络路径
+ * @return 返回色（键）值抠图素材网络路径
  */
-- (NSString *)getGSSegEffectUrl;
+- (NSString *)getChromaKeyingUrl;
 
 /**
- * 获取绿幕抠图素材沙盒路径
+ * 获取色（键）值抠图素材沙盒路径
  *
- * @return 返回绿幕抠图素材沙盒路径
+ * @return 返回色（键）值抠图素材沙盒路径
  */
-- (NSString *)getGSSegEffectPath;
+- (NSString *)getChromaKeyingPath;
 
 /**
- * 设置绿幕抠图特效场景
+ * 设置色（键）值抠图特效场景
  *
  * @param name 场景名称
  */
-- (void)setGSSegEffectScene:(NSString *)name;
+- (void)setChromaKeyingScene:(NSString *)name;
 
 /**
- * 设置绿幕抠图特效幕布颜色
+ * 设置色（键）值抠图特效幕布颜色
  *
  * @param color 幕布颜色，传字符串类型16进制色值
  *        目前仅支持绿幕 (#00ff00) 蓝幕(#0000ff)  白幕(#ffffff)三种幕布颜色和透明幕布，默认为绿幕
  */
-- (void)setGSSegEffectCurtain:(NSString *)color;
+- (void)setChromaKeyingCurtain:(NSString *)color;
 
 /**
- * 设置绿幕抠图特效相似度
+ * 设置色（键）值抠图特效调节参数
  *
- * @param value 相似度，参数范围0-100
+ * @param type 参数类型，0-相似度；1-平滑度；2-祛色度；3-精确度
+ * @param value 调节参数，参数范围0-100
  */
-- (void)setGSSegEffectSimilarity:(int)value;
-
-/**
- * 设置绿幕抠图特效平滑度
- *
- * @param value 平滑度，参数范围0-100
- */
-- (void)setGSSegEffectSmoothness:(int)value;
-
-/**
- * 设置绿幕抠图特效透明度
- *
- * @param value 透明度，参数范围0-100
- */
-- (void)setGSSegEffectTransparency:(int)value;
+- (void)setChromaKeyingParams:(int)type value:(int)value;
 
 #pragma mark - 手势识别
 
@@ -479,7 +552,55 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
  */
 - (void)setGestureEffect:(NSString *)name;
 
-#pragma mark - 人脸追踪
+#pragma mark - 美妆
+/**
+ * 获取美妆素材总目录网络路径
+ *
+ * @return 返回美妆素材总目录网络路径
+ */
+- (NSString *)getMakeupUrl;
+
+/**
+ * 获取美妆素材总目录沙盒路径
+ *
+ * @return 返回美妆素材总目录沙盒路径
+ */
+- (NSString *)getMakeupPath;
+
+/**
+ * 获取美妆某一类型素材网络路径
+ *
+ * @return 返回美妆某一类型素材网络路径
+ */
+- (NSString *)getMakeupUrl:(int)type;
+
+/**
+ * 获取美妆某一类型素材沙盒路径
+ *
+ * @return 返回美妆某一类型素材沙盒路径
+ */
+- (NSString *)getMakeupPath:(int)type;
+
+/**
+ * 设置美妆特效
+ *
+ * @param type 美妆类别
+ * @param name 美妆名称
+ * @param value 美妆参数
+ */
+- (void)setMakeup:(int)type name:(NSString *)name value:(int)value;
+
+#pragma mark - 美体
+
+/**
+ * 设置美体特效
+ *
+ * @param type 美体类别
+ * @param value 美体名称
+ */
+- (void)setBodyBeauty:(int)type value:(int)value;
+
+#pragma mark - 算法
 
 /**
  * 判断是否检测到人脸
@@ -489,9 +610,26 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
 - (int)isTracking;
 
 /**
- * 获取人脸检测与关键点识别结果报告
+ * 获取人脸检测结果报告
  */
 - (NSArray<HTFaceDetectionReport *> *)getFaceDetectionReport;
+
+/**
+ * 获取人手检测结果报告
+ */
+- (NSArray<HTHandDetectionReport *> *)getHandDetectionReport;
+
+/**
+ * 判断是否检测到全身人体
+ *
+ * @return 检测到的全身人体个数，返回 0 代表没有检测到全身人体
+ */
+- (int)isFullBody;
+
+/**
+ * 获取人体检测结果报告
+ */
+- (NSArray<HTPoseDetectionReport *> *)getPoseDetectionReport;
 
 #pragma mark - 其它
 

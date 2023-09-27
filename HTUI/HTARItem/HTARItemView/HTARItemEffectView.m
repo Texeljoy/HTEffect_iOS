@@ -462,7 +462,24 @@ static NSString *const HTARItemEffectViewCellId = @"HTARItemEffectViewCellId";
         }
     }
     
-    UIImage *iconImage = [QZImagePickerController image:image scaleToSize:CGSizeMake(128, 128)];
+    float imageW = image.size.width;
+    float imageH = image.size.height;
+    // icon压缩并写入资源文件夹中
+//    UIImage *iconImage = [QZImagePickerController image:image scaleToSize:CGSizeMake(128, 128)];
+    UIImage *iconImage = image;
+    if(imageW > imageH){
+        if(imageW > 128){
+            //等比缩小
+            float  scale = 128/imageW;
+            iconImage = [QZImagePickerController image:image scaleToSize:CGSizeMake(128, scale *  imageH)];
+        }
+    }else{
+        if(imageH > 128){
+            //等比缩小
+            float  scale = 128 / imageH;
+            iconImage = [QZImagePickerController image:image scaleToSize:CGSizeMake(scale * imageW, 128)];
+        }
+    }
     
     BOOL iconImageResult = [UIImagePNGRepresentation(iconImage) writeToFile:[NSString stringWithFormat:@"%@/%@",iconFolder,iconName]   atomically:YES];
     if (!iconImageResult) {
@@ -472,24 +489,21 @@ static NSString *const HTARItemEffectViewCellId = @"HTARItemEffectViewCellId";
     
     
     //保存操作
-    //        [[UIScreen mainScreen] bounds].size
-    
     //   压缩PNG
-    float imageW = image.size.width;
-    float imageH = image.size.height;
     float maxW = [[UIScreen mainScreen] bounds].size.width/2;
     float maxH = [[UIScreen mainScreen] bounds].size.height/2;
+    UIImage *resultImage = image;
     if(imageW > imageH){
         if(imageW > maxW){
             //等比缩小
             float  scale = maxW/imageW;
-            image = [QZImagePickerController image:image scaleToSize:CGSizeMake(maxW, scale *  imageH)];
+            resultImage = [QZImagePickerController image:image scaleToSize:CGSizeMake(maxW, scale *  imageH)];
         }
     }else{
         if(imageH > maxH){
             //等比缩小
             float  scale = maxH / imageH;
-            image = [QZImagePickerController image:image scaleToSize:CGSizeMake(scale * imageW,maxH)];
+            resultImage = [QZImagePickerController image:image scaleToSize:CGSizeMake(scale * imageW,maxH)];
         }
     }
     
@@ -548,6 +562,8 @@ static NSString *const HTARItemEffectViewCellId = @"HTARItemEffectViewCellId";
     //重新写入
     [HTTool setWriteJsonDic:config toPath:configPath];
 //    NSLog(@"====== after = %@", self.listArr);
+    // 退出编辑模式
+    self.editing = NO;
     [self.collectionView reloadData];
 //    [self.collectionView performBatchUpdates:^{
 //        // 在执行完插入的操作之后, 紧接着会调用UICollectionViewController的数据源方法:collectionView: numberOfItemsInSection:

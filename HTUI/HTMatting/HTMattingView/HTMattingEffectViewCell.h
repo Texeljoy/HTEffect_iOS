@@ -6,6 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HTModel.h"
+#import "HTUIConfig.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +19,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)endAnimation;
 - (void)setSelectedBorderHidden:(BOOL)hidden borderColor:(UIColor *)color;
 - (void)hiddenDownloaded:(BOOL)hidden;
+
+
+@property (nonatomic, strong) HTModel *model;
+- (void)setDataArray:(NSArray *)dataArray index:(NSInteger)index;
+//是否正在编辑
+@property (nonatomic, assign) BOOL isEdit;
+@property (nonatomic, copy) void (^longPressEditBlock)(NSInteger index);
+@property (nonatomic, copy) void (^editDeleteBlock)(NSInteger index);
+
 
 @end
 

@@ -23,8 +23,8 @@
 @property (nonatomic, strong) HTFilterMenuView *menuView;
 @property (nonatomic, strong) UIView *lineView;
 @property (nonatomic, strong) HTFilterEffectView *effectView;
-//@property (nonatomic, strong) UIButton *backButton;
-//@property (strong, nonatomic) UIButton *cameraBtn;
+// 提示文字
+@property (nonatomic, strong) UILabel *confirmLabel;
 
 @property (nonatomic, assign) NSInteger menuIndex;
 @property (nonatomic, strong) HTModel *currentModel;
@@ -39,12 +39,6 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-     
-//        [self addSubview:self.sliderRelatedView];
-//        [self.sliderRelatedView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.right.top.equalTo(self);
-//            make.height.mas_equalTo(HTHeight(53));
-//        }];
         
         [self addSubview:self.containerView];
         [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -69,21 +63,12 @@
             make.left.right.equalTo(self.containerView);
             make.height.mas_equalTo(HTHeight(82));
         }];
- 
-//        [self.containerView addSubview:self.cameraBtn];
-//        [self.cameraBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.bottom.equalTo(self.containerView).offset(-HTHeight(11)-[[HTAdapter shareInstance] getSaftAreaHeight]);
-//            make.centerX.equalTo(self.containerView);
-//            make.width.height.mas_equalTo(HTWidth(43));
-//        }];
-//
-//        [self.containerView addSubview:self.backButton];
-//        [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(self.containerView).offset(HTWidth(20));
-//            make.bottom.equalTo(self.containerView).offset(-HTHeight(11)-[[HTAdapter shareInstance] getSaftAreaHeight]);
-//            make.width.mas_equalTo(HTWidth(15));
-//            make.height.mas_equalTo(HTHeight(8));
-//        }];
+        
+        [self addSubview:self.confirmLabel];
+        [self.confirmLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self);
+            make.top.equalTo(self).offset(-HTHeight(40));
+        }];
     }
     return self;
     
@@ -137,39 +122,6 @@
 }
 
 # pragma mark - 懒加载
-//- (HTSliderRelatedView *)sliderRelatedView{
-//    if (!_sliderRelatedView) {
-//        _sliderRelatedView = [[HTSliderRelatedView alloc] initWithFrame:CGRectZero];
-//        [_sliderRelatedView.sliderView setSliderType:HTSliderTypeI WithValue:[HTTool getFloatValueForKey:HT_STYLE_FILTER_SLIDER]];
-//        WeakSelf;
-//        // 更新效果
-//        [_sliderRelatedView.sliderView setRefreshValueBlock:^(CGFloat value) {
-//            [weakSelf updateEffect:value];
-//        }];
-//        // 写入缓存
-//        [_sliderRelatedView.sliderView setEndDragBlock:^(CGFloat value) {
-////            [weakSelf saveParameters:value];
-//
-//            switch (weakSelf.menuIndex) {
-//                case 0://风格
-//                    [HTTool setFloatValue:value forKey:HT_STYLE_FILTER_SLIDER];
-//                    break;
-//                case 1://特效
-//                    [HTTool setFloatValue:value forKey:HT_EFFECT_FILTER_SLIDER];
-//                    break;
-//                case 2://哈哈镜
-//                    [HTTool setFloatValue:value forKey:HT_HAHA_FILTER_SLIDER];
-//                    break;
-//                default:
-//                    break;
-//            }
-//
-//        }];
-//        [_sliderRelatedView setHidden:YES];
-//    }
-//    return _sliderRelatedView;
-//}
-
 - (UIView *)containerView{
     if (!_containerView) {
         _containerView = [[UIView alloc] init];
@@ -210,39 +162,34 @@
         _effectView = [[HTFilterEffectView alloc] initWithFrame:CGRectZero listArr:dic[@"classify"]];
         WeakSelf;
         [_effectView setOnUpdateSliderHiddenBlock:^(HTModel * _Nonnull model,NSInteger index) {
-            
             weakSelf.currentModel = model;
-//            if(index == 0||self.menuIndex == 1||self.menuIndex == 2){
-//                [weakSelf.sliderRelatedView setHidden:YES];
-//            }else{
-//                [weakSelf.sliderRelatedView setHidden:NO];
-//            }
         }];
+        
+        // 弹框
+        _effectView.filterTipBlock = ^{
+            if (weakSelf.confirmLabel.hidden) {
+                weakSelf.confirmLabel.hidden = NO;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    weakSelf.confirmLabel.hidden = YES;
+                });
+            }
+        };
  
     }
     return _effectView;
 }
 
-//- (UIButton *)backButton{
-//    if (!_backButton) {
-//        _backButton = [[UIButton alloc] init];
-//        [_backButton setImage:[UIImage imageNamed:@"ht_back.png"] forState:UIControlStateNormal];
-//        [_backButton addTarget:self action:@selector(onBackClick:) forControlEvents:UIControlEventTouchUpInside];
-//    }
-//    return _backButton;
-//}
- 
- 
-
- 
-//- (UIButton *)cameraBtn{
-//    if (!_cameraBtn) {
-//        _cameraBtn = [[UIButton alloc] init];
-//        [_cameraBtn setImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
-//        [_cameraBtn addTarget:self action:@selector(onCameraClick) forControlEvents:UIControlEventTouchUpInside];
-//    }
-//    return _cameraBtn;
-//}
+- (UILabel *)confirmLabel{
+    if (!_confirmLabel) {
+        _confirmLabel = [[UILabel alloc] init];
+        _confirmLabel.text = @"请先关闭妆容推荐";
+        _confirmLabel.font = HTFontMedium(15);
+        _confirmLabel.textColor = UIColor.whiteColor;
+        _confirmLabel.textAlignment = NSTextAlignmentCenter;
+        [_confirmLabel setHidden:YES];
+    }
+    return _confirmLabel;
+}
 
 
 @end

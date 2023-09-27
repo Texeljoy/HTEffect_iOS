@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HTButton : UIButton
 
+- (void)setImageWidthAndHeight:(CGFloat)square title:(NSString *)title;
+- (void)setImage:(UIImage *)image;
+
 - (void)setImage:(UIImage *)image imageWidth:(CGFloat)width title:(NSString *)title;
 - (void)setTextColor:(UIColor *)color;
 - (void)setTextFont:(UIFont *)font;

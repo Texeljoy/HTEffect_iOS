@@ -21,7 +21,7 @@
         _label = [[UILabel alloc] init];
         _label.textAlignment = NSTextAlignmentCenter;
         _label.userInteractionEnabled = NO;
-        _label.font = HTFontRegular(15);
+        _label.font = HTFontRegular(14);
         _label.textColor = HTColors(255, 1.0);
     }
     return _label;

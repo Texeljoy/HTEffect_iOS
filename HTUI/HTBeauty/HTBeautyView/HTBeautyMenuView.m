@@ -35,6 +35,16 @@ static NSString *const HTBeautyMenuViewCellId = @"HTBeautyMenuViewCellId";
     return _menuCollectionView;
 }
 
+- (UILabel *)makeupTitleLabel {
+    if (!_makeupTitleLabel) {
+        _makeupTitleLabel = [[UILabel alloc] init];
+        _makeupTitleLabel.textAlignment = NSTextAlignmentCenter;
+        _makeupTitleLabel.font = HTFontRegular(15);
+        _makeupTitleLabel.textColor = HTColors(255, 1.0);
+    }
+    return _makeupTitleLabel;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame listArr:(NSArray *)listArr{
     
     self = [super initWithFrame:frame];
@@ -43,6 +53,12 @@ static NSString *const HTBeautyMenuViewCellId = @"HTBeautyMenuViewCellId";
         self.selectedIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self addSubview:self.menuCollectionView];
         [self.menuCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.height.equalTo(self);
+        }];
+        
+        [self addSubview:self.makeupTitleLabel];
+        self.makeupTitleLabel.hidden = YES;
+        [self.makeupTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.right.height.equalTo(self);
         }];
     }
@@ -59,7 +75,7 @@ static NSString *const HTBeautyMenuViewCellId = @"HTBeautyMenuViewCellId";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(HTScreenWidth/4 ,HTHeight(45));
+    return CGSizeMake(HTWidth(70) ,HTHeight(45));
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -92,6 +108,7 @@ static NSString *const HTBeautyMenuViewCellId = @"HTBeautyMenuViewCellId";
 #pragma mark - 主题色切换
 - (void)setIsThemeWhite:(BOOL)isThemeWhite {
     _isThemeWhite = isThemeWhite;
+    self.makeupTitleLabel.textColor = isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0);
     [self.menuCollectionView reloadData];
 }
 

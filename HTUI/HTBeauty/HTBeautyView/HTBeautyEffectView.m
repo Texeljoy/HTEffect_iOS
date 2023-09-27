@@ -14,7 +14,7 @@
 typedef NS_ENUM(NSInteger, EffectType) {
     HT_Beauty = 0, // 美肤
     HT_Reshape = 1,// 美型
-    HT_Hair = 2,   // 美发
+//    HT_Hair = 2,   // 美发
 };
 
 @property (nonatomic, strong) HTButton *resetButton;
@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, EffectType) {
 @property (nonatomic, strong) NSMutableArray *listArr;
 @property (nonatomic, assign) BOOL subCellOpened;// 是否已经展开子cell
 @property (nonatomic, assign) EffectType currentType;
-@property (nonatomic, assign) BOOL isReset;// 恢复按钮状态
+//@property (nonatomic, assign) BOOL isReset;// 恢复按钮状态
 
 @end
 
@@ -92,11 +92,6 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
     if (indexModel.selected) {
         [cell.item setImage:[UIImage imageNamed:self.isThemeWhite ? [NSString stringWithFormat:@"34_%@", indexModel.selectedIcon] : indexModel.selectedIcon] imageWidth:HTWidth(48) title:indexModel.title];
         [cell.item setTextColor:MAIN_COLOR];
-//        if ([indexModel.title isEqualToString:@"磨皮"]) {
-//            [cell.item setTextColor:HTColors(255, 1.0)];
-//        }else{
-//            [cell.item setTextColor:MAIN_COLOR];
-//        }
     }else{
         [cell.item setImage:[UIImage imageNamed:self.isThemeWhite ? [NSString stringWithFormat:@"34_%@", indexModel.icon] : indexModel.icon] imageWidth:HTWidth(48) title:indexModel.title];
         [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0)];
@@ -176,20 +171,10 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
         }
         self.selectedModel = indexModel;
     }
-//    switch (self.currentType) {
-//        case HT_Beauty:
-//            [[HTEffect shareInstance] setBeauty:self.selectedModel.idCard value:[HTTool getFloatValueForKey:self.selectedModel.key]];
-//            break;
-//        case HT_Reshape:
-//            [[HTEffect shareInstance] setReshape:self.selectedModel.idCard value:[HTTool getFloatValueForKey:self.selectedModel.key]];
-//            break;
-//        default:
-//            break;
-//    }
+    
     if (self.onUpdateSliderHiddenBlock) {
         self.onUpdateSliderHiddenBlock(self.selectedModel);
     }
-    
 }
 
 // 展开or收回cell的子cell
@@ -340,7 +325,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
         [_resetButton setImage:[UIImage imageNamed:@"ht_reset_disabled.png"] imageWidth:HTWidth(45) title:@"恢复"];
         [_resetButton setTextColor:HTColors(189, 0.6)];
         [_resetButton setTextFont:HTFontRegular(12)];
-        _resetButton.enabled = _isReset;
+        _resetButton.enabled = NO;
         [_resetButton addTarget:self action:@selector(onResetClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _resetButton;

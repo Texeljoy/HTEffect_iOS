@@ -25,12 +25,21 @@ NS_ASSUME_NONNULL_BEGIN
  */
 //+(CGRect)mapPointLocationSize:(CGSize)oSize forSize:(CGSize)tSize itmeBounds:(CGRect)bounds;
  
-
+/**
+ *  初始化所有参数
+ */
 + (void)initEffectValue;
 //设置缓存
 + (void)setFloatValue:(float)value forKey:(NSString *)key;
 //获取缓存的参数
 + (float)getFloatValueForKey:(NSString *)key;
+
+/**
+ *  字符串缓存
+ */
++ (void)setObject:(NSString *)value forKey:(NSString *)key;
+
++ (NSString *)getObjectForKey:(NSString *)key;
 
 + (void)setBeautySlider:(float)value forType:(HTDataCategoryType)type withSelectMode:(HTModel *)selectModel;
 
@@ -62,8 +71,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当前正在活动的的vc
 extern UIViewController * GetCurrentActivityViewController(void);
 
-// 重置所有参数
+/**
+ *  重置所有参数
+ */
 + (void)resetAll;
+
+/**
+ *  弹框
+ */
++(void)showHUD:(NSString *)title;
 
 @end
 

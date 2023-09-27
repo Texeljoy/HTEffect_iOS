@@ -95,17 +95,8 @@ static NSString *const HTFilterHahaViewCellId = @"HTFilterHahaViewCellId";
         
         HTFilterStyleViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HTFilterStyleViewCellId forIndexPath:indexPath];
         HTModel *indexModel = [[HTModel alloc] initWithDic:self.listArr[indexPath.row]];
-        [cell.item setImage:[UIImage imageNamed:indexModel.icon] imageWidth:HTWidth(55) title:indexModel.title];
-        [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : [UIColor whiteColor]];
-//        if (indexModel.selected) {
-////            [cell.item setTextColor:MAIN_COLOR];
-//            [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : MAIN_COLOR];
-//        }else{
-//            [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0)];
-//        }
-        [cell setItemCornerRadius:HTWidth(5)];
-        [cell setMaskViewColor:HTColor(185, 174, 173, 0.8) selected:indexModel.selected];
-        [cell.item setTextFont:HTFontRegular(12)];
+        
+        [cell setModel:indexModel isWhite:self.isThemeWhite];
         
         return cell;
     }
@@ -118,8 +109,11 @@ static NSString *const HTFilterHahaViewCellId = @"HTFilterHahaViewCellId";
         return;
     }
     
-    //互斥逻辑
-    if(![HTTool mutualExclusion:HT_FILTER_POSITION_MAP[self.filterType]]){
+    // 风格滤镜与妆容推荐互斥
+    if(self.filterType == ht_style_filter && [HTTool getFloatValueForKey:HT_LIGHT_MAKEUP_SELECTED_POSITION] > 0){
+        if (_filterTipBlock) {
+            _filterTipBlock();
+        }
         return;
     }
     
@@ -136,6 +130,7 @@ static NSString *const HTFilterHahaViewCellId = @"HTFilterHahaViewCellId";
     switch (self.filterType) {
         case ht_style_filter:
             //保存滤镜的选中位置
+            [HTTool setObject:self.selectedModel.name forKey:HT_STYLE_FILTER_NAME];
             [HTTool setFloatValue:indexPath.row forKey:HT_STYLE_FILTER_SELECTED_POSITION];
             [[HTEffect shareInstance] setFilter:HTFilterBeauty name:self.selectedModel.name];
             
@@ -152,7 +147,7 @@ static NSString *const HTFilterHahaViewCellId = @"HTFilterHahaViewCellId";
         default:
             break;
     }
-    [self showHUD:self.selectedModel.title];
+    [HTTool showHUD:self.selectedModel.title];
     
     //通知主View 更新拉条
     if (self.onUpdateSliderHiddenBlock) {
@@ -161,41 +156,6 @@ static NSString *const HTFilterHahaViewCellId = @"HTFilterHahaViewCellId";
     
 }
 
--(void)showHUD:(NSString *)name{
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    for (UIView *obj in window.subviews) {
-        if(obj.tag == 12345){
-            obj.alpha = 0;
-            [obj removeFromSuperview];
-        }
-    }
-    
-    UILabel *hud = [[UILabel alloc]initWithFrame:CGRectMake(0, window.frame.size.height/2 - 150, window.frame.size.width, 50)];
-    hud.textAlignment = NSTextAlignmentCenter;
-    hud.text = name;
-    hud.font = [UIFont systemFontOfSize:28];
-    hud.textColor = [UIColor whiteColor];
-    hud.alpha = 0;
-    hud.tag = 12345;
-    
-    [window addSubview:hud];
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        hud.alpha = 1;
-    } completion:^(BOOL finished) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [UIView animateWithDuration:0.25 animations:^{
-                hud.alpha = 0;
-            } completion:^(BOOL finished) {
-                [hud removeFromSuperview];
-            }];
-             
-        });
-    }];
-    
-    
-}
 
 // 通过name返回在数组中的位置
 //- (int)getIndexForTitle:(NSString *)title withArray:(NSArray *)array{

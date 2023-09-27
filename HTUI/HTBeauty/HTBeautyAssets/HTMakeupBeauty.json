@@ -1,0 +1,89 @@
+{
+    "HTMakeupBeauty": [
+        {
+            "title": "口红",
+            "name": "ht_makeup_lipstick",
+            "idCard":0,
+            "selected": true,
+            "category": "lipstick",
+            "icon": "lipstick.png",
+            "selectedIcon":"lipstick_sel.png",
+            "key":"HT_MAKEUP_LIPSTICK",
+            "defaultValue":0,
+            "sliderType":1
+        },
+        {
+            "title": "眉毛",
+            "name": "ht_makeup_eyebrow",
+            "idCard":1,
+            "selected": false,
+            "category": "eyebrow",
+            "icon": "meimao.png",
+            "selectedIcon":"meimao_sel.png",
+            "key":"HT_MAKEUP_EYEBROW",
+            "defaultValue":0,
+            "sliderType":1
+        },
+        {
+            "title": "腮红",
+            "name": "ht_makeup_blush",
+            "idCard":2,
+            "selected": false,
+            "category": "blush",
+            "icon": "blusher.png",
+            "selectedIcon":"blusher_sel.png",
+            "key":"HT_MAKEUP_BLUSH",
+            "defaultValue":0,
+            "sliderType":1
+        },
+        {
+            "title": "眼影",
+            "name": "ht_makeup_eyeshadow",
+            "idCard":3,
+            "selected": false,
+            "category": "eyeshadow",
+            "icon": "yanying.png",
+            "selectedIcon":"yanying_sel.png",
+            "key":"HT_MAKEUP_EYESHADOW",
+            "defaultValue":0,
+            "sliderType":1
+        },
+        {
+            "title": "眼线",
+            "name": "ht_makeup_eyeline",
+            "idCard":4,
+            "selected": false,
+            "category": "eyeline",
+            "icon": "eyeline.png",
+            "selectedIcon":"eyeline_sel.png",
+            "key":"HT_MAKEUP_EYELINE",
+            "defaultValue":0,
+            "sliderType":2
+        },
+        {
+            "title": "睫毛",
+            "name": "ht_makeup_eyelash",
+            "idCard":5,
+            "selected": false,
+            "category": "eyelash",
+            "icon": "eyelash.png",
+            "selectedIcon":"eyelash_sel.png",
+            "key":"HT_MAKEUP_EYELASH",
+            "defaultValue":0,
+            "sliderType":1
+        },
+        {
+            "title": "美瞳",
+            "name": "ht_makeup_pupils",
+            "idCard":6,
+            "selected": false,
+            "category": "pupils",
+            "icon": "eyelens.png",
+            "selectedIcon":"eyelens_sel.png",
+            "key":"HT_MAKEUP_PUPILS",
+            "defaultValue":0,
+            "sliderType":1
+        }
+        
+    ]
+}

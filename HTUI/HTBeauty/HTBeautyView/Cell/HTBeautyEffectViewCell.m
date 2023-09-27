@@ -7,6 +7,7 @@
 
 #import "HTBeautyEffectViewCell.h"
 #import "HTUIConfig.h"
+#import "HTTool.h"
 
 @implementation HTBeautyEffectViewCell
 
@@ -45,6 +46,27 @@
         }];
     }
     return self;
+}
+
+
+#pragma mark - 美体赋值
+- (void)setBodyModel:(HTModel *)model themeWhite:(BOOL)white {
+    
+    if (model.selected) {
+        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.selectedIcon] : model.selectedIcon] imageWidth:HTWidth(48) title:model.title];
+        [self.item setTextColor:MAIN_COLOR];
+    }else{
+        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.icon] : model.icon] imageWidth:HTWidth(48) title:model.title];
+        [self.item setTextColor:white ? [UIColor blackColor] : HTColors(255, 1.0)];
+    }
+    [self.item setTextFont:HTFontRegular(12)];
+    
+    if([HTTool getFloatValueForKey:model.key] == model.defaultValue) {
+        [self.pointView setHidden:YES];
+    }else{
+        [self.pointView setHidden:NO];
+    }
+    
 }
 
 @end

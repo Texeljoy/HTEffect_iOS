@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) void (^onClickBlock)(NSArray *array);
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 @property (nonatomic, strong) UICollectionView *menuCollectionView;
+@property (nonatomic, strong) UILabel *makeupTitleLabel;// 美妆标题用
 
 - (instancetype)initWithFrame:(CGRect)frame listArr:(NSArray *)listArr;
 

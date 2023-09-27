@@ -1,6 +1,6 @@
 framework module HTEffect {
   umbrella header "HTEffect.h"
-
   export *
+
   module * { export * }
 }

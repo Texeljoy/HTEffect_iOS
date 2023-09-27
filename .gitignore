@@ -1,12 +1,4 @@
 # Xcode
 
-*.a
-*.framework/
-*.xcframework/
-*.dSYM/
-*.ipa
-.plugin_dev
-**/Pods/
-xcuserdata/
 .DS_Store
 

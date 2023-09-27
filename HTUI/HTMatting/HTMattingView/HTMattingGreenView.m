@@ -13,6 +13,8 @@
 #import "HTDownloadZipManager.h"
 #import "HTBeautyEffectViewCell.h"
 #import "UIButton+HTImagePosition.h"
+#import "QZImagePickerController.h"
+#import "HTUIManager.h"
 
 // 区分CollectionView
 typedef NS_ENUM(NSInteger, GreenType) {
@@ -20,7 +22,7 @@ typedef NS_ENUM(NSInteger, GreenType) {
     GreenType_Background        = 1, // 背景
 };
 
-@interface HTMattingGreenView ()<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface HTMattingGreenView ()<UICollectionViewDataSource, UICollectionViewDelegate, QZImagePickerControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) UIView *titleView;
 @property (nonatomic, strong) NSArray *titleArray;
@@ -40,6 +42,10 @@ typedef NS_ENUM(NSInteger, GreenType) {
 @property (nonatomic, strong) UICollectionView *editCollectionView;
 @property (nonatomic, strong) NSMutableArray *editArray;
 @property (nonatomic, strong) HTModel *editSelectedModel;
+
+// 绿幕背景自定义
+//是否在编辑中
+@property (nonatomic, assign) BOOL editing;
 
 @end
 
@@ -72,11 +78,22 @@ typedef NS_ENUM(NSInteger, GreenType) {
     return self;
 }
 
+#pragma mark - 绿幕背景自定义
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    //为编辑状态 不响应手势
+    return _editing;
+}
+
+-(void)cancEditlEevent:(UIGestureRecognizer *)sender{
+    self.editing = NO;
+    [self.bgCollectionView reloadData];
+}
+
 #pragma mark - CollectionView DataSource
 //设置每个section包含的item数目
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (collectionView.tag == GreenType_Edit) {
-        return 3;
+        return _editArray.count;
     }
     return self.listArray.count + 1;
 }
@@ -128,47 +145,17 @@ typedef NS_ENUM(NSInteger, GreenType) {
     
     HTMattingEffectViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
-    if (indexPath.row == 0) {
-        [cell setHtImage:[UIImage imageNamed:@"ht_none.png"] isCancelEffect:YES];
-        [cell setSelectedBorderHidden:YES borderColor:UIColor.clearColor];
-    }else{
-        cell.contentView.layer.masksToBounds = YES;
-        cell.contentView.layer.cornerRadius = HTWidth(9);
-        
-        HTModel *indexModel = [[HTModel alloc] initWithDic:self.listArray[indexPath.row-1]];
-        
-        [cell.htImageView setImage:[UIImage imageNamed:@"HTImagePlaceholder.png"]];
-        NSString *iconUrl = [[HTEffect shareInstance] getGSSegEffectUrl];
-        NSString *folder = indexModel.name;
-        NSString *cachePaths = [[HTEffect shareInstance] getGSSegEffectPath];
-        [HTTool getImageFromeURL:[NSString stringWithFormat:@"%@%@",iconUrl,indexModel.icon] folder:folder cachePaths:cachePaths downloadComplete:^(UIImage * _Nonnull image) {
-            [cell setHtImage:image isCancelEffect:NO];
-        }];
-     
-        [cell setSelectedBorderHidden:!indexModel.selected borderColor:MAIN_COLOR];
-        switch (indexModel.download) {
-            case 0:// 未下载
-            {
-                [cell endAnimation];
-                [cell hiddenDownloaded:NO];
-            }
-                break;
-            case 1:// 下载中。。。
-            {
-                [cell startAnimation];
-                [cell hiddenDownloaded:YES];
-            }
-                break;
-            case 2:// 下载完成
-            {
-                [cell endAnimation];
-                [cell hiddenDownloaded:YES];
-            }
-                break;
-            default:
-                break;
-        }
-    }
+    
+    [cell setDataArray:self.listArray index:indexPath.row];
+    //长按返回当前的下标
+    WeakSelf
+    [cell setLongPressEditBlock:^(NSInteger index) {
+        //通知view 进入了编辑状态
+        weakSelf.editing = YES;
+    }];
+    [cell setEditDeleteBlock:^(NSInteger index) {
+        [weakSelf deleteUploadItme:index];
+    }];
     
     return cell;
     
@@ -210,8 +197,32 @@ typedef NS_ENUM(NSInteger, GreenType) {
         // 设置特效
         [self effectWithName:@"" color:HTScreenCurtainColorMap[0] idCard:-1 value:-1];
         [HTTool setFloatValue:indexPath.row forKey:HT_MATTING_GS_POSITION];
+        
     }else{
         HTModel *indexModel = [[HTModel alloc] initWithDic:self.listArray[indexPath.row-1]];
+        
+        if([indexModel.category isEqualToString:@"upload_gsseg"]){
+            
+            [[HTUIManager shareManager] hideView:NO];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [HTUIManager shareManager].superWindow.hidden = YES;
+                [[HTUIManager shareManager] cameraButtonShow:ShowNone];
+            });
+            
+            QZImagePickerController *vc = [[QZImagePickerController alloc] init];
+            vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            vc.qzDelegate = self;
+            vc.allowsEditing = NO;
+            
+            [vc setViewWillDisappearBlock:^(void) {
+                [[HTUIManager shareManager] showMattingView];
+            }];
+            [GetCurrentActivityViewController() presentViewController:vc animated:YES completion:nil];
+            
+            
+            return;
+        }
+        
         if ([self.selectedModel.name isEqualToString: indexModel.name]) {
             return;
         }
@@ -223,7 +234,7 @@ typedef NS_ENUM(NSInteger, GreenType) {
             [collectionView reloadItemsAtIndexPaths:@[indexPath]];
             
             DownloadedType downloadedType = HT_DOWNLOAD_STATE_Greenscreen;
-            NSString *itemPath = [[[HTEffect shareInstance] getGSSegEffectPath] stringByAppendingFormat:@"ht_gsseg_effect_config.json"];
+            NSString *itemPath = [[[HTEffect shareInstance] getChromaKeyingPath] stringByAppendingFormat:@"ht_gsseg_effect_config.json"];
             NSString *jsonKey = @"ht_gsseg_effect";
             
             self.downloadIndex = indexPath.row;
@@ -279,6 +290,152 @@ typedef NS_ENUM(NSInteger, GreenType) {
     
 }
 
+#pragma mark - QZImagePickerController Delegate 相册或者拍照
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithOriginImage:(UIImage *)image {
+    
+    NSString *filePath = [[HTEffect shareInstance] getChromaKeyingPath];
+    
+    NSInteger count = self.listArray.count;
+    NSString *itmeName = [NSString stringWithFormat:@"ht_upload_%ld",count];
+    //防止命名重复
+    while ([self getIndexForTitle:itmeName withArray:self.listArray] != -1) {
+        count ++;
+        itmeName = [NSString stringWithFormat:@"ht_upload_%ld",count];
+    }
+    
+    NSString *itmeFolder = [NSString stringWithFormat:@"%@%@",filePath,itmeName];
+    
+    NSString *iconName = [itmeName stringByAppendingString:@"_icon.png"];
+//    NSString *iconFolder = [NSString stringWithFormat:@"%@gsseg_icon",filePath];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    // 创建资源文件夹
+    if (![fileManager fileExistsAtPath:itmeFolder]) {
+        // 不存在目录 则创建
+        NSError *err;
+        [fileManager createDirectoryAtPath:itmeFolder withIntermediateDirectories:NO attributes:nil error:&err];
+        if(err){
+            [MJHUD showMessage:@"资源文件夹创建失败"];
+            return;
+        }
+    }
+    
+    // 拷贝config.json文件到资源文件夹中
+    NSString *configPath = [filePath stringByAppendingPathComponent:@"config.json"];
+    NSString *configCopyToPath = [itmeFolder stringByAppendingPathComponent:@"config.json"];
+    NSError *copyError;
+    if (![[NSFileManager defaultManager] copyItemAtPath:configPath toPath:configCopyToPath error:&copyError]) {
+        [MJHUD showMessage:@"拷贝资源文件失败"];
+        return;
+    }
+    
+    // 在资源文件夹内创建p_bg文件夹
+    NSString *pbgFolder = [NSString stringWithFormat:@"%@%@",itmeFolder, @"/p_bg"];
+    if (![fileManager fileExistsAtPath:pbgFolder]) {
+        NSError *err;
+        [fileManager createDirectoryAtPath:pbgFolder withIntermediateDirectories:NO attributes:nil error:&err];
+        if(err){
+            [MJHUD showMessage:@"图片件夹创建失败"];
+            return;
+        }
+    }
+    
+    float imageW = image.size.width;
+    float imageH = image.size.height;
+    // icon压缩并写入资源文件夹中
+//    UIImage *iconImage = [QZImagePickerController image:image scaleToSize:CGSizeMake(128, 128)];
+    UIImage *iconImage = image;
+    if(imageW > imageH){
+        if(imageW > 128){
+            //等比缩小
+            float  scale = 128/imageW;
+            iconImage = [QZImagePickerController image:image scaleToSize:CGSizeMake(128, scale *  imageH)];
+        }
+    }else{
+        if(imageH > 128){
+            //等比缩小
+            float  scale = 128 / imageH;
+            iconImage = [QZImagePickerController image:image scaleToSize:CGSizeMake(scale * imageW, 128)];
+        }
+    }
+    
+    BOOL iconImageResult = [UIImagePNGRepresentation(iconImage) writeToFile:[NSString stringWithFormat:@"%@/%@",itmeFolder, iconName] atomically:YES];
+    if (!iconImageResult) {
+        [MJHUD showMessage:@"上传icon图片失败"];
+        return;
+    }
+    
+    // 效果图压缩PNG，并写入p_bg文件夹中
+    float maxW = [[UIScreen mainScreen] bounds].size.width/2;
+    float maxH = [[UIScreen mainScreen] bounds].size.height/2;
+    UIImage *resultImage = image;
+    if(imageW > imageH){
+        if(imageW > maxW){
+            //等比缩小
+            float  scale = maxW/imageW;
+            resultImage = [QZImagePickerController image:image scaleToSize:CGSizeMake(maxW, scale *  imageH)];
+        }
+    }else{
+        if(imageH > maxH){
+            //等比缩小
+            float  scale = maxH / imageH;
+            resultImage = [QZImagePickerController image:image scaleToSize:CGSizeMake(scale * imageW,maxH)];
+        }
+    }
+    
+    BOOL itmeImageResult = [UIImagePNGRepresentation(resultImage) writeToFile:[NSString stringWithFormat:@"%@/%@.png",pbgFolder, itmeName] atomically:YES];
+    // ht_gsseg_effect_config.json添加新增信息
+    if (itmeImageResult == YES) {
+        
+        NSString *configPath = [filePath stringByAppendingFormat:@"ht_gsseg_effect_config.json"];
+        
+        NSMutableDictionary *newDic = [NSMutableDictionary dictionary];
+        [newDic setValue:itmeName forKey:@"name"];
+        [newDic setValue:@"upload" forKey:@"category"];
+        [newDic setValue:iconName forKey:@"icon"];
+        [newDic setValue:@2 forKey:@"download"];
+        [self.listArray addObject:newDic];
+        [HTTool addWriteJsonDicFocKey:@"ht_gsseg_effect" newItme:newDic path:configPath];
+//        NSLog(@"====== before = %@", self.listArr);
+        [self.bgCollectionView reloadData];
+    }else{
+        [MJHUD showMessage:@"上传资源图片失败"];
+    }
+}
+
+-(void)deleteUploadItme:(NSInteger)index{
+    
+    NSString *filePath = [[HTEffect shareInstance] getChromaKeyingPath];
+//    NSLog(@"delete filePath = %@", filePath);
+    NSString *configPath = [filePath stringByAppendingFormat:@"ht_gsseg_effect_config.json"];
+    
+    NSMutableDictionary *config = [NSMutableDictionary dictionaryWithDictionary:[HTTool getJsonDataForPath:configPath]];
+    NSMutableArray *configArray = [NSMutableArray arrayWithArray:[config objectForKey:@"ht_gsseg_effect"]];
+    NSDictionary *itmeDic = [configArray objectAtIndex:index-1];
+    
+    NSString *itmeName = [itmeDic objectForKey:@"name"];
+    NSString *itmeFolder = [NSString stringWithFormat:@"%@%@",filePath,itmeName];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    //删除整个文件夹
+    NSError *error2;
+    [fileManager removeItemAtPath:itmeFolder error:&error2];
+    
+    [configArray removeObject:itmeDic];
+    [config setValue:configArray forKey:@"ht_gsseg_effect"];
+    
+//    [self.listArr removeObject:itmeDic];
+    [self.listArray removeObjectAtIndex:index-1];
+    //重新写入
+    [HTTool setWriteJsonDic:config toPath:configPath];
+//    NSLog(@"====== after = %@", self.listArray);
+    // 退出编辑模式
+    self.editing = NO;
+    [self.bgCollectionView reloadData];
+}
+
+
 #pragma mark - 通过name返回在数组中的位置
 - (int)getIndexForTitle:(NSString *)title withArray:(NSArray *)array{
     for (int i = 0; i < array.count; i++) {
@@ -293,17 +450,11 @@ typedef NS_ENUM(NSInteger, GreenType) {
 #pragma mark - 设置特效
 - (void)effectWithName:(NSString *)name color:(NSString *_Nullable)color idCard:(NSInteger)idCard value:(int)value {
 //    NSLog(@"========= updateGreenEffectWithValue == name: %@ \n color: %@ \n id: %zd \n value: %d \n", name, color, idCard, value);
-    [[HTEffect shareInstance] setGSSegEffectScene:name];
+    [[HTEffect shareInstance] setChromaKeyingScene:name];
     // 如果是取消特效，不需要设置其他特效
     if (name.length > 0) {
-        [[HTEffect shareInstance] setGSSegEffectCurtain:color];
-        if (idCard == 0) {
-            [[HTEffect shareInstance] setGSSegEffectSimilarity:value];
-        }else if (idCard == 1) {
-            [[HTEffect shareInstance] setGSSegEffectSmoothness:value];
-        }else {
-            [[HTEffect shareInstance] setGSSegEffectTransparency:value];
-        }
+        [[HTEffect shareInstance] setChromaKeyingCurtain:color];
+        [[HTEffect shareInstance] setChromaKeyingParams:(int)idCard value:value];
     }
 }
 
@@ -329,10 +480,15 @@ typedef NS_ENUM(NSInteger, GreenType) {
     BOOL restore = NO;
     for (NSInteger i = 0; i < self.editArray.count; i++) {
         NSDictionary *dict = self.editArray[i];
+        BOOL tempTag = NO;
         int value = [HTTool getFloatValueForKey:dict[@"key"]];
         if (value != [dict[@"defaultValue"] integerValue]) {
             // 可以恢复
             restore = YES;
+            tempTag = YES;
+            break;
+        }
+        if (tempTag) {
             break;
         }
     }
@@ -386,13 +542,7 @@ typedef NS_ENUM(NSInteger, GreenType) {
     for (int i = 0; i < self.editArray.count; i++) {
         HTModel *model = [[HTModel alloc] initWithDic:self.editArray[i]];
         [HTTool setFloatValue:model.defaultValue forKey:model.key];
-        if (model.idCard == 0) {
-            [[HTEffect shareInstance] setGSSegEffectSimilarity:(int)model.defaultValue];
-        }else if (model.idCard == 1) {
-            [[HTEffect shareInstance] setGSSegEffectSmoothness:(int)model.defaultValue];
-        }else {
-            [[HTEffect shareInstance] setGSSegEffectTransparency:(int)model.defaultValue];
-        }
+        [[HTEffect shareInstance] setChromaKeyingParams:model.idCard value:(int)model.defaultValue];
     }
     
     // 更新数据源
@@ -456,6 +606,12 @@ typedef NS_ENUM(NSInteger, GreenType) {
         make.left.right.bottom.mas_equalTo(self);
     }];
     self.bgCollectionView.hidden = YES;
+    
+    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancEditlEevent:)];
+    tapGesture.delegate = self;
+    tapGesture.name = @"cancEditlTap";
+    //将手势添加到需要相应的view中去
+    [self.bgCollectionView addGestureRecognizer:tapGesture];
 }
 
 #pragma mark 创建标题栏

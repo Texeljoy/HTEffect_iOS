@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /**
  
-    风格 功能视图
+    妆容推荐(风格) 功能视图
  
  */
 @interface HTBeautyStyleView : UIView
@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) void (^onClickBlock)(NSInteger index);
 
 - (instancetype)initWithFrame:(CGRect)frame listArr:(NSArray *)listArr;
+
+@property (nonatomic, assign) BOOL isThemeWhite;
 
 @end
 

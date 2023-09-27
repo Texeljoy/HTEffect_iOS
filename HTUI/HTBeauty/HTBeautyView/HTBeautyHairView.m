@@ -61,11 +61,7 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    if (section == 0) {
-        return UIEdgeInsetsMake(0, HTWidth(12.5), 0, 0);
-    }else{
-        return UIEdgeInsetsMake(0, 0, 0, 0);
-    }
+    return UIEdgeInsetsMake(0, HTWidth(12), 0, HTWidth(12));
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -76,15 +72,18 @@
     
     HTFilterStyleViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"HTFilterStyleViewCell" forIndexPath:indexPath];
     HTModel *indexModel = [[HTModel alloc] initWithDic:self.listArr[indexPath.row]];
-    [cell.item setImage:[UIImage imageNamed:indexModel.icon] imageWidth:HTWidth(55) title:indexModel.title];
-    if (indexModel.selected) {
-        [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : MAIN_COLOR];
-    }else{
-        [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0)];
-    }
-    [cell setItemCornerRadius:HTWidth(5)];
-    [cell setMaskViewColor:HTColor(185, 174, 173, 0.8) selected:indexModel.selected];
-    [cell.item setTextFont:HTFontRegular(12)];
+    
+    [cell setModel:indexModel isWhite:self.isThemeWhite];
+    
+//    [cell.item setImage:[UIImage imageNamed:indexModel.icon] imageWidth:HTWidth(55) title:indexModel.title];
+//    if (indexModel.selected) {
+//        [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : MAIN_COLOR];
+//    }else{
+//        [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0)];
+//    }
+//    [cell setItemCornerRadius:HTWidth(5)];
+//    [cell setMaskViewColor:COVER_COLOR selected:indexModel.selected];
+//    [cell.item setTextFont:HTFontRegular(12)];
     
     return cell;
     

@@ -121,7 +121,7 @@ static NSString *const HTGestureViewCellId = @"HTGestureViewCellId";
     if (!_effectView) {
         NSDictionary *dic = self.listArr[0];
         _effectView = [[HTGestureEffectView alloc] initWithFrame:CGRectZero listArr:dic[@"classify"]];
-        WeakSelf;
+//        WeakSelf;
         _effectView.didSelectedModelBlock = ^(HTModel * _Nonnull model, NSInteger index) {
             
 //            weakSelf.currentModel = model;

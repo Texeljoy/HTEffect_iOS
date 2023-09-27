@@ -13,7 +13,7 @@
 
 @interface HTBeautyStyleView ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
-@property (nonatomic, strong) UICollectionView *menuCollectionView;
+@property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) HTModel *selectedModel;
 @property (nonatomic, strong) NSMutableArray *listArr;
 
@@ -23,19 +23,19 @@ static NSString *const HTBeautyStyleViewCellId = @"HTBeautyStyleViewCellId";
 
 @implementation HTBeautyStyleView
 
-- (UICollectionView *)menuCollectionView{
-    if (!_menuCollectionView) {
+- (UICollectionView *)collectionView{
+    if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         layout.minimumLineSpacing = 0;
-        _menuCollectionView =[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-        _menuCollectionView.showsHorizontalScrollIndicator = NO;
-        _menuCollectionView.backgroundColor = [UIColor clearColor];
-        _menuCollectionView.dataSource= self;
-        _menuCollectionView.delegate = self;
-        [_menuCollectionView registerClass:[HTFilterStyleViewCell class] forCellWithReuseIdentifier:HTBeautyStyleViewCellId];
+        _collectionView =[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.backgroundColor = [UIColor clearColor];
+        _collectionView.dataSource= self;
+        _collectionView.delegate = self;
+        [_collectionView registerClass:[HTFilterStyleViewCell class] forCellWithReuseIdentifier:HTBeautyStyleViewCellId];
     }
-    return _menuCollectionView;
+    return _collectionView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame listArr:(NSArray *)listArr
@@ -49,8 +49,8 @@ static NSString *const HTBeautyStyleViewCellId = @"HTBeautyStyleViewCellId";
         model.selected = YES;
         [self.listArr replaceObjectAtIndex:0 withObject:[HTTool getDictionaryWithHTModel:model]];
         self.selectedModel = model;
-        [self addSubview:self.menuCollectionView];
-        [self.menuCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self addSubview:self.collectionView];
+        [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.right.bottom.height.equalTo(self);
         }];
     }
@@ -60,33 +60,24 @@ static NSString *const HTBeautyStyleViewCellId = @"HTBeautyStyleViewCellId";
 
 #pragma mark ---UICollectionViewDataSource---
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if(!self.listArr){
-        return 0;
-    }
     return self.listArr.count;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    if (section == 0) {
-        return UIEdgeInsetsMake(0, HTWidth(15), 0, 0);
-    }else{
-        return UIEdgeInsetsMake(0, 0, 0, 0);
-    }
+    return UIEdgeInsetsMake(0, HTWidth(12), 0, HTWidth(12));
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(HTWidth(65) ,HTHeight(69));
+//    return CGSizeMake(HTWidth(65) ,HTHeight(69));
+    return CGSizeMake(HTWidth(70) ,HTHeight(77));
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     HTFilterStyleViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HTBeautyStyleViewCellId forIndexPath:indexPath];
     HTModel *indexModel = [[HTModel alloc] initWithDic:self.listArr[indexPath.row]];
-    [cell.item setImage:[UIImage imageNamed:indexModel.icon] imageWidth:HTWidth(55) title:indexModel.title];
-    [cell.item setTextColor:HTColors(255, 1.0)];
-    [cell.item setTextBackgroundColor:[UIColor colorWithHexString:indexModel.fillColor withAlpha:1.0]];
-    [cell setMaskViewColor:[UIColor colorWithHexString:indexModel.fillColor withAlpha:0.6] selected:indexModel.selected];
-    [cell.item setTextFont:HTFontRegular(11)];
+    
+    [cell setModel:indexModel isWhite:self.isThemeWhite];
     
     return cell;
     
@@ -106,13 +97,9 @@ static NSString *const HTBeautyStyleViewCellId = @"HTBeautyStyleViewCellId";
     [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:lastSelectIndex inSection:0],indexPath]];
     self.selectedModel = indexModel;
     
-//    [[HTEffect shareInstance] setStyle:self.selectedModel.idCard];
-    
-//    if(self.selectedModel.idCard == 0){
-//        [HTTool initEffectValue];
-//    }else{
-//        [[HTEffect shareInstance] setStyle:self.selectedModel.idCard];
-//    }
+    //保存妆容推荐的选中位置
+    [HTTool setFloatValue:indexPath.row forKey:HT_LIGHT_MAKEUP_SELECTED_POSITION];
+    // 设置特效
     [[HTEffect shareInstance] setStyle:self.selectedModel.idCard];
     
     if (self.onClickBlock) {
@@ -129,6 +116,12 @@ static NSString *const HTBeautyStyleViewCellId = @"HTBeautyStyleViewCellId";
         }
     }
     return -1;
+}
+
+#pragma mark - 主题切换
+- (void)setIsThemeWhite:(BOOL)isThemeWhite {
+    _isThemeWhite = isThemeWhite;
+    [self.collectionView reloadData];
 }
 
 @end
