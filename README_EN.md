@@ -284,7 +284,13 @@ isRenderInit = false;
 ---
 
 ## **Recent updates**
-- **2023.09.27:** v3.0.0
+- **2023.11.20:** v3.0.0
+    - Green screen cutout with added background image local upload function
+    - Improve the effectiveness of beauty and makeup recommendations
+    - Optimization of underlying algorithms such as hairdressing, portrait cutout, gesture recognition, and green screen cutout
+    - Solved some known issues
+
+- **2023.09.27:** v3.0.0-beta
     - Add makeup effects, including eyebrows, powder blusher, eye shadow, eyeliner, eyelashes, lipstick, pupil and other effects
     - Add makeup recommendation effects, including various popular makeup effects such as fox beauty, pure desire, girl group, etc
     - Add body shape effects, including long legs and slimming
