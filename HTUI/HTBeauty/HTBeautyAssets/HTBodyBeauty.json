@@ -1,0 +1,30 @@
+{
+    "HTBodyBeauty": [
+        {
+            "title": "长腿",
+            "name": "leg_slimming",
+            "idCard":0,
+            "selected": true,
+            "subType": false,
+            "opened": false,
+            "icon": "longleg_nor.png",
+            "selectedIcon":"longleg_sel.png",
+            "key":"HT_SKIN_BODY_LENSLIMMING",
+            "defaultValue":0,
+            "sliderType":1
+        },
+        {
+            "title": "瘦身",
+            "name": "body_thinning",
+            "idCard":1,
+            "selected": false,
+            "subType": false,
+            "opened": false,
+            "icon": "thin_nor.png",
+            "selectedIcon":"thin_sel.png",
+            "key":"HT_SKIN_BODY_BODYTHINNING",
+            "defaultValue":0,
+            "sliderType":1
+        }
+    ]
+}
