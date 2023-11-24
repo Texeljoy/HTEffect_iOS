@@ -9,7 +9,7 @@
             "icon": "whitening.png",
             "selectedIcon":"whitening_selected.png",
             "key":"HT_SKIN_WHITENING_SLIDER",
-            "defaultValue":50,
+            "defaultValue":80,
             "sliderType":1
         },
         {
@@ -21,7 +21,7 @@
             "icon": "fineBlurriness.png",
             "selectedIcon":"fineBlurriness_selected.png",
             "key":"HT_SKIN_FINEBLURRINESS_SLIDER",
-            "defaultValue":60,
+            "defaultValue":100,
             "sliderType":1
         },
         {
@@ -45,7 +45,7 @@
             "icon": "clearness.png",
             "selectedIcon":"clearness_selected.png",
             "key":"HT_SKIN_CLEARNESS_SLIDER",
-            "defaultValue":60,
+            "defaultValue":5,
             "sliderType":1
         },
         {

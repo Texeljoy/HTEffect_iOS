@@ -37,7 +37,7 @@
             "icon": "vCheek.png",
             "selectedIcon":"vCheek_selected.png",
             "key":"HT_FACE_VCHEEK_SLIDER",
-            "defaultValue":60,
+            "defaultValue":50,
             "sliderType":1
         },
         {

@@ -674,5 +674,4 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
  */
 - (void)setResourcePath:(NSString *)path;
 
-
 @end

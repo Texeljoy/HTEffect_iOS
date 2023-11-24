@@ -284,6 +284,10 @@ isRenderInit = false;
 ---
 
 ## **Recent updates**
+- **2023.11.23:** v3.0.1
+    - Improve the beauty fit
+    - Optimize the stretching of beauty eyeliner
+
 - **2023.11.20:** v3.0.0
     - Green screen cutout with added background image local upload function
     - Improve the effectiveness of beauty and makeup recommendations
