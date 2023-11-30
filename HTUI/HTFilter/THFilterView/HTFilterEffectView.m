@@ -51,7 +51,12 @@ static NSString *const HTFilterHahaViewCellId = @"HTFilterHahaViewCellId";
              if (self.onUpdateSliderHiddenBlock) {
                  self.onUpdateSliderHiddenBlock(self.selectedModel,index);
              }
+             
+             // 初始化默认选择效果
+//             NSInteger index = [HTTool getFloatValueForKey:HT_STYLE_FILTER_SELECTED_POSITION];
+             [self collectionView:self.menuCollectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
            });
+        
     }
     return self;
 }

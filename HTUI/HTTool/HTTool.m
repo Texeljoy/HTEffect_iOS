@@ -110,12 +110,12 @@
     
     /********** 滤镜 **********/
     // 缓存
-    [HTTool setObject:@"" forKey:HT_STYLE_FILTER_NAME];
-    [HTTool setFloatValue:0 forKey:HT_STYLE_FILTER_SELECTED_POSITION];
+    [HTTool setObject:FilterStyleDefaultName forKey:HT_STYLE_FILTER_NAME];
+    [HTTool setFloatValue:FilterStyleDefaultPositionIndex forKey:HT_STYLE_FILTER_SELECTED_POSITION];
     [HTTool setFloatValue:0 forKey:HT_EFFECT_FILTER_SELECTED_POSITION];
     [HTTool setFloatValue:0 forKey:HT_HAHA_FILTER_SELECTED_POSITION];
-    // 效果
-    [[HTEffect shareInstance] setFilter:HTFilterBeauty name:@""];
+    // 效果 - 风格滤镜本地缓存
+    [[HTEffect shareInstance] setFilter:HTFilterBeauty name:FilterStyleDefaultName];
     [[HTEffect shareInstance] setFilter:HTFilterEffect name:@"0"];
     [[HTEffect shareInstance] setFilter:HTFilterFunny name:@"0"];
     
@@ -177,10 +177,19 @@
     // 手势特效选择的位置缓存
     [HTTool setFloatValue:0 forKey:HT_GESTURE_SELECTED_POSITION];
     // 滤镜选择的位置缓存
-    [HTTool setObject:@"" forKey:HT_STYLE_FILTER_NAME];
-    [HTTool setFloatValue:0 forKey:HT_STYLE_FILTER_SELECTED_POSITION];
     [HTTool setFloatValue:0 forKey:HT_EFFECT_FILTER_SELECTED_POSITION];
     [HTTool setFloatValue:0 forKey:HT_HAHA_FILTER_SELECTED_POSITION];
+    // 风格滤镜本地缓存
+    NSString *filterStyleName = [HTTool getObjectForKey:HT_STYLE_FILTER_NAME];
+    if (filterStyleName) {
+        [[HTEffect shareInstance] setFilter:HTFilterBeauty name:filterStyleName];
+    }else {
+        [HTTool setObject:FilterStyleDefaultName forKey:HT_STYLE_FILTER_NAME];
+        [HTTool setFloatValue:FilterStyleDefaultPositionIndex forKey:HT_STYLE_FILTER_SELECTED_POSITION];
+        [[HTEffect shareInstance] setFilter:HTFilterBeauty name:FilterStyleDefaultName];
+    }
+    
+    
     
     
     /********** 美发 **********/

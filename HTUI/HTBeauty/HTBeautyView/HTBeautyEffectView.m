@@ -268,15 +268,9 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
 //    self.currentType = [dic[@"type"] integerValue];
     if (self.currentType == HT_Beauty) {
         for (int i = 0; i < self.listArr.count; i++) {
-            if (i == 1) {
-                [HTTool setFloatValue:60 forKey:@"HT_SKIN_FINEBLURRINESS_SLIDER"];
-                [[HTEffect shareInstance] setBeauty:2 value:60];
-                [HTTool setFloatValue:0 forKey:@"HT_SKIN_HAZYBLURRINESS_SLIDER"];
-            }else{
-                HTModel *model = [[HTModel alloc] initWithDic:self.listArr[i]];
-                [HTTool setFloatValue:model.defaultValue forKey:model.key];
-                [[HTEffect shareInstance] setBeauty:model.idCard value:(int)model.defaultValue];
-            }
+            HTModel *model = [[HTModel alloc] initWithDic:self.listArr[i]];
+            [HTTool setFloatValue:model.defaultValue forKey:model.key];
+            [[HTEffect shareInstance] setBeauty:model.idCard value:(int)model.defaultValue];
         }
     }else{
         for (int i = 0; i < self.listArr.count; i++) {

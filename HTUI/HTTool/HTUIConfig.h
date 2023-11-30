@@ -129,7 +129,8 @@ typedef NS_ENUM(NSInteger, HTARItemType) {
  
 
 // 滤镜滑动条默认参数
-#define FilterValue 100
+#define FilterStyleDefaultName @"ziran3"
+#define FilterStyleDefaultPositionIndex 3
 
 
 

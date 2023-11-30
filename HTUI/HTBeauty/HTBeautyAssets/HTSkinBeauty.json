@@ -9,7 +9,7 @@
             "icon": "whitening.png",
             "selectedIcon":"whitening_selected.png",
             "key":"HT_SKIN_WHITENING_SLIDER",
-            "defaultValue":80,
+            "defaultValue":70,
             "sliderType":1
         },
         {
@@ -21,7 +21,7 @@
             "icon": "fineBlurriness.png",
             "selectedIcon":"fineBlurriness_selected.png",
             "key":"HT_SKIN_FINEBLURRINESS_SLIDER",
-            "defaultValue":100,
+            "defaultValue":80,
             "sliderType":1
         },
         {

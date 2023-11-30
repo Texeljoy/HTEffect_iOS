@@ -284,6 +284,10 @@ isRenderInit = false;
 ---
 
 ## **Recent updates**
+- **2023.11.30:** v3.0.2
+    - Optimize grinding and clear algorithm
+    - Solved some known issues
+
 - **2023.11.23:** v3.0.1
     - Improve the beauty fit
     - Optimize the stretching of beauty eyeliner
