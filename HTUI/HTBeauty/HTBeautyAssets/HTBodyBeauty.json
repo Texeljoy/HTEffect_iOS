@@ -2,6 +2,7 @@
     "HTBodyBeauty": [
         {
             "title": "长腿",
+            "title_en": "Leg Length",
             "name": "leg_slimming",
             "idCard":0,
             "selected": true,
@@ -15,6 +16,7 @@
         },
         {
             "title": "瘦身",
+            "title_en": "Slim",
             "name": "body_thinning",
             "idCard":1,
             "selected": false,

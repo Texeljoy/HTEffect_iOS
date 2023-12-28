@@ -2,6 +2,7 @@
     "HTMakeupBeauty": [
         {
             "title": "口红",
+            "title_en": "Lipstick",
             "name": "ht_makeup_lipstick",
             "idCard":0,
             "selected": true,
@@ -14,6 +15,7 @@
         },
         {
             "title": "眉毛",
+            "title_en": "Eyebrow",
             "name": "ht_makeup_eyebrow",
             "idCard":1,
             "selected": false,
@@ -26,6 +28,7 @@
         },
         {
             "title": "腮红",
+            "title_en": "Blush",
             "name": "ht_makeup_blush",
             "idCard":2,
             "selected": false,
@@ -38,6 +41,7 @@
         },
         {
             "title": "眼影",
+            "title_en": "Eyeshadow",
             "name": "ht_makeup_eyeshadow",
             "idCard":3,
             "selected": false,
@@ -50,6 +54,7 @@
         },
         {
             "title": "眼线",
+            "title_en": "Eyeline",
             "name": "ht_makeup_eyeline",
             "idCard":4,
             "selected": false,
@@ -62,6 +67,7 @@
         },
         {
             "title": "睫毛",
+            "title_en": "Eyelash",
             "name": "ht_makeup_eyelash",
             "idCard":5,
             "selected": false,
@@ -74,6 +80,7 @@
         },
         {
             "title": "美瞳",
+            "title_en": "Pupils",
             "name": "ht_makeup_pupils",
             "idCard":6,
             "selected": false,

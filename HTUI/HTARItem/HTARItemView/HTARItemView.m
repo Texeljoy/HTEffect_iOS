@@ -116,22 +116,20 @@ NSString *waterMarkPath = @"";
 - (NSArray *)listArr{
     _listArr = @[
         @{
-            @"name":@"贴纸",
-            @"classify":[HTTool jsonModeForPath:arItemPath withKey:@"ht_sticker"]
-        },
-        //TODO: 换成面具
-        @{
-            @"name":@"面具",
-            @"classify":[HTTool jsonModeForPath:maskPath withKey:@"ht_mask"]
-        },
-        //TODO: 换成礼物
-        @{
-            @"name":@"礼物",
-            @"classify":[HTTool jsonModeForPath:giftPath withKey:@"ht_gift"]
+            @"name": [HTTool isCurrentLanguageChinese] ? @"贴纸" : @"Sticker",
+            @"classify": [HTTool jsonModeForPath:arItemPath withKey:@"ht_sticker"]
         },
         @{
-            @"name":@"水印",
-            @"classify":[HTTool jsonModeForPath:waterMarkPath withKey:@"ht_watermark"]
+            @"name": [HTTool isCurrentLanguageChinese] ? @"面具" : @"Mask",
+            @"classify": [HTTool jsonModeForPath:maskPath withKey:@"ht_mask"]
+        },
+        @{
+            @"name": [HTTool isCurrentLanguageChinese] ? @"礼物" : @"Gift",
+            @"classify": [HTTool jsonModeForPath:giftPath withKey:@"ht_gift"]
+        },
+        @{
+            @"name": [HTTool isCurrentLanguageChinese] ? @"水印" : @"Watermark",
+            @"classify": [HTTool jsonModeForPath:waterMarkPath withKey:@"ht_watermark"]
         }];
     return _listArr;
 }

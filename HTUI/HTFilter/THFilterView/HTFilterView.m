@@ -106,15 +106,15 @@
 - (NSArray *)listArr{
     _listArr = @[
         @{
-            @"name":@"风格滤镜",
+            @"name":[HTTool isCurrentLanguageChinese] ? @"风格滤镜" : @"Style",
             @"classify":[HTTool jsonModeForPath:[[[HTEffect shareInstance] getFilterPath] stringByAppendingFormat:@"ht_style_filter_config.json"] withKey:@"ht_style_filter"]
         },
         @{
-            @"name":@"特效滤镜",
+            @"name":[HTTool isCurrentLanguageChinese] ? @"特效滤镜" : @"Special",
             @"classify":[HTTool jsonModeForPath:[[[HTEffect shareInstance] getFilterPath] stringByAppendingFormat:@"ht_effect_filter_config.json"] withKey:@"ht_effect_filter"]
         },
         @{
-            @"name":@"哈哈镜",
+            @"name":[HTTool isCurrentLanguageChinese] ? @"哈哈镜" : @"Distorting",
             @"classify":[HTTool jsonModeForPath:[[[HTEffect shareInstance] getFilterPath] stringByAppendingFormat:@"ht_haha_filter_config.json"] withKey:@"ht_haha_filter"]
         }
       ];
@@ -182,7 +182,7 @@
 - (UILabel *)confirmLabel{
     if (!_confirmLabel) {
         _confirmLabel = [[UILabel alloc] init];
-        _confirmLabel.text = @"请先关闭妆容推荐";
+        _confirmLabel.text = [HTTool isCurrentLanguageChinese] ? @"请先关闭妆容推荐" : @"Please turn off MakeupStyle first";
         _confirmLabel.font = HTFontMedium(15);
         _confirmLabel.textColor = UIColor.whiteColor;
         _confirmLabel.textAlignment = NSTextAlignmentCenter;

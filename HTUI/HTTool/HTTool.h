@@ -81,6 +81,7 @@ extern UIViewController * GetCurrentActivityViewController(void);
  */
 +(void)showHUD:(NSString *)title;
 
++ (BOOL)isCurrentLanguageChinese;
 @end
 
 NS_ASSUME_NONNULL_END

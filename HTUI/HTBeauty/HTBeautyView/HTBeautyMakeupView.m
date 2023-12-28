@@ -524,7 +524,7 @@ typedef NS_ENUM(NSInteger, MakeupLevel) {
 - (HTButton *)makeupResetButton{
     if (!_makeupResetButton) {
         _makeupResetButton = [[HTButton alloc] init];
-        [_makeupResetButton setImageWidthAndHeight:HTWidth(45) title:@"恢复"];
+        [_makeupResetButton setImageWidthAndHeight:HTWidth(45) title:[HTTool isCurrentLanguageChinese] ? @"恢复" : @"Restore"];
         [_makeupResetButton setImage:[UIImage imageNamed:@"ht_reset_disabled"]];
         [_makeupResetButton setTextColor:HTColors(189, 0.6)];
         [_makeupResetButton setTextFont:HTFontRegular(12)];

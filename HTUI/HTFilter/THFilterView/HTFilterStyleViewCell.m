@@ -8,6 +8,7 @@
 #import "HTFilterStyleViewCell.h"
 #import "HTUIConfig.h"
 #import "HTButton.h"
+#import "HTTool.h"
 
 @interface HTFilterStyleViewCell ()
 
@@ -81,7 +82,7 @@
 #pragma mark - 赋值
 - (void)setModel:(HTModel *)model isWhite:(BOOL)isWhite{
     
-    [self.item setImage:[UIImage imageNamed:model.icon] imageWidth:HTWidth(55) title:model.title];
+    [self.item setImage:[UIImage imageNamed:model.icon] imageWidth:HTWidth(55) title:[HTTool isCurrentLanguageChinese] ? model.title : model.title_en];
     if (model.selected) {
         [self.item setTextColor:isWhite ? [UIColor blackColor] : MAIN_COLOR];
     }else{
@@ -95,7 +96,7 @@
 #pragma mark - 美妆空cell赋值
 - (void)setNoneImage:(BOOL)selected isThemeWhite:(BOOL)isWhite{
     
-    [self.item setImage:[UIImage imageNamed:@"makeup_none"] imageWidth:HTWidth(55) title:@"无"];
+    [self.item setImage:[UIImage imageNamed:@"makeup_none"] imageWidth:HTWidth(55) title:[HTTool isCurrentLanguageChinese] ? @"无" : @"None"];
     if (selected) {
         [self.item setTextColor:isWhite ? [UIColor blackColor] : MAIN_COLOR];
     }else{

@@ -8,6 +8,7 @@
 #import "HTOptionalView.h"
 #import "HTMenuCell.h"
 #import "HTUIConfig.h"
+#import "HTTool.h"
 
 @interface HTOptionalView ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -44,27 +45,27 @@
         
         self.listArr = @[
             @{
-                @"title":@"美颜",
+                @"title":[HTTool isCurrentLanguageChinese] ? @"美颜" : @"Beauty",
                 @"image":@"function_beauty",
                 @"34_image": @"34_function_beauty",
             },
             @{
-                @"title":@"AR道具",
+                @"title":[HTTool isCurrentLanguageChinese] ? @"AR道具" : @"AR Props",
                 @"image":@"function_AR",
                 @"34_image": @"34_function_AR",
             },
             @{
-                @"title":@"AI抠图",
+                @"title":[HTTool isCurrentLanguageChinese] ? @"抠图" : @"Segment",
                 @"image":@"function_AI",
                 @"34_image": @"34_function_AI",
             },
             @{
-                @"title":@"手势特效",
+                @"title":[HTTool isCurrentLanguageChinese] ? @"手势特效" : @"Gesture",
                 @"image":@"function_gesture",
                 @"34_image": @"34_function_gesture",
             },
             @{
-                @"title":@"滤镜",
+                @"title":[HTTool isCurrentLanguageChinese] ? @"滤镜" : @"Filter",
                 @"image":@"function_filter",
                 @"34_image": @"34_function_filter",
             },

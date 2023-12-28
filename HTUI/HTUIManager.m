@@ -62,10 +62,18 @@
         self.contentMode = HTEffectViewContentModeScaleAspectFill;
         self.resolutionSize = CGSizeMake(720, 1280);
         
-        // 初始化相关参数
-        int value = [HTTool getFloatValueForKey:HT_ALL_EFFECT_CACHES];
-        if (value == 0) {
-            NSLog(@"---------------  initEffectValue");
+        // app名称
+        NSString *AppName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+//        NSLog(@"======= %@", AppName);
+        if ([AppName isEqualToString:@"HTEffect"]) {
+            int value = [HTTool getFloatValueForKey:HT_ALL_EFFECT_CACHES];
+            if (value == 0) {
+                NSLog(@"---------------  initEffectValue_1");
+                [HTTool initEffectValue];
+            }
+        }else {
+            // 初始化相关参数
+            NSLog(@"---------------  initEffectValue_2");
             [HTTool initEffectValue];
         }
     }
@@ -145,7 +153,7 @@
             weakSelf.superWindow.hidden = NO;
             // 关闭退出手势--防止被打断
             weakSelf.exitEnable = YES;
-            [HTRestoreAlertView showWithTitle:@"是否将所有效果恢复到默认?" delegate:weakSelf];
+            [HTRestoreAlertView showWithTitle:[HTTool isCurrentLanguageChinese] ? @"是否将所有效果恢复到默认?" : @"Reset all parameters to default?" delegate:weakSelf];
         };
         
         _defaultButton.defaultButtonVideoBlock = ^(NSInteger status) {
@@ -590,7 +598,7 @@
             });
         }
     }
-    NSLog(@"人脸数量:%lu",(unsigned long)array.count);
+    NSLog(@"face number:%lu",(unsigned long)array.count);
 }
 
 

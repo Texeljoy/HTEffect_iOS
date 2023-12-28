@@ -2,6 +2,7 @@
     "ht_matting_edit": [
         {
             "name": "相似度",
+            "title_en": "Similarity",
             "idCard":0,
             "selected": true,
             "subType": false,
@@ -14,6 +15,7 @@
         },
         {
             "name": "平滑度",
+            "title_en": "Smooth",
             "idCard":1,
             "selected": false,
             "subType": false,
@@ -26,6 +28,7 @@
         },
         {
             "name": "祛色度",
+            "title_en": "Decolor",
             "idCard":2,
             "selected": false,
             "subType": false,
@@ -38,6 +41,7 @@
         },
         {
             "name": "透明度",
+            "title_en": "Alpha",
             "idCard":3,
             "selected": false,
             "subType": false,

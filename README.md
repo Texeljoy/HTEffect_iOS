@@ -77,12 +77,12 @@ pod install
 /**
 * 在线鉴权初始化方法
 */
-[[HTEffect shareInstance] initHTEffect:@"YOUR_APP_ID" withDelegate:self];
+[[HTEffect shareInstance] initHTEffect:@"YOUR_APPID" withDelegate:self];
 
 /**
 * 离线鉴权初始化方法
 */
-// [[HTEffect shareInstance] initHTEffect:@"YOUR_APP_ID"];
+// [[HTEffect shareInstance] initHTEffect:@"YOUR_LICENSE"];
 ```
 
 - (可选) 如果需要使用 HTUI，您可以在 viewDidLoad 中添加以下方法
@@ -159,12 +159,12 @@ implementation project(':htui')
 - HTEffect 初始化函数程序中调用一次即可生效，建议您在 Application 创建的时候调用;如果渲染功能使用不频繁，也可以在使用的时候调用，接口如下
 ```java
 // 在线鉴权初始化方法
-HTEffect.shareInstance().initHTEffect(context, "YOUR_APP_ID", new InitCallback() {
+HTEffect.shareInstance().initHTEffect(context, "YOUR_APPID", new InitCallback() {
         @Override public void onInitSuccess() {}
         @Override public void onInitFailure() {}
 });
 // 离线鉴权初始化方法
-//HTEffect.shareInstance().initHTEffect(context,"YOUR_APP_ID");
+//HTEffect.shareInstance().initHTEffect(context,"YOUR_LICENSE");
 ```
 
 **添加 HTUI (可选)**
@@ -242,6 +242,12 @@ isRenderInit = false;
 ----
 
 ## **最近更新**
+- **2023.12.28:** v3.1.0
+    - 优化手势特效底层算法
+    - 增加对部分透明图片的渲染支持
+    - 完善日志系统的输出打印
+    - 解决了一些已知问题
+
 - **2023.11.30:** v3.0.2
     - 优化磨皮、清晰算法
     - 解决了一些已知问题

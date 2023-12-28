@@ -59,16 +59,25 @@
  */
 @interface HTHandDetectionReport : NSObject
 
-/// 人手识别准概率
+/// 人手识别概率值
 @property (nonatomic, assign) CGFloat score;
+
+/// 人手区域矩形框
+@property (nonatomic, assign) CGRect rect;
+
+/// 人手区域中心点坐标
+@property (nonatomic, assign) CGPoint centerPoint;
+
+/// 人手（偏离正向）角度
+@property (nonatomic, assign) CGFloat rotation;
+
+/// 人手区域顶点坐标
+@property (nonatomic, assign) CGPoint *position;
 
 /// 人手骨骼关键点坐标
 @property (nonatomic, assign) CGPoint *keyPoints;
 
-/// 人手区域坐标
-@property (nonatomic, assign) CGPoint *position;
-
-/// 手势类型
+/// 手势类型 @see HTGestureEnum
 @property (nonatomic, assign) int gesture;
 
 @end
@@ -249,6 +258,31 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
     HTRotationClockwise90  = 90,
     HTRotationClockwise180 = 180,
     HTRotationClockwise270 = 270
+};
+
+/**
+ * 手势分类枚举
+ */
+typedef NS_ENUM(NSInteger, HTGestureEnum) {
+    HTGestureCall           = 0,
+    HTGestureDislike        = 1,
+    HTGestureFist           = 2,
+    HTGestureFour           = 3,
+    HTGestureLike           = 4,
+    HTGestureMute           = 5,
+    HTGestureOK             = 6,
+    HTGestureOne            = 7,
+    HTGesturePalm           = 8,
+    HTGesturePeace          = 9,
+    HTGestureRock           = 10,
+    HTGestureStop           = 11,
+    HTGestureStopInverted   = 12,
+    HTGestureThree          = 13,
+    HTGestureTwoUp          = 14,
+    HTGestureTwoUpInverted  = 15,
+    HTGestureThree2         = 16,
+    HTGesturePeaceInverted  = 17,
+    HTGestureNoGesture      = 18
 };
 
 #pragma mark - 单例
@@ -632,6 +666,13 @@ typedef NS_ENUM(NSInteger, HTRotationEnum){
 - (NSArray<HTPoseDetectionReport *> *)getPoseDetectionReport;
 
 #pragma mark - 其它
+
+/**
+ * 部分透明图渲染支持开关
+ *
+ * @param enable 开启为true， 关闭为false， 默认关闭
+ */
+- (void)setTransparencyRenderEnable:(BOOL)enable;
 
 /**
  * 获取当前 SDK 版本号

@@ -2,6 +2,7 @@
     "HTSkinBeauty": [
         {
             "title": "美白",
+            "title_en": "Whiteness",
             "idCard":0,
             "selected": true,
             "subType": false,
@@ -14,6 +15,7 @@
         },
         {
             "title": "磨皮",
+            "title_en": "Exfoliating",
             "idCard":1,
             "selected": false,
             "subType": false,
@@ -26,6 +28,7 @@
         },
         {
             "title": "红润",
+            "title_en": "Ruddy",
             "idCard":2,
             "selected": false,
             "subType": false,
@@ -38,6 +41,7 @@
         },
         {
             "title": "清晰",
+            "title_en": "Distinctive",
             "idCard":3,
             "selected": false,
             "subType": false,
@@ -50,6 +54,7 @@
         },
         {
             "title": "亮度",
+            "title_en": "Brightness",
             "idCard":4,
             "selected": false,
             "subType": false,
@@ -62,6 +67,7 @@
         },
         {
             "title": "去黑眼圈",
+            "title_en": "Black eye",
             "idCard":5,
             "selected": false,
             "subType": false,
@@ -74,6 +80,7 @@
         },
         {
             "title": "去法令纹",
+            "title_en": "Wrinkles",
             "idCard":6,
             "selected": false,
             "subType": false,

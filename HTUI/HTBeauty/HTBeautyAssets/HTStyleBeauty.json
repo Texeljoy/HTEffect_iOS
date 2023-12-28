@@ -2,6 +2,7 @@
     "HTStyleBeauty": [
         {
             "title": "原图",
+            "title_en": "Original",
             "selected": true,
             "icon": "light_makeup_yt_icon.png",
             "fillColor":"#000000",
@@ -9,6 +10,7 @@
         },
         {
             "title": "清纯白花",
+            "title_en": "CM01",
             "selected": false,
             "icon": "light_makeup_qcbh_icon.png",
             "fillColor":"#B77F52",
@@ -16,6 +18,7 @@
         },
         {
             "title": "狐系美人",
+            "title_en": "CM02",
             "selected": false,
             "icon": "light_makeup_hxmr_icon.png",
             "fillColor":"#8B897A",
@@ -23,6 +26,7 @@
         },
         {
             "title": "清甜妆",
+            "title_en": "CM03",
             "selected": false,
             "icon": "light_makeup_qtz_icon.png",
             "fillColor":"#C49E97",
@@ -30,6 +34,7 @@
         },
         {
             "title": "白露",
+            "title_en": "CM04",
             "selected": false,
             "icon": "light_makeup_bl_icon.png",
             "fillColor":"#BC917F",
@@ -37,6 +42,7 @@
         },
         {
             "title": "冷调",
+            "title_en": "CM05",
             "selected": false,
             "icon": "light_makeup_ld_icon.png",
             "fillColor":"#7F6990",
@@ -44,6 +50,7 @@
         },
         {
             "title": "元气少女",
+            "title_en": "CM06",
             "selected": false,
             "icon": "light_makeup_yq_icon.png",
             "fillColor":"#97A5BF",
@@ -51,6 +58,7 @@
         },
         {
             "title": "女团",
+            "title_en": "CM07",
             "selected": false,
             "icon": "light_makeup_nt_icon.png",
             "fillColor":"#97A5BF",
@@ -58,6 +66,7 @@
         },
         {
             "title": "纯欲妆",
+            "title_en": "CM08",
             "selected": false,
             "icon": "light_makeup_cy_icon.png",
             "fillColor":"#97A5BF",

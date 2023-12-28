@@ -80,7 +80,7 @@ static NSString *const HTGestureViewCellId = @"HTGestureViewCellId";
 - (NSArray *)listArr{
     _listArr = @[
         @{
-            @"name":@"手势特效",
+            @"name":[HTTool isCurrentLanguageChinese] ? @"手势特效" : @"Gesture",
             @"classify":[HTTool jsonModeForPath:[[[HTEffect shareInstance] getGestureEffectPath] stringByAppendingFormat:@"ht_gesture_effect_config.json"] withKey:@"ht_gesture_effect"]
         }
       ];

@@ -2,6 +2,7 @@
     "HTFaceBeauty": [
         {
             "title": "大眼",
+            "title_en": "Big eye",
             "idCard":10,
             "selected": true,
             "icon": "eyeEnlarging.png",
@@ -12,6 +13,7 @@
         },
         {
             "title": "圆眼",
+            "title_en": "Round eyes",
             "idCard":11,
             "selected": false,
             "icon": "roundEye.png",
@@ -22,6 +24,7 @@
         },
         {
             "title": "瘦脸",
+            "title_en": "Thin face",
             "idCard":20,
             "selected": false,
             "icon": "cheekThinning.png",
@@ -32,6 +35,7 @@
         },
         {
             "title": "V脸",
+            "title_en": "V face",
             "idCard":21,
             "selected": false,
             "icon": "vCheek.png",
@@ -42,6 +46,7 @@
         },
         {
             "title": "窄脸",
+            "title_en": "Narrow face",
             "idCard":22,
             "selected": false,
             "icon": "cheekNarrowing.png",
@@ -52,6 +57,7 @@
         },
         {
             "title": "瘦颧骨",
+            "title_en": "Cheekbones",
             "idCard":23,
             "selected": false,
             "icon": "cheekboneThinning.png",
@@ -62,6 +68,7 @@
         },
         {
             "title": "瘦下颌骨",
+            "title_en": "Lower jaw",
             "idCard":24,
             "selected": false,
             "icon": "jawboneThinning.png",
@@ -72,6 +79,7 @@
         },
         {
             "title": "丰太阳穴",
+            "title_en": "Temple",
             "idCard":25,
             "selected": false,
             "icon": "temple.png",
@@ -82,6 +90,7 @@
         },
         {
             "title": "小头",
+            "title_en": "Small head",
             "idCard":26,
             "selected": false,
             "icon": "headSmaller.png",
@@ -92,6 +101,7 @@
         },
         {
             "title": "小脸",
+            "title_en": "Small face",
             "idCard":27,
             "selected": false,
             "icon": "faceLessening.png",
@@ -102,6 +112,7 @@
         },
         {
             "title": "短脸",
+            "title_en": "Short face",
             "idCard":28,
             "selected": false,
             "icon": "faceShorter.png",
@@ -112,6 +123,7 @@
         },
         {
             "title": "下巴",
+            "title_en": "Chin",
             "idCard":0,
             "selected": false,
             "icon": "chinTrimming.png",
@@ -122,6 +134,7 @@
         },
         {
             "title": "缩人中",
+            "title_en": "Shrink in",
             "idCard":2,
             "selected": false,
             "icon": "philtrumTrimming.png",
@@ -132,6 +145,7 @@
         },
         {
             "title": "发际线",
+            "title_en": "Hairline",
             "idCard":1,
             "selected": false,
             "icon": "forehead.png",
@@ -142,6 +156,7 @@
         },
         {
             "title": "眼间距",
+            "title_en": "Eye spacing",
             "idCard":12,
             "selected": false,
             "icon": "eyeSpacingTrimming.png",
@@ -152,6 +167,7 @@
         },
         {
             "title": "眼睛角度",
+            "title_en": "Eye corner",
             "idCard":13,
             "selected": false,
             "icon": "eyeAngle.png",
@@ -162,6 +178,7 @@
         },
         {
             "title": "开眼角",
+            "title_en": "Canthus",
             "idCard":14,
             "selected": false,
             "icon": "eyeCornerEnlarging.png",
@@ -172,6 +189,7 @@
         },
         {
             "title": "长鼻",
+            "title_en": "Long nose",
             "idCard":30,
             "selected": false,
             "icon": "noseEnlarging.png",
@@ -182,6 +200,7 @@
         },
         {
             "title": "瘦鼻",
+            "title_en": "Thin nose",
             "idCard":31,
             "selected": false,
             "icon": "noseThinning.png",
@@ -192,6 +211,7 @@
         },
         {
             "title": "鼻头",
+            "title_en": "Nose",
             "idCard":32,
             "selected": false,
             "icon": "nose.png",
@@ -202,6 +222,7 @@
         },
         {
             "title": "山根",
+            "title_en": "Flocks",
             "idCard":33,
             "selected": false,
             "icon": "noseRoot.png",
@@ -212,6 +233,7 @@
         },
         {
             "title": "嘴型",
+            "title_en": "Mouth",
             "idCard":40,
             "selected": false,
             "icon": "mouthTrimming.png",
@@ -222,6 +244,7 @@
         },
         {
             "title": "微笑嘴唇",
+            "title_en": "Smiling lips",
             "idCard":41,
             "selected": false,
             "icon": "mouthSmilingEnlarging.png",

@@ -152,7 +152,7 @@
     NSDictionary *dic = array[0];
     NSString *name = dic[@"name"];
     
-    if ([name isEqualToString:@"美发"]) {
+    if ([name isEqualToString:[HTTool isCurrentLanguageChinese] ? @"美发" : @"Hair"]) {
         self.menuView.disabled = NO;
         [self.hairView setHidden:YES];
         [self.effectView setHidden:YES];
@@ -176,7 +176,7 @@
         [self.menuView.menuCollectionView reloadData];
         [self.hairView setHidden:NO];
         
-    }else if ([name isEqualToString:@"妆容推荐"]) {
+    }else if ([name isEqualToString:[HTTool isCurrentLanguageChinese] ? @"妆容推荐" : @"MakeupStyle"]) {
         
         self.menuView.disabled = NO;
         [self.hairView setHidden:YES];
@@ -186,7 +186,7 @@
         [self.styleView setHidden:NO];
         [self.bodyView setHidden:YES];
         
-    }else if ([name isEqualToString:@"美妆"]) {
+    }else if ([name isEqualToString:[HTTool isCurrentLanguageChinese] ? @"美妆" : @"Makeup"]) {
         
         if (self.menuViewDisabled) {
             // 弹出提示框
@@ -216,7 +216,7 @@
             [self.makeupView setHidden:NO];
         }
         
-    }else if ([name isEqualToString:@"美体"]) {
+    }else if ([name isEqualToString:[HTTool isCurrentLanguageChinese] ? @"美体" : @"Body"]) {
         
         self.menuView.disabled = NO;
         [self.sliderRelatedView setHidden:YES];
@@ -247,7 +247,7 @@
         [self.makeupView setHidden:YES];
         [self.bodyView setHidden:YES];
         
-        if ([name isEqualToString:@"美颜"]) {
+        if ([name isEqualToString:[HTTool isCurrentLanguageChinese] ? @"美肤" : @"Skin"]) {
             //默认选择第一个
             HTModel *model = [[HTModel alloc] initWithDic:self.skinBeautyArray[0]];
             self.currentModel = model;
@@ -261,7 +261,7 @@
             [self.effectView updateBeautyAndShapeEffectData:newDic];
             [self.effectView setHidden:NO];
             [self.effectView updateResetButtonState:self.needResetBeauty];
-        }else if ([name isEqualToString:@"美型"]){
+        }else if ([name isEqualToString:[HTTool isCurrentLanguageChinese] ? @"美型" : @"Reshape"]){
             HTModel *model = [[HTModel alloc] initWithDic:self.faceBeautyArray[0]];
             self.currentModel = model;
             [self.sliderRelatedView.sliderView setSliderType:model.sliderType WithValue:[HTTool getFloatValueForKey:model.key]];
@@ -395,55 +395,55 @@
     if (!_listArr) {
         _listArr = @[
             @{
-                @"name":@"美颜",
+                @"name":[HTTool isCurrentLanguageChinese] ? @"美肤" : @"Skin",
                 @"classify":@[
                     @{
-                        @"name":@"美颜",
+                        @"name":[HTTool isCurrentLanguageChinese] ? @"美肤" : @"Skin",
                         @"value":self.skinBeautyArray
                     }
                 ]
             },
             @{
-                @"name":@"美型",
+                @"name":[HTTool isCurrentLanguageChinese] ? @"美型" : @"Reshape",
                 @"classify":@[
                     @{
-                        @"name":@"美型",
+                        @"name":[HTTool isCurrentLanguageChinese] ? @"美型" : @"Reshape",
                         @"value":self.faceBeautyArray
                     }
                 ]
             },
             @{
-                @"name":@"美发",
+                @"name":[HTTool isCurrentLanguageChinese] ? @"美发" : @"Hair",
                 @"classify":@[
                     @{
-                        @"name":@"美发",
+                        @"name":[HTTool isCurrentLanguageChinese] ? @"美发" : @"Hair",
                         @"value":self.hairArray
                     }
                 ]
             },
             @{
-                @"name":@"美妆",
+                @"name":[HTTool isCurrentLanguageChinese] ? @"美妆" : @"Makeup",
                 @"classify":@[
                     @{
-                        @"name":@"美妆",
+                        @"name":[HTTool isCurrentLanguageChinese] ? @"美妆" : @"Makeup",
                         @"value":self.makeupArray
                     }
                 ]
             },
             @{
-                @"name":@"妆容推荐",
+                @"name":[HTTool isCurrentLanguageChinese] ? @"妆容推荐" : @"MakeupStyle",
                 @"classify":@[
                     @{
-                        @"name":@"妆容推荐",
+                        @"name":[HTTool isCurrentLanguageChinese] ? @"妆容推荐" : @"MakeupStyle",
                         @"value":self.styleArray
                     }
                 ]
             },
             @{
-                @"name":@"美体",
+                @"name":[HTTool isCurrentLanguageChinese] ? @"美体" : @"Body",
                 @"classify":@[
                     @{
-                        @"name":@"美体",
+                        @"name":[HTTool isCurrentLanguageChinese] ? @"美体" : @"Body",
                         @"value":self.bodyArray
                     }
                 ]
@@ -507,7 +507,7 @@
             [weakSelf.sliderRelatedView.sliderView setSliderType:model.sliderType WithValue:[HTTool getFloatValueForKey:model.key]];
         }];
         [_effectView setOnClickResetBlock:^{
-            [HTRestoreAlertView showWithTitle:@"是否将该模块的所有参数恢复到默认值?" delegate:weakSelf];
+            [HTRestoreAlertView showWithTitle:[HTTool isCurrentLanguageChinese] ? @"是否将该模块的所有参数恢复到默认值?" : @"Reset all parameters in this module to default?" delegate:weakSelf];
         }];
     }
     return _effectView;
@@ -561,7 +561,7 @@
         // 重置弹框
         _makeupView.makeupShowAlertBlock = ^{
           
-            [HTRestoreAlertView showWithTitle:@"是否将该模块的所有参数恢复到默认值?" delegate:weakSelf];
+            [HTRestoreAlertView showWithTitle:[HTTool isCurrentLanguageChinese] ? @"是否将该模块的所有参数恢复到默认值?" : @"Reset all parameters in this module to default?" delegate:weakSelf];
         };
         
         // 通知菜单栏展示标题/滑动条
@@ -597,7 +597,7 @@
         // 展示弹框
         _bodyView.bodyShowAlertBlock = ^{
           
-            [HTRestoreAlertView showWithTitle:@"是否将该模块的所有参数恢复到默认值?" delegate:weakSelf];
+            [HTRestoreAlertView showWithTitle:[HTTool isCurrentLanguageChinese] ? @"是否将该模块的所有参数恢复到默认值?" : @"Reset all parameters in this module to default?" delegate:weakSelf];
         };
         
         // 通知滑动条
@@ -614,7 +614,7 @@
 - (UILabel *)confirmLabel{
     if (!_confirmLabel) {
         _confirmLabel = [[UILabel alloc] init];
-        _confirmLabel.text = @"请先关闭妆容推荐";
+        _confirmLabel.text = [HTTool isCurrentLanguageChinese] ? @"请先关闭妆容推荐" : @"Please turn off MakeupStyle first";
         _confirmLabel.font = HTFontMedium(15);
         _confirmLabel.textColor = UIColor.whiteColor;
         _confirmLabel.textAlignment = NSTextAlignmentCenter;

@@ -100,7 +100,7 @@
     
     // 未检测到人体弹框提示
     if ([[HTEffect shareInstance] isFullBody] == 0) {
-        [HTTool showHUD:@"未检测到人体！"];
+        [HTTool showHUD:[HTTool isCurrentLanguageChinese] ? @"未检测到人体!" : @"No body detected"];
     }
     
     // 设置特效
@@ -255,8 +255,8 @@
 - (HTButton *)bodyResetButton{
     if (!_bodyResetButton) {
         _bodyResetButton = [[HTButton alloc] init];
-        [_bodyResetButton setImageWidthAndHeight:HTWidth(45) title:@"恢复"];
-        [_bodyResetButton setImage:[UIImage imageNamed:@"ht_reset_disabled"]];\
+        [_bodyResetButton setImageWidthAndHeight:HTWidth(45) title:[HTTool isCurrentLanguageChinese] ? @"恢复" : @"Restore"];
+        [_bodyResetButton setImage:[UIImage imageNamed:@"ht_reset_disabled"]];
         [_bodyResetButton setTextColor:HTColors(189, 0.6)];
         [_bodyResetButton setTextFont:HTFontRegular(12)];
         _bodyResetButton.enabled = NO;

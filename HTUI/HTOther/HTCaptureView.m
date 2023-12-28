@@ -58,7 +58,7 @@
 
     if (longGesture.state==UIGestureRecognizerStateBegan) {
 
-        NSLog(@"长按手势开启");
+        NSLog(@"long gesture start");
         self.progressView.timeMax = 15;
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"THVideoOutputNoti" object:@"begin"];
         if (_videoCaptureBlock) {
@@ -66,7 +66,7 @@
         }
 
     } else if (longGesture.state==UIGestureRecognizerStateEnded){
-        NSLog(@"长按手势结束");
+        NSLog(@"long gesture end");
         if (self.progressView.timeMax > 0) {
             [self.progressView clearProgress];
         }

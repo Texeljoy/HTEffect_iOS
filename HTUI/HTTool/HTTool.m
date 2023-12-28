@@ -411,12 +411,12 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     if (!jsonData || error) {
-        NSLog(@"JSON解码失败");
-        NSLog(@"JSON文件%@ 写入失败 error-- %@",path,error);
+        NSLog(@"JSON decoding failed");
+        NSLog(@"JSON file %@ writing failed error-- %@",path,error);
     } else {
         [jsonString writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
         if (error) {
-            NSLog(@"JSON文件%@ 写入失败 error-- %@",path,error);
+            NSLog(@"JSON file %@ writing failed error-- %@",path,error);
         }
     }
     
@@ -430,7 +430,7 @@
     NSData *jsonData = [[NSData alloc] initWithContentsOfFile:jsonPath];
     NSError *error;
     if (!jsonData) {
-        NSLog(@"JSON文件%@ 解码失败 error--",jsonPath);
+        NSLog(@"JSON file %@ decoding failed error--",jsonPath);
         return @{
             @"ht_sticker":@"",
             @"ht_watermark":@"",
@@ -490,7 +490,7 @@
             NSError *error = nil;
             [fileManager createDirectoryAtPath:folderPath withIntermediateDirectories:YES attributes:nil error:&error];
             if (error) {
-                NSLog(@"文件夹创建失败: %@", error);
+                NSLog(@"fold creation failed: %@", error);
             }else{}
         }
         //下载下载图片到本地
@@ -507,7 +507,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completeBlock(nil);
                 });
-                NSLog(@"图片地址: %@\n下载失败", fileURL);
+                NSLog(@"image url: %@\n download failed", fileURL);
             }
         });
         
@@ -519,96 +519,84 @@
 +(BOOL)mutualExclusion:(NSString *)positionType{
     
     return YES;
-    // 贴纸，面具，手势，哈哈镜
-//    NSArray <NSString *>*mutualGroup = @[HT_ARITEM_STICKER_POSITION,HT_ARITEM_MASK_POSITION,HT_GESTURE_SELECTED_POSITION,HT_HAHA_FILTER_SLIDER];
-//    if([mutualGroup containsObject:positionType]){
-//        for (int i = 0; i<mutualGroup.count; i++) {
-//            NSString * _Nonnull obj = mutualGroup[i];
-//            if([HTTool getFloatValueForKey:obj]){
-//                [MJHUD showMessage:@"贴纸特效无法与面具特效,请先关闭面具特效"];
-//                break;
-//                return NO;
-//            }
+    
+    
+//    //贴纸
+//    if([positionType isEqualToString:HT_ARITEM_STICKER_POSITION]){
+//        //与面具
+//        if([HTTool getFloatValueForKey:HT_ARITEM_MASK_POSITION]){
+//            [MJHUD showMessage:@"贴纸特效无法与面具特效,请先关闭面具特效"];
+//            return NO;
+//        }
+//        //与手势
+//        if([HTTool getFloatValueForKey:HT_GESTURE_SELECTED_POSITION]){
+//            [MJHUD showMessage:@"贴纸特效无法与手势特效,请先关闭手势特效"];
+//            return NO;
+//        }
+//        //与哈哈镜
+//        if([HTTool getFloatValueForKey:HT_HAHA_FILTER_SELECTED_POSITION]){
+//            [MJHUD showMessage:@"贴纸特效与哈哈镜无法共存,请先关闭哈哈镜"];
+//            return NO;
 //        }
 //    }
-    
-    
-    //贴纸
-    if([positionType isEqualToString:HT_ARITEM_STICKER_POSITION]){
-        //与面具
-        if([HTTool getFloatValueForKey:HT_ARITEM_MASK_POSITION]){
-            [MJHUD showMessage:@"贴纸特效无法与面具特效,请先关闭面具特效"];
-            return NO;
-        }
-        //与手势
-        if([HTTool getFloatValueForKey:HT_GESTURE_SELECTED_POSITION]){
-            [MJHUD showMessage:@"贴纸特效无法与手势特效,请先关闭手势特效"];
-            return NO;
-        }
-        //与哈哈镜
-        if([HTTool getFloatValueForKey:HT_HAHA_FILTER_SELECTED_POSITION]){
-            [MJHUD showMessage:@"贴纸特效与哈哈镜无法共存,请先关闭哈哈镜"];
-            return NO;
-        }
-    }
-    
-    //面具
-    if([positionType isEqualToString:HT_ARITEM_MASK_POSITION]){
-        //与贴纸
-        if([HTTool getFloatValueForKey:HT_ARITEM_STICKER_POSITION]){
-            [MJHUD showMessage:@"面具特效与贴纸特效无法共存,请先关闭贴纸特效"];
-            return NO;
-        }
-        //与手势
-        if([HTTool getFloatValueForKey:HT_GESTURE_SELECTED_POSITION]){
-            [MJHUD showMessage:@"贴纸特效无法与手势特效,请先关闭手势特效"];
-            return NO;
-        }
-        //与哈哈镜
-        if([HTTool getFloatValueForKey:HT_HAHA_FILTER_SELECTED_POSITION]){
-            [MJHUD showMessage:@"贴纸特效与哈哈镜无法共存,请先关闭哈哈镜"];
-            return NO;
-        }
-        
-    }
-    
-    //手势
-    if([positionType isEqualToString:HT_GESTURE_SELECTED_POSITION]){
-        //与贴纸
-        if([HTTool getFloatValueForKey:HT_ARITEM_STICKER_POSITION]){
-            [MJHUD showMessage:@"手势特效与贴纸特效无法共存,请先关闭贴纸特效"];
-            return NO;
-        }
-        //与面具
-        if([HTTool getFloatValueForKey:HT_ARITEM_STICKER_POSITION]){
-            [MJHUD showMessage:@"手势特效与面具特效无法共存,请先关闭面具特效"];
-            return NO;
-        }
-        //与哈哈镜
-        if([HTTool getFloatValueForKey:HT_HAHA_FILTER_SELECTED_POSITION]){
-            [MJHUD showMessage:@"手势特效与哈哈镜无法共存,请先关闭哈哈镜"];
-            return NO;
-        }
-    }
-    
-    //哈哈镜
-    if([positionType isEqualToString:HT_HAHA_FILTER_SELECTED_POSITION]){
-        //与贴纸
-        if([HTTool getFloatValueForKey:HT_ARITEM_STICKER_POSITION]){
-            [MJHUD showMessage:@"哈哈镜与贴纸特效无法共存,请先关闭贴纸特效"];
-            return NO;
-        }
-        //与面具
-        if([HTTool getFloatValueForKey:HT_ARITEM_STICKER_POSITION]){
-            [MJHUD showMessage:@"哈哈镜与面具特效无法共存,请先关闭面具特效"];
-            return NO;
-        }
-        //与手势
-        if([HTTool getFloatValueForKey:HT_GESTURE_SELECTED_POSITION]){
-            [MJHUD showMessage:@"哈哈镜无法与手势特效,请先关闭手势特效"];
-            return NO;
-        }
-    }
+//
+//    //面具
+//    if([positionType isEqualToString:HT_ARITEM_MASK_POSITION]){
+//        //与贴纸
+//        if([HTTool getFloatValueForKey:HT_ARITEM_STICKER_POSITION]){
+//            [MJHUD showMessage:@"面具特效与贴纸特效无法共存,请先关闭贴纸特效"];
+//            return NO;
+//        }
+//        //与手势
+//        if([HTTool getFloatValueForKey:HT_GESTURE_SELECTED_POSITION]){
+//            [MJHUD showMessage:@"贴纸特效无法与手势特效,请先关闭手势特效"];
+//            return NO;
+//        }
+//        //与哈哈镜
+//        if([HTTool getFloatValueForKey:HT_HAHA_FILTER_SELECTED_POSITION]){
+//            [MJHUD showMessage:@"贴纸特效与哈哈镜无法共存,请先关闭哈哈镜"];
+//            return NO;
+//        }
+//
+//    }
+//
+//    //手势
+//    if([positionType isEqualToString:HT_GESTURE_SELECTED_POSITION]){
+//        //与贴纸
+//        if([HTTool getFloatValueForKey:HT_ARITEM_STICKER_POSITION]){
+//            [MJHUD showMessage:@"手势特效与贴纸特效无法共存,请先关闭贴纸特效"];
+//            return NO;
+//        }
+//        //与面具
+//        if([HTTool getFloatValueForKey:HT_ARITEM_STICKER_POSITION]){
+//            [MJHUD showMessage:@"手势特效与面具特效无法共存,请先关闭面具特效"];
+//            return NO;
+//        }
+//        //与哈哈镜
+//        if([HTTool getFloatValueForKey:HT_HAHA_FILTER_SELECTED_POSITION]){
+//            [MJHUD showMessage:@"手势特效与哈哈镜无法共存,请先关闭哈哈镜"];
+//            return NO;
+//        }
+//    }
+//
+//    //哈哈镜
+//    if([positionType isEqualToString:HT_HAHA_FILTER_SELECTED_POSITION]){
+//        //与贴纸
+//        if([HTTool getFloatValueForKey:HT_ARITEM_STICKER_POSITION]){
+//            [MJHUD showMessage:@"哈哈镜与贴纸特效无法共存,请先关闭贴纸特效"];
+//            return NO;
+//        }
+//        //与面具
+//        if([HTTool getFloatValueForKey:HT_ARITEM_STICKER_POSITION]){
+//            [MJHUD showMessage:@"哈哈镜与面具特效无法共存,请先关闭面具特效"];
+//            return NO;
+//        }
+//        //与手势
+//        if([HTTool getFloatValueForKey:HT_GESTURE_SELECTED_POSITION]){
+//            [MJHUD showMessage:@"哈哈镜无法与手势特效,请先关闭手势特效"];
+//            return NO;
+//        }
+//    }
     
     
     return YES;
@@ -725,6 +713,15 @@ UIViewController * GetCurrentActivityViewController(void){
     }];
 }
 
++ (BOOL)isCurrentLanguageChinese {
+    
+    NSString *language = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"][0];
+//    NSLog(@"current language code: %@", language);
+    if (language) {
+        return [language hasPrefix:@"zh"];
+    }
+    return YES;
+}
 
 @end
 

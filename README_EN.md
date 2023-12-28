@@ -95,12 +95,12 @@ pod install
 /**
 * Online authentication method
 */
-[[HTEffect shareInstance] initHTEffect:@"YOUR_APP_ID" withDelegate:self];
+[[HTEffect shareInstance] initHTEffect:@"YOUR_APPID" withDelegate:self];
 
 /**
 * Offline authentication method
 */
-// [[HTEffect shareInstance] initHTEffect:@"YOUR_APP_ID"];
+// [[HTEffect shareInstance] initHTEffect:@"YOUR_LICENSE"];
 ```
 
 - (Optional) If you need to use HTUI, you can add the following method in viewDidLoad
@@ -194,12 +194,12 @@ implementation project(':htui')
 
 ```java
 // Online authentication method
-HTEffect.shareInstance().initHTEffect(context, "YOUR_APP_ID", new InitCallback() {
+HTEffect.shareInstance().initHTEffect(context, "YOUR_APPID", new InitCallback() {
         @Override public void onInitSuccess() {}
         @Override public void onInitFailure() {}
 });
 // Offline authentication method
-//HTEffect.shareInstance().initHTEffect(context,"YOUR_APP_ID");
+//HTEffect.shareInstance().initHTEffect(context,"YOUR_LICENSE");
 ```
 
 **Add HTUI (optional)**
@@ -284,6 +284,12 @@ isRenderInit = false;
 ---
 
 ## **Recent updates**
+- **2023.12.28:** v3.1.0
+    - Optimizing the underlying algorithm for gesture effects
+    - Increase rendering support for partially transparent images
+    - Improve the output and printing of the logging system
+    - Solved some known issues
+
 - **2023.11.30:** v3.0.2
     - Optimize grinding and clear algorithm
     - Solved some known issues

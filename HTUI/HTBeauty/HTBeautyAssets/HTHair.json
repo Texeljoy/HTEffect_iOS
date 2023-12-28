@@ -2,6 +2,7 @@
     "ht_hair": [
         {
             "title": "原图",
+            "title_en": "Original",
             "idCard": 0,
             "selected": false,
             "icon":"icon_ranfa_yuantu",
@@ -10,6 +11,7 @@
         },
         {
             "title": "神秘紫",
+            "title_en": "Purple",
             "idCard": 1,
             "selected": false,
             "icon":"icon_ranfa_shenmizi",
@@ -18,6 +20,7 @@
         },
         {
             "title": "巧克力",
+            "title_en": "Chocolate",
             "idCard": 2,
             "selected": false,
             "icon":"icon_ranfa_qiaokeli",
@@ -26,6 +29,7 @@
         },
         {
             "title": "青木棕",
+            "title_en": "Brown1",
             "idCard": 3,
             "selected": false,
             "icon":"icon_ranfa_qingmuzong",
@@ -34,6 +38,7 @@
         },
         {
             "title": "焦糖棕",
+            "title_en": "Brown2",
             "idCard": 4,
             "selected": false,
             "icon":"icon_ranfa_jiaotangzong",
@@ -42,6 +47,7 @@
         },
         {
             "title": "落日橘",
+            "title_en": "Orange1",
             "idCard": 5,
             "selected": false,
             "icon":"icon_ranfa_luoriju",
@@ -50,6 +56,7 @@
         },
         {
             "title": "复古玫瑰",
+            "title_en": "Rose1",
             "idCard": 6,
             "selected": false,
             "icon":"icon_ranfa_fugumeigui",
@@ -58,6 +65,7 @@
         },
         {
             "title": "深玫瑰",
+            "title_en": "Rose2",
             "idCard": 7,
             "selected": false,
             "icon":"icon_ranfa_shenmeigui",
@@ -66,6 +74,7 @@
         },
         {
             "title": "雾霾香芋",
+            "title_en": "Rose5",
             "idCard": 8,
             "selected": false,
             "icon":"icon_ranfa_wumaixiangyu",
@@ -74,6 +83,7 @@
         },
         {
             "title": "孔雀蓝",
+            "title_en": "Blue",
             "idCard": 9,
             "selected": false,
             "icon":"icon_ranfa_kongquelan",
@@ -82,6 +92,7 @@
         },
         {
             "title": "雾霾蓝灰",
+            "title_en": "Gray1",
             "idCard": 10,
             "selected": false,
             "icon":"icon_ranfa_wumailanhui",
@@ -90,6 +101,7 @@
         },
         {
             "title": "亚麻灰棕",
+            "title_en": "Gray2",
             "idCard": 11,
             "selected": false,
             "icon":"icon_ranfa_yamahuizong",
@@ -98,6 +110,7 @@
         },
         {
             "title": "亚麻浅灰",
+            "title_en": "Gray3",
             "idCard": 12,
             "selected": false,
             "icon":"icon_ranfa_yamaqianhui",

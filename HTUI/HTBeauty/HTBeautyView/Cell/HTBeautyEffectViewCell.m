@@ -48,15 +48,33 @@
     return self;
 }
 
+#pragma mark - 美颜美型赋值
+- (void)setSkinShapeModel:(HTModel *)model themeWhite:(BOOL)white {
+    
+    if (model.selected) {
+        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.selectedIcon] : model.selectedIcon] imageWidth:HTWidth(48) title:[HTTool isCurrentLanguageChinese] ? model.title : model.title_en];
+        [self.item setTextColor:MAIN_COLOR];
+    }else{
+        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.icon] : model.icon] imageWidth:HTWidth(48) title:[HTTool isCurrentLanguageChinese] ? model.title : model.title_en];
+        [self.item setTextColor:white ? [UIColor blackColor] : HTColors(255, 1.0)];
+    }
+    [self.item setTextFont:HTFontRegular(12)];
+    
+    if([HTTool getFloatValueForKey:model.key] == 0) {
+        [self.pointView setHidden:YES];
+    }else{
+        [self.pointView setHidden:NO];
+    }
+}
 
 #pragma mark - 美体赋值
 - (void)setBodyModel:(HTModel *)model themeWhite:(BOOL)white {
     
     if (model.selected) {
-        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.selectedIcon] : model.selectedIcon] imageWidth:HTWidth(48) title:model.title];
+        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.selectedIcon] : model.selectedIcon] imageWidth:HTWidth(48) title:[HTTool isCurrentLanguageChinese] ? model.title : model.title_en];
         [self.item setTextColor:MAIN_COLOR];
     }else{
-        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.icon] : model.icon] imageWidth:HTWidth(48) title:model.title];
+        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.icon] : model.icon] imageWidth:HTWidth(48) title:[HTTool isCurrentLanguageChinese] ? model.title : model.title_en];
         [self.item setTextColor:white ? [UIColor blackColor] : HTColors(255, 1.0)];
     }
     [self.item setTextFont:HTFontRegular(12)];

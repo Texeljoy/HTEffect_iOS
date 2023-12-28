@@ -58,8 +58,8 @@ typedef NS_ENUM(NSInteger, GreenType) {
     if (self) {
         
         _titleArray = @[
-                            @"编辑",
-                            @"背景"
+                            [HTTool isCurrentLanguageChinese] ? @"编辑" : @"Edit",
+                            [HTTool isCurrentLanguageChinese] ? @"背景" : @"Background"
                         ];
         _listArray = [listArr mutableCopy];
         self.cellIdentifierDic = [NSMutableDictionary dictionary];
@@ -122,10 +122,10 @@ typedef NS_ENUM(NSInteger, GreenType) {
         HTModel *indexModel = [[HTModel alloc] initWithDic:self.editArray[indexPath.row]];
         
         if (indexModel.selected) {
-            [cell.item setImage:[UIImage imageNamed:indexModel.selectedIcon] imageWidth:HTWidth(48) title:indexModel.name];
+            [cell.item setImage:[UIImage imageNamed:indexModel.selectedIcon] imageWidth:HTWidth(48) title:[HTTool isCurrentLanguageChinese] ? indexModel.name : indexModel.title_en];
             [cell.item setTextColor:MAIN_COLOR];
         }else{
-            [cell.item setImage:[UIImage imageNamed:indexModel.icon] imageWidth:HTWidth(48) title:indexModel.name];
+            [cell.item setImage:[UIImage imageNamed:indexModel.icon] imageWidth:HTWidth(48) title:[HTTool isCurrentLanguageChinese] ? indexModel.name : indexModel.title_en];
             [cell.item setTextColor:HTColors(255, 1.0)];
         }
         [cell.item setTextFont:HTFontRegular(12)];
@@ -315,7 +315,7 @@ typedef NS_ENUM(NSInteger, GreenType) {
         NSError *err;
         [fileManager createDirectoryAtPath:itmeFolder withIntermediateDirectories:NO attributes:nil error:&err];
         if(err){
-            [MJHUD showMessage:@"资源文件夹创建失败"];
+            [MJHUD showMessage:@"resource fold creation failed"];
             return;
         }
     }
@@ -325,7 +325,7 @@ typedef NS_ENUM(NSInteger, GreenType) {
     NSString *configCopyToPath = [itmeFolder stringByAppendingPathComponent:@"config.json"];
     NSError *copyError;
     if (![[NSFileManager defaultManager] copyItemAtPath:configPath toPath:configCopyToPath error:&copyError]) {
-        [MJHUD showMessage:@"拷贝资源文件失败"];
+        [MJHUD showMessage:@"resouce copy failed"];
         return;
     }
     
@@ -335,7 +335,7 @@ typedef NS_ENUM(NSInteger, GreenType) {
         NSError *err;
         [fileManager createDirectoryAtPath:pbgFolder withIntermediateDirectories:NO attributes:nil error:&err];
         if(err){
-            [MJHUD showMessage:@"图片件夹创建失败"];
+            [MJHUD showMessage:@"image fold creation failed"];
             return;
         }
     }
@@ -361,7 +361,7 @@ typedef NS_ENUM(NSInteger, GreenType) {
     
     BOOL iconImageResult = [UIImagePNGRepresentation(iconImage) writeToFile:[NSString stringWithFormat:@"%@/%@",itmeFolder, iconName] atomically:YES];
     if (!iconImageResult) {
-        [MJHUD showMessage:@"上传icon图片失败"];
+        [MJHUD showMessage:@"iocn uoload failed"];
         return;
     }
     
@@ -399,7 +399,7 @@ typedef NS_ENUM(NSInteger, GreenType) {
 //        NSLog(@"====== before = %@", self.listArr);
         [self.bgCollectionView reloadData];
     }else{
-        [MJHUD showMessage:@"上传资源图片失败"];
+        [MJHUD showMessage:@"image upload failed"];
     }
 }
 
@@ -440,7 +440,7 @@ typedef NS_ENUM(NSInteger, GreenType) {
 - (int)getIndexForTitle:(NSString *)title withArray:(NSArray *)array{
     for (int i = 0; i < array.count; i++) {
         HTModel *mode = [[HTModel alloc] initWithDic:array[i]];
-        if ([mode.name isEqual:title]) {
+        if ([mode.name isEqualToString:title]) {
             return i;
         }
     }
@@ -687,7 +687,7 @@ typedef NS_ENUM(NSInteger, GreenType) {
 - (UIButton *)editResetButton{
     if (!_editResetButton) {
         _editResetButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_editResetButton setTitle:@"恢复" forState:UIControlStateNormal];
+        [_editResetButton setTitle:[HTTool isCurrentLanguageChinese] ? @"恢复" : @"Restore" forState:UIControlStateNormal];
         [_editResetButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_editResetButton setTitleColor:HTColors(189, 0.6) forState:UIControlStateDisabled];
         _editResetButton.titleLabel.font = HTFontRegular(12);

@@ -75,16 +75,6 @@
     
     [cell setModel:indexModel isWhite:self.isThemeWhite];
     
-//    [cell.item setImage:[UIImage imageNamed:indexModel.icon] imageWidth:HTWidth(55) title:indexModel.title];
-//    if (indexModel.selected) {
-//        [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : MAIN_COLOR];
-//    }else{
-//        [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0)];
-//    }
-//    [cell setItemCornerRadius:HTWidth(5)];
-//    [cell setMaskViewColor:COVER_COLOR selected:indexModel.selected];
-//    [cell.item setTextFont:HTFontRegular(12)];
-    
     return cell;
     
 };
@@ -116,7 +106,7 @@
 - (int)getIndexForTitle:(NSString *)title withArray:(NSArray *)array{
     for (int i = 0; i < array.count; i++) {
         HTModel *mode = [[HTModel alloc] initWithDic:array[i]];
-        if ([mode.title isEqual:title]) {
+        if ([mode.title isEqualToString:title]) {
             return i;
         }
     }

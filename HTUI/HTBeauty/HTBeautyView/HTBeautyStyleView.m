@@ -86,7 +86,7 @@ static NSString *const HTBeautyStyleViewCellId = @"HTBeautyStyleViewCellId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     HTModel *indexModel = [[HTModel alloc] initWithDic:self.listArr[indexPath.row]];
-    if ([self.selectedModel.title isEqual: indexModel.title]) {
+    if ([self.selectedModel.title isEqualToString:indexModel.title]) {
         return;
     }
     indexModel.selected = true;
@@ -111,7 +111,7 @@ static NSString *const HTBeautyStyleViewCellId = @"HTBeautyStyleViewCellId";
 - (int)getIndexForTitle:(NSString *)title withArray:(NSArray *)array{
     for (int i = 0; i < array.count; i++) {
         HTModel *mode = [[HTModel alloc] initWithDic:array[i]];
-        if ([mode.title isEqual:title]) {
+        if ([mode.title isEqualToString:title]) {
             return i;
         }
     }

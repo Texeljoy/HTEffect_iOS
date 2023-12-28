@@ -7,6 +7,7 @@
 
 #import "HTFilterHahaViewCell.h"
 #import "HTUIConfig.h"
+#import "HTTool.h"
 
 @interface HTFilterHahaViewCell ()
 
@@ -44,10 +45,10 @@
     _model = model;
     if (model.selected) {
         [self.item setTextColor:white ? [UIColor blackColor] : MAIN_COLOR];
-        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.selectedIcon] : model.selectedIcon] imageWidth:HTWidth(50) title:model.title];
+        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.selectedIcon] : model.selectedIcon] imageWidth:HTWidth(50) title:[HTTool isCurrentLanguageChinese] ? model.title : model.title_en];
     }else{
         [self.item setTextColor:white ? [UIColor blackColor] : HTColors(255, 1.0)];
-        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.icon] : model.icon] imageWidth:HTWidth(50) title:model.title];
+        [self.item setImage:[UIImage imageNamed:white ? [NSString stringWithFormat:@"34_%@", model.icon] : model.icon] imageWidth:HTWidth(50) title:[HTTool isCurrentLanguageChinese] ? model.title : model.title_en];
     }
     
 }

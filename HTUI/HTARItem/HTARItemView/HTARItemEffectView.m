@@ -14,7 +14,6 @@
 #import "QZImagePickerController.h"
 #import "HTUIManager.h"
 #import "HTStickerView.h"
-//#import <HTEffectCustomizeUI/HTStickerView.h>
 
 @interface HTARItemEffectView ()<UICollectionViewDataSource,UICollectionViewDelegate,QZImagePickerControllerDelegate,UIGestureRecognizerDelegate>
 
@@ -447,7 +446,7 @@ static NSString *const HTARItemEffectViewCellId = @"HTARItemEffectViewCellId";
         NSError *err;
         [fileManager createDirectoryAtPath:itmeFolder withIntermediateDirectories:NO attributes:nil error:&err];
         if(err){
-            [MJHUD showMessage:@"资源文件夹创建失败"];
+            [MJHUD showMessage:@"resource fold creation failed"];
             return;
         }
     }
@@ -457,7 +456,7 @@ static NSString *const HTARItemEffectViewCellId = @"HTARItemEffectViewCellId";
         NSError *err;
         [fileManager createDirectoryAtPath:iconFolder withIntermediateDirectories:NO attributes:nil error:&err];
         if(err){
-            [MJHUD showMessage:@"图标文件夹创建失败"];
+            [MJHUD showMessage:@"icon fold creation failed"];
             return;
         }
     }
@@ -483,7 +482,7 @@ static NSString *const HTARItemEffectViewCellId = @"HTARItemEffectViewCellId";
     
     BOOL iconImageResult = [UIImagePNGRepresentation(iconImage) writeToFile:[NSString stringWithFormat:@"%@/%@",iconFolder,iconName]   atomically:YES];
     if (!iconImageResult) {
-        [MJHUD showMessage:@"上传icon图片失败"];
+        [MJHUD showMessage:@"icon upload failed"];
         return;
     }
     
@@ -522,7 +521,7 @@ static NSString *const HTARItemEffectViewCellId = @"HTARItemEffectViewCellId";
 //        NSLog(@"====== before = %@", self.listArr);
         [self.collectionView reloadData];
     }else{
-        [MJHUD showMessage:@"上传资源图片失败"];
+        [MJHUD showMessage:@"image upload failed"];
     }
     
 }

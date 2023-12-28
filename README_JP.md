@@ -77,12 +77,12 @@ pod install
 /**
 * オンライン認証初期化方法
 */
-[[HTEffect shareInstance] initHTEffect:@"YOUR_APP_ID" withDelegate:self];
+[[HTEffect shareInstance] initHTEffect:@"YOUR_APPID" withDelegate:self];
 
 /**
 * オフライン認証初期化方法
 */
-// [[HTEffect shareInstance] initHTEffect:@"YOUR_APP_ID"];
+// [[HTEffect shareInstance] initHTEffect:@"YOUR_LICENSE"];
 ```
 
 - (オプション) HTUIを使用する必要がある場合は、viewDidLoadに次の方法を追加できます
@@ -159,12 +159,12 @@ implementation project(':htui')
 - HTEffect初期化関数プログラムで1回呼び出すと有効になります。Applicationの作成時に呼び出すことをお勧めします。レンダリング機能が頻繁に使用されていない場合は、次のインタフェースで使用時に呼び出すこともできます
 ```java
 // オンライン認証初期化方法
-HTEffect.shareInstance().initHTEffect(context, "YOUR_APP_ID", new InitCallback() {
+HTEffect.shareInstance().initHTEffect(context, "YOUR_APPID", new InitCallback() {
         @Override public void onInitSuccess() {}
         @Override public void onInitFailure() {}
 });
 // オフライン認証初期化方法
-//HTEffect.shareInstance().initHTEffect(context,"YOUR_APP_ID");
+//HTEffect.shareInstance().initHTEffect(context,"YOUR_LICENSE");
 ```
 
 **HTUIの追加 (オプション)**
@@ -242,6 +242,12 @@ isRenderInit = false;
 ----
 
 ## **最近の更新**
+- **2023.12.28:** v3.1.0
+    - ジェスチャーエフェクトの最適化のための最下位アルゴリズム
+    - 部分的に透明な画像のレンダリングサポートを追加する
+    - 完全なログシステムの出力印刷
+    - いくつかの既知の問題が解決されました
+
 - **2023.11.30:** v3.0.2
     - 最適化された研削皮、明確なアルゴリズム
     - いくつかの既知の問題が解決されました

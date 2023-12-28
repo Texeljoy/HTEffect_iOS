@@ -11,6 +11,7 @@
 
 @property (nonatomic, assign) int idCard;
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *title_en;
 @property (nonatomic, assign) NSInteger sliderType;// 滑动条类型
 @property (nonatomic, assign) BOOL selected;
 @property (nonatomic, assign) BOOL subType;// false表示正常cell,true表示cell展开后的子cell

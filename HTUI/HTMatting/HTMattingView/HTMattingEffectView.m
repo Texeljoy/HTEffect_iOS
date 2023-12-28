@@ -159,7 +159,7 @@ static NSString *const HTMattingEffectViewCellId = @"HTMattingEffectViewCellId";
         
     }else{
         HTModel *indexModel = [[HTModel alloc] initWithDic:self.listArr[indexPath.row-1]];
-        if ([self.selectedModel.name isEqual: indexModel.name]) {
+        if ([self.selectedModel.name isEqualToString:indexModel.name]) {
             return;
         }
         
@@ -225,7 +225,7 @@ static NSString *const HTMattingEffectViewCellId = @"HTMattingEffectViewCellId";
 - (int)getIndexForTitle:(NSString *)title withArray:(NSArray *)array{
     for (int i = 0; i < array.count; i++) {
         HTModel *mode = [[HTModel alloc] initWithDic:array[i]];
-        if ([mode.name isEqual:title]) {
+        if ([mode.name isEqualToString:title]) {
             return i;
         }
     }

@@ -89,20 +89,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
     HTBeautyEffectViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HTBeautyEffectViewCellId forIndexPath:indexPath];
     HTModel *indexModel = [[HTModel alloc] initWithDic:self.listArr[indexPath.row]];
     
-    if (indexModel.selected) {
-        [cell.item setImage:[UIImage imageNamed:self.isThemeWhite ? [NSString stringWithFormat:@"34_%@", indexModel.selectedIcon] : indexModel.selectedIcon] imageWidth:HTWidth(48) title:indexModel.title];
-        [cell.item setTextColor:MAIN_COLOR];
-    }else{
-        [cell.item setImage:[UIImage imageNamed:self.isThemeWhite ? [NSString stringWithFormat:@"34_%@", indexModel.icon] : indexModel.icon] imageWidth:HTWidth(48) title:indexModel.title];
-        [cell.item setTextColor:self.isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0)];
-    }
-    [cell.item setTextFont:HTFontRegular(12)];
-    
-    if([HTTool getFloatValueForKey:indexModel.key] == 0) {
-        [cell.pointView setHidden:YES];
-    }else{
-        [cell.pointView setHidden:NO];
-    }
+    [cell setSkinShapeModel:indexModel themeWhite:self.isThemeWhite];
     
     return cell;
     
@@ -138,7 +125,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
     }else{
         if (self.subCellOpened) {
             if (indexModel.subType) {//选中展开后的子cell
-                if ([self.selectedModel.title isEqual: indexModel.title]) {
+                if ([self.selectedModel.title isEqualToString:indexModel.title]) {
                     return;//选中同一个cell不做处理
                 }
                 indexModel.selected = true;
@@ -182,7 +169,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
     
     if (!opened) {
         NSDictionary *dic1 = @{
-            @"title":@"朦胧磨皮",
+            @"title":NSLocalizedString(@"朦胧磨皮", nil),
             @"selected":@(true),
             @"subType":@(true),
             @"idCard":@(1),
@@ -194,7 +181,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
             @"sliderType":@(1),
         };
         NSDictionary *dic2 = @{
-            @"title":@"精细磨皮",
+            @"title":NSLocalizedString(@"精细磨皮", nil),
             @"selected":@(false),
             @"subType":@(true),
             @"idCard":@(2),
@@ -233,7 +220,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
 - (int)getIndexForTitle:(NSString *)title withArray:(NSArray *)array{
     for (int i = 0; i < array.count; i++) {
         HTModel *mode = [[HTModel alloc] initWithDic:array[i]];
-        if ([mode.title isEqual:title]) {
+        if ([mode.title isEqualToString:title]) {
             return i;
         }
     }
@@ -253,11 +240,11 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
 
 - (void)updateResetButtonState:(BOOL)state{
     if (state) {
-        [self.resetButton setImage:[UIImage imageNamed:self.isThemeWhite ? @"34_ht_reset" : @"ht_reset"] imageWidth:HTWidth(45) title:@"恢复"];
+        [self.resetButton setImage:[UIImage imageNamed:self.isThemeWhite ? @"34_ht_reset" : @"ht_reset"] imageWidth:HTWidth(45) title:[HTTool isCurrentLanguageChinese] ? @"恢复" : @"Restore"];
         [self.resetButton setTextColor:self.isThemeWhite ? [UIColor blackColor] : HTColors(255, 1.0)];
         self.resetButton.enabled = YES;
     }else {
-        [self.resetButton setImage:[UIImage imageNamed:self.isThemeWhite ? @"34_ht_reset_disabled" : @"ht_reset_disabled"] imageWidth:HTWidth(45) title:@"恢复"];
+        [self.resetButton setImage:[UIImage imageNamed:self.isThemeWhite ? @"34_ht_reset_disabled" : @"ht_reset_disabled"] imageWidth:HTWidth(45) title:[HTTool isCurrentLanguageChinese] ? @"恢复" : @"Restore"];
         [self.resetButton setTextColor:HTColors(189, 0.6)];
         self.resetButton.enabled = NO;
     }
@@ -316,7 +303,7 @@ static NSString *const HTBeautyEffectViewCellId = @"HTBeautyEffectViewCellId";
 - (HTButton *)resetButton{
     if (!_resetButton) {
         _resetButton = [[HTButton alloc] init];
-        [_resetButton setImage:[UIImage imageNamed:@"ht_reset_disabled.png"] imageWidth:HTWidth(45) title:@"恢复"];
+        [_resetButton setImage:[UIImage imageNamed:@"ht_reset_disabled.png"] imageWidth:HTWidth(45) title:[HTTool isCurrentLanguageChinese] ? @"恢复" : @"Restore"];
         [_resetButton setTextColor:HTColors(189, 0.6)];
         [_resetButton setTextFont:HTFontRegular(12)];
         _resetButton.enabled = NO;

@@ -151,11 +151,11 @@ NSString *greenscreenPath = @"";
 - (NSArray *)listArr{
     _listArr = @[
         @{
-            @"name":@"人像分割",
+            @"name":[HTTool isCurrentLanguageChinese] ? @"人像分割" : @"Segmentation",
             @"classify":[HTTool jsonModeForPath:aiSegmentationPath withKey:@"ht_aiseg_effect"]
         },
         @{
-            @"name":@"绿幕抠图",
+            @"name":[HTTool isCurrentLanguageChinese] ? @"绿幕抠图" : @"Chroma Keying",
             @"classify":[HTTool jsonModeForPath:greenscreenPath withKey:@"ht_gsseg_effect"]
         }
     ];
@@ -223,7 +223,7 @@ NSString *greenscreenPath = @"";
         // 展示弹框
         _greenView.mattingShowAlertBlock = ^{
           
-            [HTRestoreAlertView showWithTitle:@"是否将该模块的所有参数恢复到默认值?" delegate:weakSelf];
+            [HTRestoreAlertView showWithTitle:[HTTool isCurrentLanguageChinese] ? @"是否将该模块的所有参数恢复到默认值?" : @"Reset all parameters in this module to default?" delegate:weakSelf];
         };
     }
     return _greenView;

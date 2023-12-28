@@ -1,6 +1,6 @@
 //
 //  QZImagePickerController.m
-//  Toivan_Education
+//  HTEffectDemo
 //
 //  Created by MBP DA1003 on 2022/7/15.
 //
@@ -35,7 +35,7 @@
     if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
         [super setSourceType:sourceType];
     }else{
-        NSLog(@"输入参数错误或者无法打开相机");
+        NSLog(@"input error");
     }
 }
 

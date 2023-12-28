@@ -175,7 +175,7 @@
 - (void)setNoneImage:(BOOL)selected isThemeWhite:(BOOL)isWhite{
     
     [self.htImageView setImage:[UIImage imageNamed:@"makeup_none"]];
-    self.title.text = @"无";
+    self.title.text = [HTTool isCurrentLanguageChinese] ? @"无" : @"None";
     if (selected) {
         self.title.textColor = isWhite ? [UIColor blackColor] : MAIN_COLOR;
     }else{

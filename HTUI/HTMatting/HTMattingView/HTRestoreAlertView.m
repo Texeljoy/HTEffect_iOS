@@ -8,6 +8,7 @@
 #import "HTRestoreAlertView.h"
 #import "HTUIConfig.h"
 #import "HTUIManager.h"
+#import "HTTool.h"
 
 @interface HTRestoreAlertView ()
 
@@ -88,7 +89,7 @@
 - (void)buttonClick:(UIButton *)btn {
     
     if ([self.delegate respondsToSelector:@selector(alertViewDidSelectedStatus:)]) {
-        [self.delegate alertViewDidSelectedStatus:[btn.currentTitle isEqualToString:@"确定"]];
+        [self.delegate alertViewDidSelectedStatus:[btn.currentTitle isEqualToString:[HTTool isCurrentLanguageChinese] ? @"确定" : @"Yes"]];
     }
     [self hide];
 }
@@ -102,7 +103,7 @@
 
 - (void)dealloc {
     
-    NSLog(@"%@ 销毁了", [self class]);
+    NSLog(@"%@ destroy", [self class]);
 }
 
 #pragma mark - 懒加载
@@ -133,7 +134,7 @@
         _sureButton.layer.cornerRadius = 35/2;
         _sureButton.layer.masksToBounds = YES;
         _sureButton.backgroundColor = HTColors(17, 1);
-        [_sureButton setTitle:@"确定" forState:UIControlStateNormal];
+        [_sureButton setTitle:[HTTool isCurrentLanguageChinese] ? @"确定" : @"Yes" forState:UIControlStateNormal];
         [_sureButton setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
         [_sureButton.titleLabel setFont:HTFontRegular(14)];
         [_sureButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -147,7 +148,7 @@
         _cancelButton.layer.cornerRadius = 35/2;
         _cancelButton.layer.masksToBounds = YES;
         _cancelButton.backgroundColor = HTColors(229, 1);
-        [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+        [_cancelButton setTitle:[HTTool isCurrentLanguageChinese] ? @"取消" : @"No" forState:UIControlStateNormal];
         [_cancelButton setTitleColor:HTColors(102, 1) forState:UIControlStateNormal];
         [_cancelButton.titleLabel setFont:HTFontRegular(14)];
         [_cancelButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];

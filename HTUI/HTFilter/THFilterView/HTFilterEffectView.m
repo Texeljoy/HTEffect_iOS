@@ -110,7 +110,7 @@ static NSString *const HTFilterHahaViewCellId = @"HTFilterHahaViewCellId";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
  
     HTModel *indexModel = [[HTModel alloc] initWithDic:self.listArr[indexPath.row]];
-    if ([self.selectedModel.title isEqual: indexModel.title]) {
+    if ([self.selectedModel.title isEqualToString:indexModel.title]) {
         return;
     }
     
@@ -152,7 +152,7 @@ static NSString *const HTFilterHahaViewCellId = @"HTFilterHahaViewCellId";
         default:
             break;
     }
-    [HTTool showHUD:self.selectedModel.title];
+    [HTTool showHUD:[HTTool isCurrentLanguageChinese] ? self.selectedModel.title : self.selectedModel.title_en];
     
     //通知主View 更新拉条
     if (self.onUpdateSliderHiddenBlock) {

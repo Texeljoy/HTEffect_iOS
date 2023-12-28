@@ -333,7 +333,7 @@
     self.center = oPoint;
     
     self.transform = CGAffineTransformRotate(self.transform, gesture.rotation);
-    //    NSLog(@"&&&**旋转 rotation %f",gesture.rotation);
+    //    NSLog(@"&&&** rotation %f",gesture.rotation);
     gesture.rotation = 0;
     
     oPoint = [self convertPoint:[self getRealOriginalPoint] toView:self.superview];
@@ -515,7 +515,7 @@
     float lastAngle = atan2(self.center.y - self.lastCtrlPoint.y, self.lastCtrlPoint.x - self.center.x);
     angle = - angle + lastAngle;
     self.transform = CGAffineTransformRotate(self.transform, angle);
-    //    NSLog(@"&&&**旋转 angle  %f",angle);
+    //    NSLog(@"&&&** angle  %f",angle);
     
     oPoint = [self convertPoint:[self getRealOriginalPoint] toView:self.superview];
     self.center = CGPointMake(self.center.x + (self.center.x - oPoint.x),

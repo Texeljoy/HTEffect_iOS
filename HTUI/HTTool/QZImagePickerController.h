@@ -1,6 +1,6 @@
 //
 //  QZImagePickerController.h
-//  Toivan_Education
+//  HTEffectDemo
 //
 //  Created by MBP DA1003 on 2022/7/15.
 //

@@ -15,7 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) HTButton *item;
 @property (nonatomic, strong) UIView *pointView;
 
-//@property (nonatomic, strong) HTModel *bodyModel;//美体
+// 美颜美型赋值
+- (void)setSkinShapeModel:(HTModel *)model themeWhite:(BOOL)white;
+
+// 美体赋值
 - (void)setBodyModel:(HTModel *)model themeWhite:(BOOL)white;
 
 @end
