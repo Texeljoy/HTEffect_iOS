@@ -7,28 +7,28 @@
 
 ## **Instruction**
 
-- Exquisite facial beauty and hair color transformation effects
-- More than 60 types of beauty filters, wonderful effect filters, and interesting distorting mirror with deformed faces
-- Exquisite 2D dynamic stickers, 3D props, masks, and rich full screen 3D gift effects
-- Draggable watermark stickers: supports users to upload, drag, zoom, rotate, etc
-- Multiple gesture recognition and trigger special effects
-- Cutout function supports AI background segmentation and green screen segmentation with multiple screen colors
+- Exquisite facial beauty AR, makeup AR and hair color transformation effects
+- More than 60 types of beauty filters, wonderful effect filters, and interesting distorting mirror effects
+- Exquisite 2D dynamic face AR stickers, 3D props, masks, and rich full screen 3D gift effects
+- Draggable watermarks: supports users to upload, drag, zoom, rotate, etc
+- Interactive AR filters that users can launch with multiple gestures and triggers.
+- Background segmentation supports AI background segmentation and chroma key segmentation with multiple colors.
 
 <br/>
 
 ### **Feature**
 
-- [More diverse] Multiple AR special effects are fully covered, with a variety of special effects types to meet the diverse needs of users
-- [More convenient docking] Out of the box UI can be directly used on the C end, with fast docking and a good experience. Three lines of code can quickly achieve docking
-- [Resource support self design] All materials support platform self-design and customization, creating AR material special effects that align with platform positioning
-- [Ultimate performance] Industry leading AI algorithm capability, 946 facial key points make facial features more precise, and facial expression and emotion capture more efficient, stable, and accurate
-- [More independent platform based services] Users can register themselves and log in to Hongtu AI open platform to obtain the portrait body SDK capability, and have more free and accurate control over application status and information in real time
+- [Richer special effects] Multiple AR special effects are fully covered, with a variety of special effects types to meet the diverse needs of users
+- [More convenient integration] Perfect UI can be directly used on the C end, with fast integration and a good experience. Three lines of code can quickly finish integration
+- [Resource support self design] All materials support self-design and customization, creating AR material special effects that align with your own platform style
+- [Ultimate performance] Industry leading AI algorithm capability, 106 - 946 facial key points make facial features more precise, and capture of facial expression and emotion is more efficient, stable, and accurate
+- [Platform-based services are more autonomous] Users can register and log in to Hongtu AI open platform to obtain beauty AR SDK, and have more accurate control over SDK using status and information in any time
 
 <br/>
 
 ### **Results**
 
-- By utilizing AR effects such as facial beauty, stickers, props, gesture effects, and portrait background segmentation, we provide users with rich and diverse AI+AR technologies that revolve around the human body
+- By utilizing AR effects such as facial beauty AR, face AR stickers, props, gesture effects, and background segmentation, we provide users with rich and diverse AI + AR technologies that related to the human face and body
 
 ![](https://hteffect-resource.oss-cn-shanghai.aliyuncs.com/gitee_resource/hteffect_en.png)
 <br/>
@@ -285,51 +285,51 @@ isRenderInit = false;
 
 ## **Recent updates**
 - **2023.12.28:** v3.1.0
-    - Optimizing the underlying algorithm for gesture effects
-    - Increase rendering support for partially transparent images
-    - Improve the output and printing of the logging system
+    - Optimized the algorithm of gesture recognition effects
+    - Added rendering support for some transparent images
+    - Improved the output of the log system
     - Solved some known issues
 
 - **2023.11.30:** v3.0.2
-    - Optimize grinding and clear algorithm
+    - Optimized grinding and clear algorithm
     - Solved some known issues
 
 - **2023.11.23:** v3.0.1
-    - Improve the beauty fit
-    - Optimize the stretching of beauty eyeliner
+    - Improved the beauty fit
+    - Optimized the stretching of beauty eyeliner
 
 - **2023.11.20:** v3.0.0
     - Green screen cutout with added background image local upload function
-    - Improve the effectiveness of beauty and makeup recommendations
-    - Optimization of underlying algorithms such as hairdressing, portrait cutout, gesture recognition, and green screen cutout
+    - Improved the effectiveness of beauty and makeup recommendations
+    - Optimization of underlying algorithms such as hairdressing, portrait cutout, gesture recognition, and green screen background seg.
     - Solved some known issues
 
 - **2023.09.27:** v3.0.0-beta
-    - Add makeup effects, including eyebrows, powder blusher, eye shadow, eyeliner, eyelashes, lipstick, pupil and other effects
-    - Add makeup recommendation effects, including various popular makeup effects such as fox beauty, pure desire, girl group, etc
-    - Add body shape effects, including long legs and slimming
+    - Added makeup effects, including eyebrows, powder blusher, eye shadow, eyeliner, eyelashes, lipstick, pupil and other effects
+    - Added makeup recommendation effects, including various popular makeup effects such as fox beauty, pure desire, girl group, etc
+    - Added body shape effects, including long legs and slimming
     - Optimized hairdressing algorithm for more stable support for CPU/GPU
     - Optimized portrait segmentation algorithm for more natural and stable edges
     - Optimized gesture recognition algorithm to support hand following movement
 
 - **2023.07.18:** v2.2.0
-    - Add 4 new mask materials
+    - Added 4 new mask materials
     - Solved some known issues
 
 - **2023.06.09:** v2.1.0
-    - Add 16 senior filters
+    - Added 16 senior filters
     
 - **2023.06.07:** v2.0.2
-    - Fix the issue
-    - Optimize resource memory space processing
+    - Fixed the issue
+    - Optimized resource memory space processing
 
 - **2023.06.01:** v2.0.1
-    - Fix the issue with default values for green screens
+    - Fixed the issue with default values for green screens
 
 - **2023.05.17:** new v2.0
   - More than 30 new styles of filters, special effect filters, and distorting mirror
-  - Add hairdressing, masks, gifts, and custom drag and drop watermarks
-  - Green screen cutout adds blue and white screen colors and parameter adjustments
+  - Added hairdressing, masks, gifts, and custom drag and drop watermarks
+  - Green screen background seg. added blue and white screen colors and parameter adjustments
   - Optimized gesture effects and portrait segmentation effects
 - [More](https://doc.texeljoy.com/document/hummanBody/beauty/Introduce/function.html)
 
