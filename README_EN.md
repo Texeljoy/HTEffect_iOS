@@ -93,13 +93,13 @@ pod install
 
 ```objective-c
 /**
-* Online authentication method
-*/
+ * Online authentication method
+ */
 [[HTEffect shareInstance] initHTEffect:@"YOUR_APPID" withDelegate:self];
 
 /**
-* Offline authentication method
-*/
+ * Offline authentication method
+ */
 // [[HTEffect shareInstance] initHTEffect:@"YOUR_LICENSE"];
 ```
 
@@ -112,12 +112,12 @@ pod install
 
 **Rendering**
 
-- Define a BOOL variable **isRenderInit** to indicate the initialization status of the renderer, and use the corresponding method to render based on the obtained video format
+- Video frames: define a BOOL variable **isRenderInit** to indicate the initialization status of the renderer, and use the corresponding method to render based on the obtained video format
 
 ```objective-c
 /**
-* Video frames
-*/
+ * Video frames
+ */
 CVPixelBufferLockBaseAddress(pixelBuffer, 0);
 unsigned char *buffer = (unsigned char *) CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 0);
 
@@ -130,8 +130,8 @@ if (!_isRenderInit) {
 CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 
 /**
-* Texture
-*/
+ * Texture
+ */
 // if (!_isRenderInit) {
 //     [[HTEffect shareInstance] releaseTextureRenderer];
 //     _isRenderInit = [[HTEffect shareInstance] initTextureRenderer:width height:height rotation:rotation isMirror:isMirror maxFaces:maxFaces];
@@ -139,20 +139,50 @@ CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 // [[HTEffect shareInstance] processTexture:textureId];
 ```
 
-**Destruction**
-
-- At the end of rendering, the corresponding release method needs to be called based on the video format, usually written in the dealloc method
-
+- Image
 ```objective-c
 /**
-* Destroy texture rendering resources
-*/
+ * byte[]
+ */
+if (!_isRenderInit) {
+    [[HTEffect shareInstance] releaseImageRenderer];
+    _isRenderInit = [[HTEffect shareInstance] initImageRenderer:format width:width height:height rotation:rotation isMirror:isMirror maxFaces:maxFaces];
+}
+[[HTEffect shareInstance] processImage:pixels];
+
+/**
+ * UIImage
+ */
+// UIImage *resultImage = [[HTEffect shareInstance] processUIImage:image];
+```
+
+**Destruction**
+
+- At the end of rendering, the corresponding release method needs to be called based on current format, usually written in the dealloc method
+
+```objective-c
+// Destroy video frame rendering resources
+/**
+ * texture
+ */
 [[HTEffect shareInstance] releaseTextureRenderer];
 
 /**
-* Destroy buffer rendering resources
-*/
+ * buffer
+ */
 // [[HTEffect shareInstance] releaseBufferRenderer];
+
+
+// Destroy image rendering resources
+/**
+ * byte[]
+ */
+// [[HTEffect shareInstance] releaseImageRenderer];
+
+/**
+ * UIImage
+ */
+// [[HTEffect shareInstance] releaseUIImageRenderer];
 ```
 
 <br/>
@@ -225,12 +255,12 @@ addContentView(
 
 **Rendering**
 
-- Define the Boolean variable **isRenderInit** to indicate whether the rendering method has been initialized, and then use the corresponding method for rendering based on the different video frame formats obtained
+- Video frames: define the Boolean variable **isRenderInit** to indicate whether the rendering method has been initialized, and then use the corresponding method for rendering based on the different video frame formats obtained
 
 ```java
 /**
  * texture format GL_TEXTURE_EXTERNAL_OES
-*/
+ */
 if (!isRenderInit) {
     isRenderInit = HTEffect.shareInstance().initTextureOESRenderer(width, height, rotation, isMirror, maxFaces);
 }
@@ -238,7 +268,7 @@ int textureId = HTEffect.shareInstance().processTextureOES(textureOES);
 
 /**
  * texture format GL_TEXTURE_2D
-*/
+ */
 if (!isRenderInit) {
     isRenderInit = HTEffect.shareInstance().initTextureRenderer(width, height, rotation, isMirror, maxFaces);
 }
@@ -246,11 +276,27 @@ int textureId = HTEffect.shareInstance().processTexture(texture2D);
 
 /**
  * Video frames
-*/
+ */
 if (!isRenderInit) {
     isRenderInit = HTEffect.shareInstance().initBufferRenderer(format,width, height, rotation, isMirror, maxFaces);
 }
 HTEffect.shareInstance().processBuffer(buffer);
+```
+
+- Image
+```java
+/**
+ * byte[] 
+ */
+if (!isRenderInit) {
+    isRenderInit = HTEffect.shareInstance().initImageRenderer(format,width, height,rotation,isMirror,maxFaces);
+}
+    HTEffect.shareInstance().processImage(buffer);
+
+/**
+ * Bitmap
+ */
+Bitmap newBitmap = HTEffect.shareInstance().processBitmap(bitmap);
 ```
 
 **Destruction**
@@ -266,9 +312,19 @@ HTEffect.shareInstance().releaseTextureRenderer();
 HTEffect.shareInstance().releaseBufferRenderer();
 
 /*
-* Set isRenderInit to false
-*/
+ * Set isRenderInit to false
+ */
 isRenderInit = false;
+
+/**
+ * Destroy image rendering resources, byte[]
+ */
+HTEffect.shareInstance().releaseImageRenderer();
+
+/**
+ * Destroy image rendering resources, Bitmap
+ */
+HTEffect.shareInstance().releaseBitmapRenderer();
 ```
 
 <br/>
@@ -284,6 +340,14 @@ isRenderInit = false;
 ---
 
 ## **Recent updates**
+- **2024.01.29:** v3.2.0
+    - Add a single image rendering processing interface
+    - Improvement of facial detection, landmark and tracking performance
+    - Simplify algorithm model file structure
+    - Implement RGB and BGR format support
+    - Complete implementation of transparent background image rendering switch interface
+    - Improve the algorithm model file related log system, fault tolerance mechanism, and backward compatibility logic
+
 - **2023.12.28:** v3.1.0
     - Optimized the algorithm of gesture recognition effects
     - Added rendering support for some transparent images

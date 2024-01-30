@@ -10,7 +10,7 @@
 		</data>
 		<key>Headers/HTEffectInterface.h</key>
 		<data>
-		ZiYyqEsSFbjVFFSPXBLNd4ZxdYU=
+		4fkwm+dss72p2y27g2xvIP0ty8U=
 		</data>
 		<key>Headers/HTEffectView.h</key>
 		<data>
@@ -23,10 +23,6 @@
 		<key>Modules/module.modulemap</key>
 		<data>
 		y/bntrzg+dhno4Rz62V4+EWwckM=
-		</data>
-		<key>README.md</key>
-		<data>
-		H31zMBJVgpWiahLv44ES5tBJ09c=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -46,11 +42,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ZiYyqEsSFbjVFFSPXBLNd4ZxdYU=
+			4fkwm+dss72p2y27g2xvIP0ty8U=
 			</data>
 			<key>hash2</key>
 			<data>
-			8LlhbnFG/gyQg3deuQ8zAIuhDzVWgCoTx+dDwE9pwNc=
+			1RcJuutw5V4PVsGnFojsngw0Ba4fCflv6z9YzN4llpE=
 			</data>
 		</dict>
 		<key>Headers/HTEffectView.h</key>
@@ -73,17 +69,6 @@
 			<key>hash2</key>
 			<data>
 			wm0WBBj300pysHkssl5Hg8+wmPhk9vIpyhgKqAfbl7I=
-			</data>
-		</dict>
-		<key>README.md</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			H31zMBJVgpWiahLv44ES5tBJ09c=
-			</data>
-			<key>hash2</key>
-			<data>
-			5cfC3WEng4Ld1x/S5DJDvj3VqL6ZLUhMy2YEYJ8ChiA=
 			</data>
 		</dict>
 	</dict>

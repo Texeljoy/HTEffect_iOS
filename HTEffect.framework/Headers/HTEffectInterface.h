@@ -398,6 +398,21 @@ typedef NS_ENUM(NSInteger, HTGestureEnum) {
  */
 - (void)releaseImageRenderer;
 
+/**
+ * 渲染UIImage图片
+ * 该接口仅适用于图片渲染的场景，和processImage接口的区别在于无需初始化渲染器以及参数差异
+ *
+ * @param image 图片（UIImage格式）
+ *
+ * @return 渲染后的图片（UIImage格式）
+ */
+- (UIImage *)processUIImage:(UIImage *)image;
+
+/**
+ * 销毁UIImage图片渲染资源
+ */
+- (void)releaseUIImageRenderer;
+
 #pragma mark - 美肤
 
 /**
@@ -496,10 +511,17 @@ typedef NS_ENUM(NSInteger, HTGestureEnum) {
  * @param y2 左下角纵坐标值
  * @param x3 右下角横坐标值
  * @param y3 右下角纵坐标值
- * @param x4 右下角横坐标值
- * @param y4 右下角纵坐标值
+ * @param x4 右上角横坐标值 
+ * @param y4 右上角纵坐标值
  */
 - (void)setWatermarkParam:(float)x1 y1:(float)y1 x2:(float)x2 y2:(float)y2 x3:(float)x3 y3:(float)y3 x4:(float)x4 y4:(float)y4;
+
+/**
+ * 设置AR道具-水印透明度参数函数
+ *
+ * @param value 透明度参数，0-100，默认100
+ */
+- (void)setWatermarkTransparency:(int)value;
 
 #pragma mark - 人像抠图 - AI抠图
 

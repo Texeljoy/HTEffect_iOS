@@ -565,7 +565,6 @@
             self.landmarkView.pointXArray = [[NSMutableArray alloc] init];
             self.landmarkView.pointYArray = [[NSMutableArray alloc] init];
             for(int j = 0; j < 106; j++){
-                NSLog(@"111111111111 ==== %d", i);
                 CGPoint point = report.keyPoints[j];
                 //默认HTEffectViewOrientationPortrait
                 CGFloat x = imageOnPreviewScale * point.x - (previewImageWidth - HTScreenWidth) / 2;

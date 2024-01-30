@@ -75,13 +75,13 @@ pod install
 - 在您的 App 调用 HTEffect 的相关功能之前（建议在 [AppDelegate application:didFinishLaunchingWithOptions:] 中）进行如下设置
 ```objective-c
 /**
-* 在线鉴权初始化方法
-*/
+ * 在线鉴权初始化方法
+ */
 [[HTEffect shareInstance] initHTEffect:@"YOUR_APPID" withDelegate:self];
 
 /**
-* 离线鉴权初始化方法
-*/
+ * 离线鉴权初始化方法
+ */
 // [[HTEffect shareInstance] initHTEffect:@"YOUR_LICENSE"];
 ```
 
@@ -92,11 +92,11 @@ pod install
  ```
 
 **渲染**
-- 定义一个 BOOL 变量 **isRenderInit** ，用来标志渲染器的初始化状态，根据获取到的视频格式，采用对应的方法进行渲染
+- 视频帧：定义一个 BOOL 变量 **isRenderInit** ，用来标志渲染器的初始化状态，根据获取到的视频格式，采用对应的方法进行渲染
 ```objective-c
 /**
-* 视频帧
-*/
+ * 视频帧
+ */
 CVPixelBufferLockBaseAddress(pixelBuffer, 0);
 unsigned char *buffer = (unsigned char *) CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 0);
 
@@ -109,8 +109,8 @@ if (!_isRenderInit) {
 CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 
 /**
-* 纹理
-*/
+ * 纹理
+ */
 // if (!_isRenderInit) {
 //     [[HTEffect shareInstance] releaseTextureRenderer];
 //     _isRenderInit = [[HTEffect shareInstance] initTextureRenderer:width height:height rotation:rotation isMirror:isMirror maxFaces:maxFaces];
@@ -118,18 +118,47 @@ CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 // [[HTEffect shareInstance] processTexture:textureId];
 ```
 
-**销毁**
-- 结束渲染时，需根据视频格式，调用对应的释放方法，通常写在 dealloc 方法里
+- 图片
 ```objective-c
 /**
-* 销毁纹理渲染资源
-*/
+ * byte[]
+ */
+if (!_isRenderInit) {
+    [[HTEffect shareInstance] releaseImageRenderer];
+    _isRenderInit = [[HTEffect shareInstance] initImageRenderer:format width:width height:height rotation:rotation isMirror:isMirror maxFaces:maxFaces];
+}
+[[HTEffect shareInstance] processImage:pixels];
+
+/**
+ * UIImage
+ */
+// UIImage *resultImage = [[HTEffect shareInstance] processUIImage:image];
+```
+
+**销毁**
+- 结束渲染时，需根据对应格式，调用对应的释放方法，通常写在 dealloc 方法里
+```objective-c
+// 销毁视频帧渲染资源
+/**
+ * texture
+ */
 [[HTEffect shareInstance] releaseTextureRenderer];
 
 /**
-* 销毁buffer渲染资源
-*/
+ * buffer
+ */
 // [[HTEffect shareInstance] releaseBufferRenderer];
+
+// 销毁图片渲染资源
+/**
+ * byte[]
+ */
+// [[HTEffect shareInstance] releaseImageRenderer];
+
+/**
+ * UIImage
+ */
+// [[HTEffect shareInstance] releaseUIImageRenderer];
 ```
 <br/>
 
@@ -186,12 +215,12 @@ addContentView(
 ```
 
 **渲染**
-- 定义布尔变量 **isRenderInit** ，用来标志渲染方法是否初始化完成，然后根据得到的视频帧格式的不同，使用对应的方法进行渲染
+- 视频帧：定义布尔变量 **isRenderInit** ，用来标志渲染方法是否初始化完成，然后根据得到的视频帧格式的不同，使用对应的方法进行渲染
 
 ```java
 /**
  * GL_TEXTURE_EXTERNAL_OES 纹理格式
-*/
+ */
 if (!isRenderInit) {
     isRenderInit = HTEffect.shareInstance().initTextureOESRenderer(width, height, rotation, isMirror, maxFaces);
 }
@@ -199,7 +228,7 @@ int textureId = HTEffect.shareInstance().processTextureOES(textureOES);
 
 /**
  * GL_TEXTURE_2D 纹理格式
-*/
+ */
 if (!isRenderInit) {
     isRenderInit = HTEffect.shareInstance().initTextureRenderer(width, height, rotation, isMirror, maxFaces);
 }
@@ -207,11 +236,27 @@ int textureId = HTEffect.shareInstance().processTexture(texture2D);
 
 /**
  * byte[] 视频帧
-*/
+ */
 if (!isRenderInit) {
     isRenderInit = HTEffect.shareInstance().initBufferRenderer(format,width, height, rotation, isMirror, maxFaces);
 }
 HTEffect.shareInstance().processBuffer(buffer);
+```
+
+- 图片：
+```java
+/**
+ * byte[] 图片类型
+ */
+if (!isRenderInit) {
+    isRenderInit = HTEffect.shareInstance().initImageRenderer(format,width, height,rotation,isMirror,maxFaces);
+}
+    HTEffect.shareInstance().processImage(buffer);
+
+/**
+ * Bitmap 图片类型
+ */
+Bitmap newBitmap = HTEffect.shareInstance().processBitmap(bitmap);
 ```
 
 **销毁**
@@ -225,9 +270,20 @@ HTEffect.shareInstance().releaseTextureRenderer();
 HTEffect.shareInstance().releaseBufferRenderer();
 
 /*
-* 将 bool 置为 false
-*/
+ * 将 bool 置为 false
+ */
 isRenderInit = false;
+
+/**
+ * 销毁图片渲染资源，图片为byte[]类型
+ */
+HTEffect.shareInstance().releaseImageRenderer();
+
+/**
+ * 销毁图片渲染资源，图片为Bitmap类型
+ */
+HTEffect.shareInstance().releaseBitmapRenderer();
+
 ```
 
 <br/>
@@ -242,6 +298,14 @@ isRenderInit = false;
 ----
 
 ## **最近更新**
+- **2024.01.29:** v3.2.0
+    - 增加单张图片渲染处理接口
+    - 人脸的检测、关键点、追踪性能提升
+    - 简化算法模型文件结构
+    - 实现RGB、BGR的格式支持
+    - 完整实现透明背景图渲染开关接口
+    - 完善算法模型文件相关日志系统、容错机制、向下兼容逻辑
+
 - **2023.12.28:** v3.1.0
     - 优化手势特效底层算法
     - 增加对部分透明图片的渲染支持

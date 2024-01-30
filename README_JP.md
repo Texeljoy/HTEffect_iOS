@@ -75,13 +75,13 @@ pod install
 - アプリケーションがHTEffectの関連機能を呼び出す前に([AppDelegate application:didFinishLaunchingWithOptions:]で)次の設定を行うことをお勧めします
 ```objective-c
 /**
-* オンライン認証初期化方法
-*/
+ * オンライン認証初期化方法
+ */
 [[HTEffect shareInstance] initHTEffect:@"YOUR_APPID" withDelegate:self];
 
 /**
-* オフライン認証初期化方法
-*/
+ * オフライン認証初期化方法
+ */
 // [[HTEffect shareInstance] initHTEffect:@"YOUR_LICENSE"];
 ```
 
@@ -92,11 +92,11 @@ pod install
  ```
 
 **レンダリング**
-- レンダラーの初期化状態を示すBOOL変数**isRenderInit**を定義し、取得したビデオフォーマットに基づいて対応する方法でレンダーする
+- ビデオフレーム: レンダラーの初期化状態を示すBOOL変数**isRenderInit**を定義し、取得したビデオフォーマットに基づいて対応する方法でレンダーする
 ```objective-c
 /**
-* ビデオフレーム
-*/
+ * ビデオフレーム
+ */
 CVPixelBufferLockBaseAddress(pixelBuffer, 0);
 unsigned char *buffer = (unsigned char *) CVPixelBufferGetBaseAddressOfPlane(pixelBuffer, 0);
 
@@ -109,8 +109,8 @@ if (!_isRenderInit) {
 CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 
 /**
-* テクスチャ
-*/
+ * テクスチャ
+ */
 // if (!_isRenderInit) {
 //     [[HTEffect shareInstance] releaseTextureRenderer];
 //     _isRenderInit = [[HTEffect shareInstance] initTextureRenderer:width height:height rotation:rotation isMirror:isMirror maxFaces:maxFaces];
@@ -118,18 +118,47 @@ CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
 // [[HTEffect shareInstance] processTexture:textureId];
 ```
 
-**破棄**
-- レンダリングを終了するには、ビデオフォーマットに基づいて、対応するリリース方法を呼び出す必要があります。通常、deallocメソッドに書かれています
+- 画像
 ```objective-c
 /**
-* テクスチャレンダリングアセットを破棄する
-*/
+ * byte[]
+ */
+if (!_isRenderInit) {
+    [[HTEffect shareInstance] releaseImageRenderer];
+    _isRenderInit = [[HTEffect shareInstance] initImageRenderer:format width:width height:height rotation:rotation isMirror:isMirror maxFaces:maxFaces];
+}
+[[HTEffect shareInstance] processImage:pixels];
+
+/**
+ * UIImage
+ */
+// UIImage *resultImage = [[HTEffect shareInstance] processUIImage:image];
+```
+
+**破棄**
+- レンダリングを終了するには、対応するフォーマットに基づいて、対応するリリース方法を呼び出す必要があります。通常、dealloc方法に書かれています
+```objective-c
+// ビデオフレームレンダリングアセットを破棄する
+/**
+ * texture
+ */
 [[HTEffect shareInstance] releaseTextureRenderer];
 
 /**
-* bufferレンダリングアセットを破棄する
-*/
+ * buffer
+ */
 // [[HTEffect shareInstance] releaseBufferRenderer];
+
+// 画像レンダリングリソースを破棄する
+/**
+ * byte[]
+ */
+// [[HTEffect shareInstance] releaseImageRenderer];
+
+/**
+ * UIImage
+ */
+// [[HTEffect shareInstance] releaseUIImageRenderer];
 ```
 <br/>
 
@@ -186,12 +215,12 @@ addContentView(
 ```
 
 **レンダリング**
-- ブール変数**isRenderInit**を定義して、レンダリング方法の初期化が完了したかどうかを示し、得られたビデオフレームフォーマットに応じて対応する方法でレンダリングする
+- ビデオフレーム: ブール変数**isRenderInit**を定義して、レンダリング方法の初期化が完了したかどうかを示し、得られたビデオフレームフォーマットに応じて対応する方法でレンダリングする
 
 ```java
 /**
  * GL_TEXTURE_EXTERNAL_OES テクスチャフォーマット
-*/
+ */
 if (!isRenderInit) {
     isRenderInit = HTEffect.shareInstance().initTextureOESRenderer(width, height, rotation, isMirror, maxFaces);
 }
@@ -199,7 +228,7 @@ int textureId = HTEffect.shareInstance().processTextureOES(textureOES);
 
 /**
  * GL_TEXTURE_2D テクスチャフォーマット
-*/
+ */
 if (!isRenderInit) {
     isRenderInit = HTEffect.shareInstance().initTextureRenderer(width, height, rotation, isMirror, maxFaces);
 }
@@ -207,11 +236,31 @@ int textureId = HTEffect.shareInstance().processTexture(texture2D);
 
 /**
  * byte[] ビデオフレーム
-*/
+ */
 if (!isRenderInit) {
     isRenderInit = HTEffect.shareInstance().initBufferRenderer(format,width, height, rotation, isMirror, maxFaces);
 }
 HTEffect.shareInstance().processBuffer(buffer);
+```
+
+- 画像
+```java
+/**
+ * 画像のレンダリング
+ */
+
+/**
+ * byte[] 
+ */
+if (!isRenderInit) {
+    isRenderInit = HTEffect.shareInstance().initImageRenderer(format,width, height,rotation,isMirror,maxFaces);
+}
+    HTEffect.shareInstance().processImage(buffer);
+
+/**
+ * Bitmap 
+ */
+Bitmap newBitmap = HTEffect.shareInstance().processBitmap(bitmap);
 ```
 
 **破棄**
@@ -225,9 +274,19 @@ HTEffect.shareInstance().releaseTextureRenderer();
 HTEffect.shareInstance().releaseBufferRenderer();
 
 /*
-* boolをfalseにする
-*/
+ * boolをfalseにする
+ */
 isRenderInit = false;
+
+/**
+ * 画像レンダリングリソースを破棄する,byte[]
+ */
+HTEffect.shareInstance().releaseImageRenderer();
+
+/**
+ * 画像レンダリングリソースを破棄する,Bitmap
+ */
+HTEffect.shareInstance().releaseBitmapRenderer();
 ```
 
 <br/>
@@ -242,6 +301,14 @@ isRenderInit = false;
 ----
 
 ## **最近の更新**
+- **2024.01.29:** v3.2.0
+    - 1枚の画像レンダリング処理インタフェースを追加
+    - 顔の検出、キー、追跡パフォーマンスの向上
+    - アルゴリズムモデルファイル構造の簡略化
+    - RGB、BGRのフォーマットサポートを実現
+    - 透明バックグラウンドマップレンダリングスイッチインタフェースの完全な実装
+    - アルゴリズムモデルファイル関連ログシステム、フォールトトレランス機構、下位互換ロジックの整備
+
 - **2023.12.28:** v3.1.0
     - ジェスチャーエフェクトの最適化のための最下位アルゴリズム
     - 部分的に透明な画像のレンダリングサポートを追加する
