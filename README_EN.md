@@ -340,6 +340,10 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ---
 
 ## **Recent updates**
+- **2024.02.06:** v3.2.1
+    - Add interface for setting performance priority mode
+    - Improve internal rendering and algorithm performance
+
 - **2024.01.29:** v3.2.0
     - Add a single image rendering processing interface
     - Improvement of facial detection, landmark and tracking performance

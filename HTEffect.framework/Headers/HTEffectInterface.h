@@ -716,6 +716,11 @@ typedef NS_ENUM(NSInteger, HTGestureEnum) {
 - (void)setExtremeLimitEnable:(BOOL)enable;
 
 /**
+ * 设置性能优先模式开关，默认为开
+ */
+- (void)setPerformancePriorityEnable:(BOOL)enable;
+
+/**
  * 设置素材网络路径
  * 将素材保存在自定义的网络存储中的情况下，设置网络路径
  *

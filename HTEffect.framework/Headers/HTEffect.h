@@ -19,3 +19,4 @@ FOUNDATION_EXPORT const unsigned char HTEffectVersionString[];
 #import <HTEffect/HTEffectInterface.h>
 
 #import <HTEffect/HTEffectView.h>
+
