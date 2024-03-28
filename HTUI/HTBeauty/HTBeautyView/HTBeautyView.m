@@ -605,7 +605,7 @@
           
             [weakSelf.sliderRelatedView setHidden:NO];
             weakSelf.currentModel = model;
-            [weakSelf.sliderRelatedView.sliderView setSliderType:HTSliderTypeI WithValue:[HTTool getFloatValueForKey:model.key]];
+            [weakSelf.sliderRelatedView.sliderView setSliderType:model.sliderType WithValue:[HTTool getFloatValueForKey:model.key]];
         };
     }
     return _bodyView;

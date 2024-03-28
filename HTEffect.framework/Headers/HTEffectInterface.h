@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <OpenGLES/gltypes.h>
 
+//#define HT_AVATAR_ENABLE true
+
 @protocol HTEffectDelegate <NSObject>
 
 /**
@@ -88,13 +90,13 @@
 @interface HTPoseDetectionReport : NSObject
 
 /// 人体骨骼关键点坐标
-@property (nonatomic, assign) CGPoint *keyPoints;
+@property (nonatomic, assign) int pointNum;
 
 /// 人体骨骼关键点3D坐标
-@property (nonatomic, assign) CGFloat *keyPoints3D;
+@property (nonatomic, assign) CGPoint *keyPoints;
 
 /// 人体区域坐标
-@property (nonatomic, assign) CGRect rect;
+@property (nonatomic, assign) BOOL *detected;
 
 @end
 
@@ -188,7 +190,8 @@ typedef NS_ENUM(NSInteger, HTARItemTypes) {
     HTItemSticker   = 0, //!< 2D贴纸
     HTItemMask      = 1, //!< 面具
     HTItemGift      = 2, //!< 礼物
-    HTItemWatermark = 3  //!< 水印
+    HTItemWatermark = 3, //!< 水印
+    HTItemAvater    = 4  //!< Avatar
 };
 
 /**
@@ -291,6 +294,15 @@ typedef NS_ENUM(NSInteger, HTGestureEnum) {
  * 单例
  */
 + (HTEffect *)shareInstance;
+
+#ifdef HT_AVATAR_ENABLE
+
+/**
+ * 启动3D特效渲染环境，如无3D特效功能，无需调用
+ */
+- (void)initRuntime:(int)argc argv:(char **)argv;
+
+#endif
 
 #pragma mark - 初始化
 

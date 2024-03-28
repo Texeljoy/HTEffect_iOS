@@ -340,6 +340,15 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ---
 
 ## **Recent updates**
+- **2024.03.28:** v3.3.0-beta
+    - New body beauty effects, including waist slimming, shoulder slimming, thigh thinning, hip trimming, neck slimmming, and chest enlarging
+    - New special filters, including three split screen, broken glass, and one click lego
+    - SDK integration with Avatar effects
+    - Optimizing face landmark tracking algorithm
+    - Optimizing body detection model
+    - Improve the logging system
+    - Solved some known issues
+
 - **2024.02.06:** v3.2.1
     - Add interface for setting performance priority mode
     - Improve internal rendering and algorithm performance
