@@ -709,6 +709,28 @@ typedef NS_ENUM(NSInteger, HTGestureEnum) {
 - (void)setTransparencyRenderEnable:(BOOL)enable;
 
 /**
+ * 设置人脸检测算法Base模式开关，默认为true
+ *
+ * @param enable 开关，默认为true
+ */
+- (void)setFaceDetectionUnitBaseEnable:(BOOL)enable;
+
+/**
+ * 设置人脸检测算法CPU多核运算开关，默认为false
+ *
+ * @param enable 开关，默认为false
+ */
+- (void)setFaceDetectionCPUPowersaveEnable:(BOOL)enable;
+
+/**
+ * 设置人脸检测距离级别，默认为1级，即能识别较近距离
+ * 此接口生效的前置条件是人脸检测算法Base模式为开启状态
+ *
+ * @param level 人脸检测距离级别，默认为1级
+ */
+- (void)setFaceDetectionDistanceLevel:(int)level;
+
+/**
  * 获取当前 SDK 版本号
  *
  * @return 版本号

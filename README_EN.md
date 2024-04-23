@@ -340,6 +340,13 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ---
 
 ## **Recent updates**
+- **2024.04.23:** v3.3.0
+    - New interface for switching face detection models
+    - Add an interface to improve performance by increasing the number of CPU processing cores
+    - Add an interface for setting facial detection distance levels
+    - New Android preview class custom screen direction interface added
+    - Solved some known issues
+
 - **2024.03.28:** v3.3.0-beta
     - New body beauty effects, including waist slimming, shoulder slimming, thigh thinning, hip trimming, neck slimmming, and chest enlarging
     - New special filters, including three split screen, broken glass, and one click lego
