@@ -340,6 +340,10 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ---
 
 ## **Recent updates**
+- **2024.05.24:** v3.3.1
+    - Convert log information to English (excluding initialization information)
+    - Replace the inference framework for portrait segmentation on the Windows end to enhance performance
+
 - **2024.04.23:** v3.3.0
     - New interface for switching face detection models
     - Add an interface to improve performance by increasing the number of CPU processing cores
