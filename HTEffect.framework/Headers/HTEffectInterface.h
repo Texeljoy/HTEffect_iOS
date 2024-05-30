@@ -477,6 +477,15 @@ typedef NS_ENUM(NSInteger, HTGestureEnum) {
  */
 - (void)setFilter:(int)type name:(NSString *)name;
 
+/**
+ * 设置滤镜（新版本接口）
+ *
+ * @param type 滤镜类型，参考类型定义#HTFilterTypes
+ * @param name 滤镜名称，如果传null或者空字符，则取消滤镜效果
+ * @param value 滤镜强度，参数范围0-100
+ */
+- (void)setFilter:(int)type name:(NSString *)name value:(int)value;
+
 #pragma mark - 妆容推荐
 
 /**
