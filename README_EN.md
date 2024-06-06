@@ -340,6 +340,9 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ---
 
 ## **Recent updates**
+- **2024.06.06:** v3.3.2
+    - Optimize portrait segmentation effects for multi-level rendering
+
 - **2024.05.30:** v3.3.2-beta
     - Fix bugs related to multi-face detection support
     - Add an interface for adjusting the intensity of beauty filters
