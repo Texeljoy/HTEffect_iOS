@@ -4,13 +4,17 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		F2StvcBe66Rib7843uUdLgWk6G4=
+		</data>
 		<key>Headers/HTEffect.h</key>
 		<data>
 		i1TtrKWEqjUIdDBXlEp8Y7BHi+U=
 		</data>
 		<key>Headers/HTEffectInterface.h</key>
 		<data>
-		exP+cEbpBAvqZbpgstkNnx9nvtI=
+		3V8XsHIYW91ZkB6Y+BrT3kJMsJo=
 		</data>
 		<key>Headers/HTEffectView.h</key>
 		<data>
@@ -38,7 +42,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zGm1DjGQxi+SrtvYw0fwxuwpICX3Q4dRN5VapGUmP8I=
+			fZNUAK8aR77rB2IaN9vd6bnu3CXELooUATyisSGAJcw=
 			</data>
 		</dict>
 		<key>Headers/HTEffectView.h</key>

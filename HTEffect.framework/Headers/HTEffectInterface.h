@@ -288,6 +288,18 @@ typedef NS_ENUM(NSInteger, HTGestureEnum) {
     HTGestureNoGesture      = 18
 };
 
+/**
+ * AI驱动类型枚举
+ */
+typedef NS_ENUM(NSInteger, HTAITypes) {
+    HTAIFace106         = 0, //!< 人脸106关键点检测
+    HTAIFace278         = 1, //!< 人脸278关键点检测
+    HTAIHairParser      = 2, //!< 头发分割
+    HTAIPortraitMatting = 3, //!< 人像分割
+    HTAIHand            = 4, //!< 人手检测
+    HTAIPose            = 5  //!< 人体检测
+};
+
 #pragma mark - 单例
 
 /**
@@ -321,6 +333,25 @@ typedef NS_ENUM(NSInteger, HTGestureEnum) {
  * @return 鉴权结果返回值
  */
 - (int)initHTEffect:(NSString *)license;
+
+#pragma mark - 初始化（剥离AI驱动加载方法），3.4.0版本开始使用
+
+/**
+ * 鉴权方法 - 在线
+ *
+ * @param appId 在线鉴权appId
+ * @param delegate 代理
+ */
+- (void)authOnline:(NSString *)appId withDelegate:(id<HTEffectDelegate>)delegate;
+
+/**
+ * 鉴权方法 - 离线
+ *
+ * @param license 离线鉴权license
+ * @return 鉴权结果返回值
+ */
+- (int)authOffline:(NSString *)license;
+
 
 #pragma mark - 渲染处理
 
@@ -678,6 +709,23 @@ typedef NS_ENUM(NSInteger, HTGestureEnum) {
 - (void)setBodyBeauty:(int)type value:(int)value;
 
 #pragma mark - 算法
+
+/**
+ * 加载AI驱动
+ *
+ * @param type AI驱动类型，参考类型定义#HTAITypes
+ *
+ * @return 当前AI驱动类型是否加载成功
+ */
+- (bool)loadAIProcessor:(int)type;
+
+/**
+ * 卸载AI驱动
+ *
+ * @param type AI驱动类型，参考类型定义#HTAITypes
+ *
+ */
+- (void)removeAIProcessor:(int)type;
 
 /**
  * 判断是否检测到人脸

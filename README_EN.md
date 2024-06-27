@@ -340,6 +340,15 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ---
 
 ## **Recent updates**
+- **2024.06.26:** v3.4.0
+    - Add a set of initialization interfaces and peel off the AI driver loading method
+    - Add methods for loading/unloading AI drivers
+    - Update materials for eliminating dark circles under eyes
+    - Add face detection and parameter related opening and closing logic
+    - Change the face detection model version
+    - Reduce package size
+    - Fix some bugs
+
 - **2024.06.06:** v3.3.2
     - Optimize portrait segmentation effects for multi-level rendering
 
