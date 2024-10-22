@@ -39,7 +39,11 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        
+        [self addSubview:self.sliderRelatedView];
+        [self.sliderRelatedView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.top.equalTo(self);
+            make.height.mas_equalTo(HTHeight(53));
+        }];
         [self addSubview:self.containerView];
         [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self);
@@ -91,7 +95,8 @@
 
 - (void)updateEffect:(int)value{
     // 设置美颜参数
-    [[HTEffect shareInstance] setFilter:(int)self.menuIndex name:self.currentModel.name];
+    // TODO: 增加缓存处理
+    [[HTEffect shareInstance] setFilter:(int)self.menuIndex name:self.currentModel.name value:value];
     
 }
  
@@ -101,6 +106,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)saveParameters:(int)value {
+    NSString *key = self.currentModel.key;
+    [HTTool setFloatValue:value forKey:key];
+}
 
 #pragma mark - 懒加载
 - (NSArray *)listArr{
@@ -122,6 +131,40 @@
 }
 
 # pragma mark - 懒加载
+- (HTSliderRelatedView *)sliderRelatedView{
+    if (!_sliderRelatedView) {
+        _sliderRelatedView = [[HTSliderRelatedView alloc] initWithFrame:CGRectZero];
+        [_sliderRelatedView.sliderView setSliderType:HTSliderTypeI WithValue:[HTTool getFloatValueForKey:HT_STYLE_FILTER_SLIDER]];
+        WeakSelf;
+        // 更新效果
+        [_sliderRelatedView.sliderView setRefreshValueBlock:^(CGFloat value) {
+            [weakSelf updateEffect:value];
+        }];
+        // 写入缓存
+        [_sliderRelatedView.sliderView setEndDragBlock:^(CGFloat value) {
+//            [weakSelf saveParameters:value];
+            
+            switch (weakSelf.menuIndex) {
+                case 0://风格
+                    [HTTool setFloatValue:value forKey:HT_STYLE_FILTER_SLIDER];
+                    break;
+                case 1://特效
+                    [HTTool setFloatValue:value forKey:HT_EFFECT_FILTER_SLIDER];
+                    break;
+                case 2://哈哈镜
+                    [HTTool setFloatValue:value forKey:HT_HAHA_FILTER_SLIDER];
+                    break;
+                default:
+                    break;
+            }
+            
+        }];
+        [_sliderRelatedView setHidden:YES];
+    }
+    return _sliderRelatedView;
+}
+
+
 - (UIView *)containerView{
     if (!_containerView) {
         _containerView = [[UIView alloc] init];
@@ -163,6 +206,12 @@
         WeakSelf;
         [_effectView setOnUpdateSliderHiddenBlock:^(HTModel * _Nonnull model,NSInteger index) {
             weakSelf.currentModel = model;
+            if(index == 0||self.menuIndex == 1||self.menuIndex == 2){
+                [weakSelf.sliderRelatedView setHidden:YES];
+            }else{
+                [weakSelf.sliderRelatedView setHidden:NO];
+            }
+
         }];
         
         // 弹框

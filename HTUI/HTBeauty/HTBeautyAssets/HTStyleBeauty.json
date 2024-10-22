@@ -6,7 +6,7 @@
             "selected": true,
             "icon": "light_makeup_yt_icon.png",
             "fillColor":"#000000",
-            "idCard":0,
+            "idCard":0
         },
         {
             "title": "清纯白花",
@@ -14,7 +14,7 @@
             "selected": false,
             "icon": "light_makeup_qcbh_icon.png",
             "fillColor":"#B77F52",
-            "idCard":1,
+            "idCard":1
         },
         {
             "title": "狐系美人",
@@ -22,7 +22,7 @@
             "selected": false,
             "icon": "light_makeup_hxmr_icon.png",
             "fillColor":"#8B897A",
-            "idCard":2,
+            "idCard":2
         },
         {
             "title": "清甜妆",
@@ -30,7 +30,7 @@
             "selected": false,
             "icon": "light_makeup_qtz_icon.png",
             "fillColor":"#C49E97",
-            "idCard":3,
+            "idCard":3
         },
         {
             "title": "白露",
@@ -38,7 +38,7 @@
             "selected": false,
             "icon": "light_makeup_bl_icon.png",
             "fillColor":"#BC917F",
-            "idCard":4,
+            "idCard":4
         },
         {
             "title": "冷调",
@@ -46,7 +46,7 @@
             "selected": false,
             "icon": "light_makeup_ld_icon.png",
             "fillColor":"#7F6990",
-            "idCard":5,
+            "idCard":5
         },
         {
             "title": "元气少女",
@@ -54,7 +54,7 @@
             "selected": false,
             "icon": "light_makeup_yq_icon.png",
             "fillColor":"#97A5BF",
-            "idCard":6,
+            "idCard":6
         },
         {
             "title": "女团",
@@ -62,15 +62,15 @@
             "selected": false,
             "icon": "light_makeup_nt_icon.png",
             "fillColor":"#97A5BF",
-            "idCard":7,
+            "idCard":7
         },
         {
-            "title": "纯欲妆",
+            "title": "港风",
             "title_en": "CM08",
             "selected": false,
             "icon": "light_makeup_cy_icon.png",
             "fillColor":"#97A5BF",
-            "idCard":8,
+            "idCard":8
         }
     ]
 }

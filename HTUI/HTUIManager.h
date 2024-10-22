@@ -17,6 +17,9 @@ typedef NS_ENUM(NSInteger, ShowStatus) {
     ShowMatting     = 4,
     ShowNone        = 5,
     ShowFilter      = 6,
+    ShowMakeup      = 7,
+    ShowHair        = 8,
+    ShowBody        = 9,
 };
 
 @protocol HTUIManagerDelegate <NSObject>
@@ -87,6 +90,21 @@ typedef NS_ENUM(NSInteger, ShowStatus) {
  *   弹出滤镜
  */
 - (void)showFilterView;
+
+/**
+ *   弹出美妆
+ */
+- (void)showMakeupView;
+
+/**
+ *   弹出美发
+ */
+- (void)showHairView;
+
+/**
+ *   弹出美体
+ */
+- (void)showBodyView;
 
 /**
  *   弹出功能页面

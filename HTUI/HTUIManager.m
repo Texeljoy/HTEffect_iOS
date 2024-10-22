@@ -11,6 +11,9 @@
 #import "HTARItemView.h"
 #import "HTMattingView.h"
 #import "HTGestureView.h"
+#import "HTMakeupView.h"
+#import "HTHairView.h"
+#import "HTBodyView.h"
 #import "HTTool.h"
 #import "HTFilterView.h"
 #import "HTRestoreAlertView.h"
@@ -33,6 +36,9 @@
 @property (nonatomic, strong) HTGestureView* gestureView;
 @property (nonatomic, strong) HTMattingView* mattingView;
 @property (nonatomic, strong) HTFilterView* filterView;
+@property (nonatomic, strong) HTMakeupView *makeupView;
+@property (nonatomic, strong) HTHairView *hairView;
+@property (nonatomic, strong) HTBodyView *bodyView;
 
 // 关键点视图
 @property (nonatomic, strong) HTLandmarkView *landmarkView;
@@ -105,6 +111,18 @@
         if(self.filterView){
             [self.filterView removeFromSuperview];
             self.filterView = nil;
+        }
+        if(self.makeupView){
+            [self.makeupView removeFromSuperview];
+            self.makeupView = nil;
+        }
+        if(self.hairView){
+            [self.hairView removeFromSuperview];
+            self.hairView = nil;
+        }
+        if(self.bodyView){
+            [self.bodyView removeFromSuperview];
+            self.bodyView = nil;
         }
     }
     
@@ -187,17 +205,27 @@
                     [weakSelf showBeautyView];
                     break;
                 case 1:
-                    [weakSelf showARItemView];
-                    break;
-                case 2:
-                    [weakSelf showMattingView];
-                    break;
-                case 3:
-                    [weakSelf showGestureView];
-                    break;
-                case 4:
                     [weakSelf showFilterView];
                     break;
+                case 2:
+                    [weakSelf showARItemView];
+                    break;
+                case 3:
+                    [weakSelf showMattingView];
+                    break;
+                case 4:
+                    [weakSelf showGestureView];
+                    break;
+                case 5:
+                    [weakSelf showMakeupView];
+                    break;
+                case 6:
+                    [weakSelf showHairView];
+                    break;
+                case 7:
+                    [weakSelf showBodyView];
+                    break;
+    
                 default:
                     break;
             }
@@ -239,6 +267,27 @@
         _filterView = [[HTFilterView alloc] initWithFrame:CGRectMake(0,HTScreenHeight, HTScreenWidth, HTHeight(326))];
     }
     return _filterView;
+}
+
+- (HTMakeupView *)makeupView{
+    if (!_makeupView) {
+        _makeupView = [[HTMakeupView alloc] initWithFrame:CGRectMake(0,HTScreenHeight, HTScreenWidth, HTHeight(326))];
+    }
+    return _makeupView;
+}
+
+- (HTHairView *)hairView{
+    if (!_hairView) {
+        _hairView = [[HTHairView alloc] initWithFrame:CGRectMake(0,HTScreenHeight, HTScreenWidth, HTHeight(326))];
+    }
+    return _hairView;
+}
+
+- (HTBodyView *)bodyView{
+    if (!_bodyView) {
+        _bodyView = [[HTBodyView alloc] initWithFrame:CGRectMake(0,HTScreenHeight, HTScreenWidth, HTHeight(326))];
+    }
+    return _bodyView;
 }
 
 - (UIWindow*)mainWindow{
@@ -408,6 +457,87 @@
     
 }
 
+// MARK: --直接弹出美装--
+- (void)showMakeupView{
+    if(![self.superWindow.subviews containsObject:self.makeupView]){
+        [self.superWindow addSubview:self.makeupView];
+        // 避免在白色主题下重置所有参数后再弹出时回到初始化状态
+        if (self.themeWhite) {
+            self.makeupView.isThemeWhite = YES;
+        }
+    }
+    self.exitTapView.hidden = NO;
+    self.superWindow.hidden = NO;
+    self.exitEnable = false;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.defaultButton setHidden:YES];
+        self.optionalView.frame = CGRectMake(0, HTScreenHeight, HTScreenWidth, HTHeight(170));
+    }completion:nil];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.makeupView.frame = CGRectMake(0, HTScreenHeight - HTHeight(326), HTScreenWidth, HTHeight(326));
+    }completion:^(BOOL finished) {
+        self.showStatus = ShowMakeup;
+        [self cameraButtonShow:self.showStatus];
+        self.exitTapView.frame = CGRectMake(0, 0, HTScreenWidth, HTScreenHeight - HTHeight(326));
+        self.exitEnable = true;
+    }];
+    
+}
+
+// MARK: --直接弹出美发--
+- (void)showHairView{
+    if(![self.superWindow.subviews containsObject:self.hairView]){
+        [self.superWindow addSubview:self.hairView];
+        // 避免在白色主题下重置所有参数后再弹出时回到初始化状态
+        if (self.themeWhite) {
+            self.hairView.isThemeWhite = YES;
+        }
+    }
+    self.exitTapView.hidden = NO;
+    self.superWindow.hidden = NO;
+    self.exitEnable = false;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.defaultButton setHidden:YES];
+        self.optionalView.frame = CGRectMake(0, HTScreenHeight, HTScreenWidth, HTHeight(170));
+    }completion:nil];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.hairView.frame = CGRectMake(0, HTScreenHeight - HTHeight(326), HTScreenWidth, HTHeight(326));
+    }completion:^(BOOL finished) {
+        self.showStatus = ShowHair;
+        [self cameraButtonShow:self.showStatus];
+        self.exitTapView.frame = CGRectMake(0, 0, HTScreenWidth, HTScreenHeight - HTHeight(326));
+        self.exitEnable = true;
+    }];
+    
+}
+
+// MARK: --直接弹出美体--
+- (void)showBodyView{
+    if(![self.superWindow.subviews containsObject:self.bodyView]){
+        [self.superWindow addSubview:self.bodyView];
+        // 避免在白色主题下重置所有参数后再弹出时回到初始化状态
+        if (self.themeWhite) {
+            self.bodyView.isThemeWhite = YES;
+        }
+    }
+    self.exitTapView.hidden = NO;
+    self.superWindow.hidden = NO;
+    self.exitEnable = false;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.defaultButton setHidden:YES];
+        self.optionalView.frame = CGRectMake(0, HTScreenHeight, HTScreenWidth, HTHeight(170));
+    }completion:nil];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.bodyView.frame = CGRectMake(0, HTScreenHeight - HTHeight(326), HTScreenWidth, HTHeight(326));
+    }completion:^(BOOL finished) {
+        self.showStatus = ShowBody;
+        [self cameraButtonShow:self.showStatus];
+        self.exitTapView.frame = CGRectMake(0, 0, HTScreenWidth, HTScreenHeight - HTHeight(326));
+        self.exitEnable = true;
+    }];
+    
+}
+
 -(void)hideView:(BOOL)showOptional{
     
     if (self.exitEnable) {
@@ -467,6 +597,27 @@
                 }completion:nil];
             }
                 break;
+            case ShowMakeup:
+            {
+                [UIView animateWithDuration:0.3 animations:^{
+                    self.makeupView.frame = CGRectMake(0,HTScreenHeight, HTScreenWidth, HTHeight(326));
+                }completion:nil];
+            }
+                break;
+            case ShowHair:
+            {
+                [UIView animateWithDuration:0.3 animations:^{
+                    self.hairView.frame = CGRectMake(0,HTScreenHeight, HTScreenWidth, HTHeight(326));
+                }completion:nil];
+            }
+                break;
+            case ShowBody:
+            {
+                [UIView animateWithDuration:0.3 animations:^{
+                    self.bodyView.frame = CGRectMake(0,HTScreenHeight, HTScreenWidth, HTHeight(326));
+                }completion:nil];
+            }
+                break;
             default:
                 break;
         }
@@ -521,6 +672,9 @@
     self.optionalView.isThemeWhite = themeWhite;
     self.beautyView.isThemeWhite = themeWhite;
     self.filterView.isThemeWhite = themeWhite;
+    self.makeupView.isThemeWhite = themeWhite;
+    self.hairView.isThemeWhite = themeWhite;
+    self.bodyView.isThemeWhite = themeWhite;
     self.defaultButton.isThemeWhite = themeWhite;
 }
 

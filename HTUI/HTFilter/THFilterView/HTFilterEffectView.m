@@ -138,7 +138,6 @@ static NSString *const HTFilterHahaViewCellId = @"HTFilterHahaViewCellId";
             [HTTool setObject:self.selectedModel.name forKey:HT_STYLE_FILTER_NAME];
             [HTTool setFloatValue:indexPath.row forKey:HT_STYLE_FILTER_SELECTED_POSITION];
             [[HTEffect shareInstance] setFilter:HTFilterBeauty name:self.selectedModel.name];
-            
             break;
         case ht_effect_filter:
             [HTTool setFloatValue:indexPath.row forKey:HT_EFFECT_FILTER_SELECTED_POSITION];

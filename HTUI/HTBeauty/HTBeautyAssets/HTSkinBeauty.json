@@ -75,7 +75,7 @@
             "icon": "darkCircleRemoving.png",
             "selectedIcon":"darkCircleRemoving_selected.png",
             "key":"HT_SKIN_DARKCIRCLEREMOVING_SLIDER",
-            "defaultValue":70,
+            "defaultValue":0,
             "sliderType":1
         },
         {

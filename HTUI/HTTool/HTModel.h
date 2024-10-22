@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSString *fillColor;// 用于不同风格中的填充颜色
 @property (nonatomic, strong) NSString *category;
 @property (nonatomic, assign) NSInteger download;// 0:未下载 1:下载中 2:已下载/本地加载
+@property (nonatomic, strong) NSString *type;// bundle中美妆部分功能的（口红、眉毛、腮红）json用
 
 - (instancetype)initWithDic:(NSDictionary *)dic;
 

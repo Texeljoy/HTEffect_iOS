@@ -21,6 +21,7 @@
     NSArray *hairArray = [HTTool jsonModeForPath:[[NSBundle mainBundle] pathForResource:@"HTHair" ofType:@"json"] withKey:@"ht_hair"];
     NSArray *makeupArray = [HTTool jsonModeForPath:HTMakeupBeautyPath withKey:@"HTMakeupBeauty"];
     NSArray *bodyArray = [HTTool jsonModeForPath:HTBodyBeautyPath withKey:@"HTBodyBeauty"];
+    NSArray *styleArray = [HTTool jsonModeForPath:[[[HTEffect shareInstance] getStylePath] stringByAppendingFormat:@"ht_makeup_style_config.json"] withKey:@"ht_makeup_style"];
     
     /********** 美颜 **********/
     for (int i = 0; i < skinBeautyArray.count; i++) {
@@ -57,12 +58,38 @@
             HTModel *detailModel = [[HTModel alloc] initWithDic:tempArray[j]];
             [HTTool setFloatValue:detailModel.defaultValue forKey:detailModel.key];
         }
-        [[HTEffect shareInstance] setMakeup:model.idCard name:@"" value:0];
+        
+        // 初始化颜色的初始位置
+        if (i == 0 || i == 1 || i == 2) {
+            [HTTool setFloatValue:0 forKey:HT_MAKEUP_POSITION_MAP[i]];
+        }
+        
+        // TODO: 更换美妆新接口
+        if (model.idCard == 0) { //! 口红
+            [[HTEffect shareInstance] setMakeup:model.idCard property:@"name" value:@""];
+            [[HTEffect shareInstance] setMakeup:model.idCard property:@"color" value:@"rouhefen"];
+            [[HTEffect shareInstance] setMakeup:model.idCard property:@"type" value:@"-1"];
+            [[HTEffect shareInstance] setMakeup:model.idCard property:@"value" value:@"0"];
+        } else if (model.idCard == 1) { //! 眉毛
+            
+        } else if (model.idCard == 2) { //! 腮红
+            
+        } else { //! 其他
+            [[HTEffect shareInstance] setMakeup:model.idCard property:@"name" value:@""];
+            [[HTEffect shareInstance] setMakeup:model.idCard property:@"value" value:@"0"];
+        }
     }
     
     /********** 妆容推荐 *********/
     [HTTool setFloatValue:0 forKey:HT_LIGHT_MAKEUP_SELECTED_POSITION];
-    [[HTEffect shareInstance] setStyle:0];
+    for (int i = 0; i < styleArray.count; i++) {
+        HTModel *model = [[HTModel alloc] initWithDic:styleArray[i]];
+        [HTTool setFloatValue:model.defaultValue forKey:model.key];
+    }
+    [[HTEffect shareInstance] setStyle:@"" value:0];
+    
+//    [HTTool setFloatValue:100 forKey:HT_LIGHT_MAKEUP_SELECTED_POSITION];
+//    [[HTEffect shareInstance] setStyle:@"" value:100];
     
     /********** 美体 **********/
     for (int i = 0; i < bodyArray.count; i++) {
@@ -112,10 +139,11 @@
     // 缓存
     [HTTool setObject:FilterStyleDefaultName forKey:HT_STYLE_FILTER_NAME];
     [HTTool setFloatValue:FilterStyleDefaultPositionIndex forKey:HT_STYLE_FILTER_SELECTED_POSITION];
+    // TODO: 增加风格滤镜value值的缓存重置
     [HTTool setFloatValue:0 forKey:HT_EFFECT_FILTER_SELECTED_POSITION];
     [HTTool setFloatValue:0 forKey:HT_HAHA_FILTER_SELECTED_POSITION];
     // 效果 - 风格滤镜本地缓存
-    [[HTEffect shareInstance] setFilter:HTFilterBeauty name:FilterStyleDefaultName];
+    [[HTEffect shareInstance] setFilter:HTFilterBeauty name:FilterStyleDefaultName value:100];
     [[HTEffect shareInstance] setFilter:HTFilterEffect name:@"0"];
     [[HTEffect shareInstance] setFilter:HTFilterFunny name:@"0"];
     
@@ -136,6 +164,7 @@
     NSArray *hairArray = [HTTool jsonModeForPath:[[NSBundle mainBundle] pathForResource:@"HTHair" ofType:@"json"] withKey:@"ht_hair"];
     NSArray *makeupArray = [HTTool jsonModeForPath:HTMakeupBeautyPath withKey:@"HTMakeupBeauty"];
     NSArray *bodyArray = [HTTool jsonModeForPath:HTBodyBeautyPath withKey:@"HTBodyBeauty"];
+    NSArray *styleArray = [HTTool jsonModeForPath:[[[HTEffect shareInstance] getStylePath] stringByAppendingFormat:@"ht_makeup_style_config.json"] withKey:@"ht_makeup_style"];
     
     /********** 美颜 **********/
     for (int i = 0; i < SkinBeautyArray.count; i++) {
@@ -180,17 +209,15 @@
     [HTTool setFloatValue:0 forKey:HT_EFFECT_FILTER_SELECTED_POSITION];
     [HTTool setFloatValue:0 forKey:HT_HAHA_FILTER_SELECTED_POSITION];
     // 风格滤镜本地缓存
+    // TODO: 增加风格滤镜缓存初始化
     NSString *filterStyleName = [HTTool getObjectForKey:HT_STYLE_FILTER_NAME];
     if (filterStyleName) {
-        [[HTEffect shareInstance] setFilter:HTFilterBeauty name:filterStyleName];
+        [[HTEffect shareInstance] setFilter:HTFilterBeauty name:filterStyleName value:100];
     }else {
         [HTTool setObject:FilterStyleDefaultName forKey:HT_STYLE_FILTER_NAME];
         [HTTool setFloatValue:FilterStyleDefaultPositionIndex forKey:HT_STYLE_FILTER_SELECTED_POSITION];
-        [[HTEffect shareInstance] setFilter:HTFilterBeauty name:FilterStyleDefaultName];
+        [[HTEffect shareInstance] setFilter:HTFilterBeauty name:FilterStyleDefaultName value:100];
     }
-    
-    
-    
     
     /********** 美发 **********/
     for (int i = 0; i < hairArray.count; i++) {
@@ -199,6 +226,7 @@
     }
 
     /********** 美妆 **********/
+    // TODO: 美妆缓存初始化逻辑
     NSString *itemPath = @"";
     NSString *jsonKey = @"";
     for (int i = 0; i < makeupArray.count; i++) {
@@ -211,10 +239,31 @@
             HTModel *detailModel = [[HTModel alloc] initWithDic:tempArray[j]];
             [HTTool setFloatValue:detailModel.defaultValue forKey:detailModel.key];
         }
+        
+        // 初始化颜色的初始位置
+        if (i == 0 || i == 1 || i == 2) {
+            [HTTool setFloatValue:0 forKey:HT_MAKEUP_POSITION_MAP[i]];
+        }
     }
     
     /********** 妆容推荐 *********/
     [HTTool setFloatValue:0 forKey:HT_LIGHT_MAKEUP_SELECTED_POSITION];
+    for (int i = 0; i < styleArray.count; i++) {
+        HTModel *model = [[HTModel alloc] initWithDic:styleArray[i]];
+        [HTTool setFloatValue:model.defaultValue forKey:model.key];
+    }
+    
+//    [HTTool setFloatValue:100 forKey:HT_MAKEUP_STYLE_SLIDER];
+//    NSString *makeupStyleName = [HTTool getObjectForKey:HT_MAKEUP_STYLE_NAME];
+////    NSString *makeupStyleValue = [HTTool getObjectForKey:HT_MAKEUP_STYLE_SLIDER];
+//    if (makeupStyleName) {
+//        // TODO: 从缓存设置美妆
+//        [[HTEffect shareInstance] setStyle:makeupStyleName value:100];
+//
+//    }else {
+//        [[HTEffect shareInstance] setStyle:@"" value:100];
+//    }
+    
     
     /********** 美体 **********/
     for (int i = 0; i < bodyArray.count; i++) {
@@ -319,10 +368,13 @@
             [[HTEffect shareInstance] setReshape:selectModel.idCard value:value];
             break;
         case HT_FILTER_SLIDER:
-            //            [[HTEffect shareInstance] setFilter:1 name:selectModel.name value:value];
+            [[HTEffect shareInstance] setFilter:HTFilterBeauty name:selectModel.name value:value];
             break;
         case HT_HAIR_SLIDER:
             [[HTEffect shareInstance] setHairStyling:selectModel.idCard value:value];
+            break;
+//        case HT_STYLE_SLIDER:
+//            [[HTEffect shareInstance] setStyle:selectModel.name value:value];
             break;
         default:
             break;

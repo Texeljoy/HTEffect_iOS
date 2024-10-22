@@ -25,6 +25,7 @@
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         // 设置最小行间距
         layout.minimumLineSpacing = 0;
+//        layout.minimumInteritemSpacing = 40; // 或根据需要调整
         _collectionView =[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.backgroundColor = [UIColor clearColor];
@@ -50,6 +51,11 @@
                 @"34_image": @"34_function_beauty",
             },
             @{
+                @"title":[HTTool isCurrentLanguageChinese] ? @"滤镜" : @"Filter",
+                @"image":@"function_filter",
+                @"34_image": @"34_function_filter",
+            },
+            @{
                 @"title":[HTTool isCurrentLanguageChinese] ? @"AR道具" : @"AR Props",
                 @"image":@"function_AR",
                 @"34_image": @"34_function_AR",
@@ -65,10 +71,21 @@
                 @"34_image": @"34_function_gesture",
             },
             @{
-                @"title":[HTTool isCurrentLanguageChinese] ? @"滤镜" : @"Filter",
-                @"image":@"function_filter",
-                @"34_image": @"34_function_filter",
+                @"title":[HTTool isCurrentLanguageChinese] ? @"美妆" : @"Makeup",
+                @"image":@"function_makeup",
+                @"34_image": @"34_function_makeup",
             },
+            @{
+                @"title":[HTTool isCurrentLanguageChinese] ? @"美发" : @"Hair",
+                @"image":@"function_hair",
+                @"34_image": @"34_function_hair",
+            },
+            @{
+                @"title":[HTTool isCurrentLanguageChinese] ? @"美体" : @"Body",
+                @"image":@"function_body",
+                @"34_image": @"34_function_body",
+            },
+            
             
         ];
         [self addSubview:self.collectionView];
@@ -89,9 +106,13 @@
 }
 
 // 定义每个Cell的大小
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    return CGSizeMake(HTScreenWidth/self.listArr.count ,HTHeight(65));
+//}
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(HTScreenWidth/self.listArr.count ,HTHeight(65));
+    return CGSizeMake(HTScreenWidth / 5, HTHeight(65)); 
 }
+
 
 // 返回对应indexPath的cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

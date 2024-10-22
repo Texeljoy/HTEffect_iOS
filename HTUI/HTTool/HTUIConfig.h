@@ -16,6 +16,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/* 美妆模块用来记录颜色选中位置 */
+static NSString * const HT_MAKEUP_LIPSTICK_POSITION = @"HT_MAKEUP_LIPSTICK_POSITION";
+static NSString * const HT_MAKEUP_BLUSH_POSITION    = @"HT_MAKEUP_BLUSH_POSITION";
+static NSString * const HT_MAKEUP_EYEBROW_POSITION  = @"HT_MAKEUP_EYEBROW_POSITION";
+static  NSString * _Nonnull const HT_MAKEUP_POSITION_MAP[3] = {
+    [0] = HT_MAKEUP_LIPSTICK_POSITION,
+    [1] = HT_MAKEUP_BLUSH_POSITION,
+    [2] = HT_MAKEUP_EYEBROW_POSITION
+};
+
 /* 非3D采集界面用来记录返回按钮点击缓存，第一次点击退出后，第二次进入不再进行所有特效参数的初始化 */
 static NSString * _Nullable const HT_ALL_EFFECT_CACHES = @"HT_ALL_EFFECT_CACHES";
 
@@ -23,7 +33,6 @@ static NSString * _Nullable const HT_ALL_EFFECT_CACHES = @"HT_ALL_EFFECT_CACHES"
 static NSString * _Nullable const HTMattingScreenGreen  = @"#00ff00";
 static NSString * _Nullable const HTMattingScreenBlue   = @"#0000ff";
 static NSString * _Nullable const HTMattingScreenRed    = @"#ff0000";
-
 // 这个是 Map NSString * 类型的数组
 static  NSString * _Nonnull const HTScreenCurtainColorMap[3] = {
     [0] = HTMattingScreenGreen,
@@ -34,6 +43,8 @@ static  NSString * _Nonnull const HTScreenCurtainColorMap[3] = {
 /* 美颜模块用来记录选中位置信息缓存 */
 static NSString * const HT_HAIR_SELECTED_POSITION = @"HT_HAIR_SELECTED_POSITION";
 static NSString * const HT_LIGHT_MAKEUP_SELECTED_POSITION = @"HT_LIGHT_MAKEUP_SELECTED_POSITION";
+static NSString * const HT_MAKEUP_STYLE_NAME = @"HT_MAKEUP_STYLE_NAME";
+static NSString * const HT_MAKEUP_STYLE_SLIDER  = @"HT_MAKEUP_STYLE_SLIDER";
 
 /* AR道具模块用来记录选中位置信息缓存 */
 static NSString * const HT_ARITEM_STICKER_POSITION  = @"HT_ARITEM_STICKER_POSITION";
@@ -65,14 +76,14 @@ static  NSString * _Nonnull const HT_FILTER_POSITION_MAP[3] = {
     [2] = HT_HAHA_FILTER_SELECTED_POSITION
 };
 
-//* 切换幕布模块用来记录选中位置信息缓存 */
+/* 切换幕布模块用来记录选中位置信息缓存 */
 static NSString * const HT_MATTING_SWITCHSCREEN_POSITION  = @"HT_MATTING_SWITCHSCREEN_POSITION";
 
 
 /* 滤镜模块用来记录Value值信息缓存 */
-//static NSString * const HT_STYLE_FILTER_SLIDER  = @"HT_STYLE_FILTER_SLIDER";
-//static NSString * const HT_EFFECT_FILTER_SLIDER  = @"HT_EFFECT_FILTER_SLIDER";
-//static NSString * const HT_HAHA_FILTER_SLIDER  = @"HT_HAHA_FILTER_SLIDER";
+static NSString * const HT_STYLE_FILTER_SLIDER  = @"HT_STYLE_FILTER_SLIDER";
+static NSString * const HT_EFFECT_FILTER_SLIDER  = @"HT_EFFECT_FILTER_SLIDER";
+static NSString * const HT_HAHA_FILTER_SLIDER  = @"HT_HAHA_FILTER_SLIDER";
 /* 美颜模块的SLIDER Key在json文件中配置 */
 
 /* 3D模块用来记录选中位置信息缓存 */
@@ -89,6 +100,7 @@ typedef NS_ENUM(NSInteger, HTDataCategoryType) {
     HT_HAIR_SLIDER = 3,     // 美发滑动条
     HT_MAKEUP_SLIDER = 4,   // 美妆滑动条
     HT_BODY_SLIDER = 5,     // 美体滑动条
+    HT_STYLE_SLIDER = 6,    // 妆容推荐滑动条
 };
 
 

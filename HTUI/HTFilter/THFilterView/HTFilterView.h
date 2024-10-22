@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HTFilterView : UIView
 
 // 滑动条相关View
-@property (nonatomic, strong ,readonly) HTSliderRelatedView *sliderRelatedView;
+@property (nonatomic, strong) HTSliderRelatedView *sliderRelatedView;
 //@property (nonatomic, copy) void(^filterBackBlock)(void);
 
 @property (nonatomic, assign) BOOL isThemeWhite;

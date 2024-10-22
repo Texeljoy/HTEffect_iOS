@@ -4,17 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>.DS_Store</key>
-		<data>
-		F2StvcBe66Rib7843uUdLgWk6G4=
-		</data>
 		<key>Headers/HTEffect.h</key>
 		<data>
 		i1TtrKWEqjUIdDBXlEp8Y7BHi+U=
 		</data>
 		<key>Headers/HTEffectInterface.h</key>
 		<data>
-		3V8XsHIYW91ZkB6Y+BrT3kJMsJo=
+		P2bYm1rRtNhjEDfO9URvyIwrxcA=
 		</data>
 		<key>Headers/HTEffectView.h</key>
 		<data>
@@ -22,7 +18,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Rk0HJ1qGwpYzKLly8X+v3WHx2d4=
+		GnjA1YOrLV1TbvU/ZPNHN0lx67E=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -42,7 +38,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fZNUAK8aR77rB2IaN9vd6bnu3CXELooUATyisSGAJcw=
+			E3jPenwZSBHQMhWnLk05gXz2Uzn5A+eFJZIQm8q4TeA=
 			</data>
 		</dict>
 		<key>Headers/HTEffectView.h</key>

@@ -340,6 +340,18 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ---
 
 ## **Recent updates**
+- **2024.10.22:** v3.5.0
+    - Update beauty effects and interfaces
+    - Add filter interface with parameters
+    - Change the recommended special effects and interfaces for makeup changes
+    - Peel off 3D special effects
+    - Add and replace network authentication node interface
+    - Add interface for switching face detection algorithms
+    - Improve the logging system
+    - Optimize portrait cutout algorithm
+    - Optimize hair styling effects
+    - Fix some bugs
+
 - **2024.06.26:** v3.4.0
     - Add a set of initialization interfaces and peel off the AI driver loading method
     - Add methods for loading/unloading AI drivers
