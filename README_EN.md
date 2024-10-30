@@ -340,6 +340,12 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ---
 
 ## **Recent updates**
+- **2024.10.30:** v3.5.1
+    - Improve the Android-end interface for converting Texture to ByteBuffer
+    - Add Windows network authentication interface
+    - Change the name of the Windows local authentication interface
+    - Improve the performance of AI image cutout algorithm on Windows
+
 - **2024.10.22:** v3.5.0
     - Update beauty effects and interfaces
     - Add filter interface with parameters

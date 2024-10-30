@@ -298,6 +298,12 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ----
 
 ## **最近更新**
+- **2024.10.30:** v3.5.1
+    - 完善Android端Texture转ByteBuffer接口
+    - 增加Windows端网络鉴权接口
+    - 更改Windows端本地鉴权接口名称
+    - 提升Windows端AI抠图算法性能
+
 - **2024.10.22:** v3.5.0
     - 更新美妆特效和接口
     - 新增带参数的滤镜接口
