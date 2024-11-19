@@ -340,6 +340,10 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ---
 
 ## **Recent updates**
+- **2024.11.19:** v3.5.2
+    - Repairing skin detection issues
+    - Optimize internal structure and reduce memory usage
+
 - **2024.10.30:** v3.5.1
     - Improve the Android-end interface for converting Texture to ByteBuffer
     - Add Windows network authentication interface

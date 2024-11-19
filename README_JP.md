@@ -301,6 +301,10 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ----
 
 ## **最近の更新**
+- **2024.11.19:** v3.5.2
+    - 皮膚検査の問題を修復する
+    - 内部構造を最適化し、メモリ使用率を削減
+
 - **2024.10.30:** v3.5.1
     - Android端子Texture変換ByteBufferインタフェースを完全なものにする
     - Windows側ネットワーク認証インタフェースの追加

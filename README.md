@@ -298,6 +298,10 @@ HTEffect.shareInstance().releaseBitmapRenderer();
 ----
 
 ## **最近更新**
+- **2024.11.19:** v3.5.2
+    - 修复皮肤检测的问题
+    - 优化内部结构，减少内存占用率
+
 - **2024.10.30:** v3.5.1
     - 完善Android端Texture转ByteBuffer接口
     - 增加Windows端网络鉴权接口
